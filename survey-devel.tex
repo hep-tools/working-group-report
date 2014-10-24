@@ -1,0 +1,19 @@
+\subsection{Software Development}
+
+\begin{itemize}
+\item Inconsistent, non-existent or simply crappy/cobbled software release build tools
+  \begin{itemize}
+  \item lack of knowledge, expertise and/or adoption of prevailing methods
+  \item solving immediate, local problems instead of addressing root issues and larger context
+  \end{itemize}
+\item Ditto for development environment tools
+  \begin{itemize}
+  \item differences between dev env requirements for HEP compared to the Free Software world
+  \item users are developers, need multiple versions installed at once, non-OS/system/root installation
+  \item dependency management: development must be cognizant of changes by others in parts lower in the stack as well as how ones own changes affect parts above them in the stack
+  \end{itemize}
+\item Software release policies, mechanisms.  Automation.  Braindead policies.  Capricious changes in policy.  Documentation, planning.
+\item Continuous Integration and unit tests
+\item End-user environment management and package aggregation (environment variable based (UPS/EM) vs. file system based (single root or the Nix approach)
+\item Repository and collections of repository.  Private vs. public.  Monolithic vs fine-grained.  Psychology of developing in a parochial environment.  \textit{Eg, committing to Fermilab Redmine or Daya Bay's  isolated, private SVN repository tends to make myopic in my design.  When I know commits are going to GitHub I take a moment when I make decisions to think, ``how can this be useful in a wider context''.}
+\end{itemize}

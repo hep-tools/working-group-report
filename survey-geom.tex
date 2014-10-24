@@ -1,0 +1,51 @@
+\subsection{Geometry}
+
+See
+\url{https://github.com/brettviren/gegede/blob/master/doc/others.org}
+for notes on a survey of some players in this problem space (CAD,
+LCDD, Unified Solids and GeGeDe as described in other docs in that
+directory).  Components of this problem space:
+
+\begin{description}
+\item[Authoring] of geometry descriptions
+  \begin{itemize}
+  \item Sole source authoring, provide single point of definitive description
+  \item Simple configuration language for end-users to tweak knobs
+  \item Powerful language for expert developers to describe geometry
+  \item General programming language vs. DSL (eg, direct authoring of GDML/AGDD or other XML)
+  \item Describe both ideal (algorithmic) geometry and one with as-built or alignment offsets from the ideal.
+  \item Allow for multiple developers to work together on different parts
+  \item Be level in prerequisites (no massive training, no large expense, no proprietary applications)
+  \end{itemize}
+\item[Version and provenance] of geometries
+  \begin{itemize}
+  \item Allow for evolving and competing versions to exist
+  \item Indelibly ``mark'' a version such that no later modifications can be added
+  \item Track version through its use by the experiment software
+  \end{itemize}
+\item[File representation and conversion] from the description
+  \begin{itemize}
+  \item Must support the ``big names'' (Geant4 and ROOT and ???)
+  \item Support for other consumers (AGDD/GraXML, OpenInventor, ???)
+  \item Sole source means no input requirements
+  \end{itemize}
+\item[Visualizing] of the geometry
+  \begin{itemize}
+  \item ``Drill down'' by removing outer volumes to see inner ones
+  \item Zoom, pan, rotate
+  \item Visualize obvious overlaps, misplacements
+  \item Produce PR quality pictures, raytrace
+  \item Event visualization has overlap but not considered in scope (?)
+  \end{itemize}
+\item[Validating] the geometry
+  \begin{itemize}
+  \item Detailed overlap detection and reporting in a way that eases fixing
+  \item Correctness (how?)
+  \end{itemize}
+\item[Applying] the geometry 
+  \begin{itemize}
+  \item Performance in Geant4 and ROOT (Unified Solids effort)
+  \item Optimizing tracking algorithms
+  \item Feedback from tracking to find optimization in the geometry organization 
+  \end{itemize}
+\end{description}

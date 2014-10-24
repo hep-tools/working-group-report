@@ -1,0 +1,51 @@
+\subsection{Data}
+
+This problem space can be partitioned in more than one way.  The
+components of are necessarily coupled.  Some general parts and their
+interfaces.
+
+Beware of mission creep.  This problem area (and software dev) is particularly easy to fall into parochial solutions.
+
+Speaking of mission creep, we have to be careful not to overlap with the ``Systems'' group.
+
+\begin{description}
+\item[Processing] issues:
+
+  \begin{itemize}
+  \item Submission tools:
+  \item Running multiple instances of a job differing only by parameters or input files
+  \item Running jobs in parallel on local batch or wider Grid
+  \end{itemize}
+\item[Distribution] issues:
+  \begin{itemize}
+  \item authentication/authorization
+  \item caching / purging
+  \item side hardware and software requirements
+  \item on-demand vs. scheduled
+  \end{itemize}
+\item[Monitoring] issues:
+  \begin{itemize}
+  \item Overall health, throughput, usage, abuse
+  \item Locating and understanding failures
+  \item Determining systemic problems
+  \item Drilling down to details at the level of individual jobs
+  \end{itemize}
+\item[Recovery] issues:
+  \begin{itemize}
+  \item rerun failed jobs
+  \item clean up droppings
+  \item fix systemic problems
+  \end{itemize}
+\item[Meta data] issues:
+  \begin{itemize}
+  \item What job produced what file and with what input parameters/data
+  \item Where is my file?
+  \item Fileset definitions
+  \item File popularity to drive cache purges
+  \item Important analysis summary info
+  \item Locating files/events/objects
+  \item Everything as metadata
+  \end{itemize}
+\end{description}
+
+
