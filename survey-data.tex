@@ -1,41 +1,26 @@
-\subsection{Data}
+\subsection{Data Management}
 
-This problem space can be partitioned in more than one way.  The
-components of are necessarily coupled.  Some general parts and their
-interfaces.
+\subsubsection{Editing notes}
 
-Beware of mission creep.  This problem area (and software dev) is particularly easy to fall into parochial solutions.
+\textit{(authors: Anders, Brian, Maxim, Mike, Simon)}
 
-Speaking of mission creep, we have to be careful not to overlap with the ``Systems'' group.
+\textit{This is not a real section and will be deleted}
 
+\begin{itemize}
+\item Define data management and it's major elements (one suggestion is below)
+\item reference that it is related to workflow management
+\item List ways that DM can tend to be particularly parochial and how in some cases it must be specifically tailored to the computing facility and/or experiment.
+\item List what elements are general.
+\item Take care not to overlap with the systems group, but to point out where there are areas of overlap.
+\end{itemize}
+Possible partitioning of DM into smaller parts:
 \begin{description}
-\item[Processing] issues:
-
-  \begin{itemize}
-  \item Submission tools:
-  \item Running multiple instances of a job differing only by parameters or input files
-  \item Running jobs in parallel on local batch or wider Grid
-  \item Workflow engines
-  \end{itemize}
 \item[Distribution] issues:
   \begin{itemize}
   \item authentication/authorization
   \item caching / purging
   \item side hardware and software requirements
   \item on-demand vs. scheduled
-  \end{itemize}
-\item[Monitoring] issues:
-  \begin{itemize}
-  \item Overall health, throughput, usage, abuse
-  \item Locating and understanding failures
-  \item Determining systemic problems
-  \item Drilling down to details at the level of individual jobs
-  \end{itemize}
-\item[Recovery] issues:
-  \begin{itemize}
-  \item rerun failed jobs
-  \item clean up droppings
-  \item fix systemic problems
   \end{itemize}
 \item[Meta data] issues:
   \begin{itemize}
@@ -50,3 +35,8 @@ Speaking of mission creep, we have to be careful not to overlap with the ``Syste
 \end{description}
 
 
+
+\subsubsection{Description}
+\subsubsection{What works, what doesn't}
+\subsubsection{Examples}
+\subsubsection{Opportunity for improvement}
