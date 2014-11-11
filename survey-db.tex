@@ -9,6 +9,30 @@
 
 \begin{itemize}
 \item Tech arguments, make some collection of unbiased facts to judge suitability (is it possible?)
+
+	Essentially all experiments will use one or more databases to
+	store their data (or pointers to the data), as well as provenance 
+	information and metadata.  The requirements for these databases will
+	vary widely across the range of possible experiments, as will
+	requirements for access (read and write) to different databases.  
+	We focus here on the possibility of each experiment presenting
+	to its collaboration a 'Conditions Database' interface, which
+	provides a common (primarily read) access interface to universal
+	information that is widely needed by the collaboration.
+
+	Examples of this information might be:
+	\begin{itemize}
+	\item database table list, DB schema
+	\item event catalog parameter description, schema
+	\item high level experiment run catalog
+	\item high level experiment event catalog
+	\item high level data processing runs catalog
+	\end{itemize}
+
+	One can imaging that query access to such common information be
+	available in a uniform fashion to facilitate, for instance,
+	automated lookup of DB schema.  
+
 \item Focus on conditions database as one particularly cross-experiment component and make this clear to avoid confusion.
   \begin{itemize}
   \item MINOS's ``DBI'' adopted by other neutrino experiments
