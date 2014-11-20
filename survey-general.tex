@@ -1,9 +1,152 @@
 \section{Survey of Current Landscape}
 
-This section presents a general overview of the current landscape of HEP libraries and tools.  Each of the following sections provides a survey focused on one select \textit{area of opportunity} for improving on this landscape. 
+This section presents a general overview of the current landscape of
+HEP libraries and tools.  Each of the following sections provides a
+survey focused on one select \textit{area of opportunity} for
+improving on this landscape.
 
+\subsection{Forces Counter to Cross-experiment Software}
 
-\subsection{Overview}
+Sharing software libraries and tools between experiment more
+frequently than is currently done is expected, by the group, to
+increase overall productivity.  Independent of cross-experiment
+sharing, designing and implementing software in a more general manner
+is expected to benefit the lone experiment.  The working group
+identified some reasons why such general use experiment is not as
+predominant as it could be.
+
+\subsubsection{Up-front Effort}
+
+Designing and implementing software to solve a general problem instead
+of the specific instance faced by one experiment can take more effort
+initially.  Solving ``just'' the problem one immediately faces is
+cheaper in the immediate time scale.  If the problem is short lived
+and the software abandoned this strategy can be a net-benefit.  What
+is more often the case, fixes to new problems compound the problem and
+the software becomes either brittle and narrowly focused, increasingly
+difficult to maintain, and ever less able to be extended.
+
+\subsubsection{Lack of Expertise}
+
+Physicist have always been multidisciplinary, covering all aspects of
+an experiment from hardware design, bolt turning, operations, project
+management, data analyst and software developer.  As data rates
+increased, algorithms become more complex, networking, storage and
+computation technology advanced, the requirements for a Physicist to
+be software developer have become more challenging to meet while
+maintaining needed capabilities in all the other multitude of
+disciplines.  As a consequence some experiments, typically the smaller
+ones, lack the software expertise and knowledge of what is available
+needed to develop general software solutions or adopt existing ones.
+This leads to the same result of solving ``just'' the immediate
+problem and associated consequences described above.
+
+\subsubsection{Ignoring Software Design Patterns}
+
+A specific example of lack of expertise manifests in developers who
+ignore basic, tried and true software design patterns.  This can be
+seen in software that lacks any notion of interfaces or layering
+between different functionality.  Often software is developed by
+finding a spot that ``looks good'' and pasting in some more code to
+achieve an immediate goal with no understanding of the consequences.
+Like the up-front costs problem, this is often rewarded as the
+individual produces desired results quickly and the problem that was
+caused is not made apparent until later.
+
+\subsubsection{Limited Support}
+
+Some experiments have a high degree of software expertise.  These
+efforts may even naturally produce software that can have some
+cross-experiment benefit.  However, they lack the necessary ability to
+support their developers to make the final push needed to offer that
+software more widely.  In many cases they also do not have the ability
+to assure continued support of the software for the use of others.
+Some are able to manage this support on a limited or best effort basis
+and while this helps others adopt the software it still leaves room
+for improvements.
+
+\subsubsection{Transitory Members}
+
+Many software developers in an experiment are transitory.  After
+graduate students and post-docs make a contribution to the software
+development and the experiment in general they typically move on to
+other experiments in the advancement of their career.  In part this
+can help disseminate software from old to new experiments but it also
+posses a problem of retaining a nucleus of long-term knowledge and
+support around the software they developed.
+
+\subsubsection{Parochial View}
+
+In some cases, beneficial software sharing is hampered by experiments,
+groups, labs, etc which suffer from the infamous ``not invented here''
+syndrome.  A parochial view leads preferring solutions to come from
+within the unit rather than venturing out and surveying a broader
+landscape.
+
+\subsubsection{Discounting the Problem}
+
+There is a tendency with some Physicists to discount software and
+computing solutions.  The origin of this viewpoint may be due to the
+individual having experience from a time where software and computing
+solutions were indeed not as important as they are now.  It may also
+come as a consequence of that person enjoying the fruits of high
+quality software and computing environments and being ignorant of the
+effort needed to provide and maintain them.  Whatever the origin,
+underestimating the importance of solving these problems in a general,
+cross-experiment way can lead to decisions that downplay that
+strategy.
+
+\subsubsection{Turf Wars}
+
+Software development is a personal and social endeavor.  It is natural
+for someone who takes pride in that work to become personally attached
+to the software they develop.  In some cases this can color judgment
+leading to retaining software in its current state where it may be
+more beneficial to refactor or discard and reimplement.  What are
+really prototypes can become too loved to be replaced.
+
+\subsubsection{Perceived Audience and Development Context}
+
+The group made the observation that cues from the audience for the
+software and the context in which it is developed lead to shifts in
+software design.  For example, design tend to be more narrowly
+applicable when one knows that the code will be committed to a private
+repository only accessible by a single collaboration as compared to
+when one is pushing commits to a repository that is fully accessible
+by a wide public audience.
+
+\subsubsection{Disparate Communications}
+
+Different experiments and experiment-independent software projects
+have differing means of communicating.  Technical support, knowledge
+bases, software repositories, bug trackers, release announcements are
+all areas that have not standard implementation.  Some groups even
+have multiple types of any of these means of communication.
+Independent of this, different policies mean that not all information
+may be publicly available.  This poses a hurdle for cross-sharing and
+adoption of these groups products.
+
+\subsubsection{Design vs. Promotion}
+
+For general purpose software to be beneficial across multiple
+experiments it needs at least two things.  It needs to be well
+designed and implemented that that is actually general purpose.  It
+also needs to be promoted in a way that potential adopters learn of
+its suitability.  Often the set of individuals that excel at the
+former and excel at the latter has little overlap.
+
+\subsubsection{Decision Making}
+
+An experiment's software is no better than the best software expert
+involved in the decision making process and it's often worse.
+Decision making is a human action and as such it can suffer from being
+driven by the loudest argument and not necessarily the one most sound.
+Many times, choices are made in a vacuum lacking suitable opposition.
+At times they are made without a decision-making policy in place or
+ignored if one exists, or if followed, without sufficient information
+to make an informed decision.  Politics and familiarity can trump
+rationality and quality.
+
 
 \subsubsection{Editing notes}
 
@@ -70,7 +213,7 @@ This section presents a general overview of the current landscape of HEP librari
 \end{itemize}
 \textit{(end of notes)  }
 
-\subsubsection{Areas of Opportunity}
+\subsection{Areas of Opportunity}
 
 Each of the following sections focus on one particular \textit{area of opportunity} to make improvements in how the community shares libs/tools between experiments.  In each area of opportunity we present:
 
