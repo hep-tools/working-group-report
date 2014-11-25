@@ -9,11 +9,12 @@ Technologies developed in the framework of Grid Computing became a major enablin
 \subsubsection{Grid vs Cloud}
 
 Cloud computing is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
-In the following, we won't distinguish between these two concepts unless absolutely necessary.\\
-%According to a common definition, Grid computing is the collection of computer resources from multiple locations to reach a common goal.
-%Cloud computing is essentially evolution of the same concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
-%In the following, we won't distinguish between these two concepts unless absolutely necessary. \\
+In the following, we won't distinguish between these two concepts unless absolutely necessary.
+
+
+%
 % There is also the need for seemless lightweight unit testing, regression testing and module development on small local systems outside of large grid or cloud environments.\\
+% -mxp- good point but it obfuscates the simple statement re: cloud
 
 \subsubsection{Workflow vs Workload}
 
@@ -47,7 +48,7 @@ In most cases of interest to us, data management plays crucial role in reaching 
 
 \subsubsection{Examples}
 \label{wms_examples}
-There are a variety of Workflow and Workload Management systems deployed in recent past and at present. Our goal here is not to compile an exhaustive list of such systems but rather pick a few representative examples, which have been deployed and utilized at scale.
+There are a variety of Workflow and Workload Management systems deployed in recent past and at present. Our goal here is not to compile an exhaustive list of such systems but rather pick a few representative examples, which have been deployed and utilized \textit{at scale}.
 
 
 \begin{center}
@@ -57,10 +58,10 @@ There are a variety of Workflow and Workload Management systems deployed in rece
     ATLAS & PanDA & ProdSys2 & Rucio\\ \hline
     CMS  & GlideinWMS & Crab3 & PhEDEx\\ \hline
     LHCb  & DIRAC & DIRAC Production Management & DIRAC DMS\\ \hline
+    Alice  & gLite WMS & AliEn & AliEn\\ \hline
 
-    LHCb  & DIRAC & DIRAC Production Management System & DIRAC DMS\\ \hline
 %    Small Exp & BOINC & CONDOR & mySQL/Postgres \\ \hline
-
+% -mxp- the preamble to the table mentions deployment at scale. Also mySQL in itself does not fill the role of any component mentioned.
     \hline
   \end{tabular}
 \end{center}
