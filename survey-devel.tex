@@ -1,5 +1,126 @@
 \section{Software Development}
 
+\subsection{Description}
+
+The tools supporting the full software development life-cycle can be
+partitioned into the orthogonal categories.
+
+\begin{description}
+\item[Code Repositories] store a historical record of revisions to a
+  code base including information on when a change is made, the
+  identity of the developer and some note explaining the change.
+  Repositories may be organized to hold a single logical unit of
+  source code (ie, a \textit{source package}) or may include multiple
+  such units relying on some internal demarcation.
+
+\item[Package Build System] contains tools applied to the files of
+  \textit{source package} in order to transform them into some number
+  of resulting files (executable programs, libraries).  Typically the
+  system executes some number of commands (compilers, linkers) while
+  applying some number of build parameters (debug/optimized
+  compilation, locating dependencies, activating code features).  This
+  system may directly install the results of the build to some area or
+  in addition it may collect the build results into one or more
+  \textbf{binary packages}.
+
+\item[Release Configuration] contains tools or specifications for the
+  collection of information needed to build a cohesive suite of
+  packages.  It includes the list of packages making up the suite,
+  their versions any build parameters, file system layout policy,
+  source locations, local patch files.
+
+\item[Release Build] contains tools or processes (instructions) that can
+  apply a \textit{release configuration} to each \textit{package build
+    system}.  This process typically iterates on the collection of
+  packages in an order that honors their inter-dependencies.  As each
+  package is built the \textit{release build system} assures it is
+  done in a proper context containing the build products of
+  dependencies and ideally, controlling for any files provided by the
+  general operating system or user environment. This system may
+  directly install the results of the build to some area or in
+  addition it may collect the build results into one or more
+  \textbf{binary packages}.
+
+\item[Package Installation] contains tools that, if binary
+  packages are produced, can download and unpack them into an
+  installation area.  This system it typically tightly coupled to the
+  binary package format.  It may rely on meta data internal or
+  external to the binary package file in order to properly resolve
+  dependencies, conflicts or perform pre- and post-installation
+  procedures.  The system may require privileged access and a single
+  rooted file system tree or may be run as an unprivileged user and
+  allows for multiple and even interwoven file system trees.
+
+\item[User Environment Management] contains tools that aggregating a
+  subset of installed software in such a way that the end user may
+  properly execute the programs it provides.  This aggregation is
+  typically done either via a set of environment variables interpreted
+  by the shell, such as \texttt{PATH}.  In some less common cases the
+  bulk of aggregation is done with the file system by copying or
+  linking files from some installation store into a more localized
+  area and then defining some minimal set of environment variables.
+  In the case where software is installed as system packages no
+  environment management may be needed.
+
+\item[Development Environment] contains tools to assist the developer
+  in modifying existing software or writing novel packages.  Such
+  tools are not strictly required as a developer may use tools from
+  the above category to produce a personal release.  However, in
+  practice this makes the development cycle of modify-build-test
+  unacceptably long.  To reduce this time and effort, existing release
+  builds can be leveraged, installation steps can be minimized or
+  removed, and environment management can be such as to use the build
+  products in-place.  Care is needed in designing such tools to
+  mitigate interference between developers while allowing them
+  synchronize as needed.
+
+\item[Continuous Integration] contains tools and methodologies for
+  developing and exercising the code in order to validate changes,
+  find and fix problems quickly, vet releases.
+
+\item[Issues Tracker] contains tools to manage reporting,
+  understanding and addressing problems with the software, requests
+  for new features, organizing and documenting releases.
+
+
+\end{description}
+
+The following sections give commentary on what aspects are successful
+for providing general, cross-experiment benefit and what failings are
+identified.  Explicit examples are given.  Finally, areas where
+improvement may be made.
+
+\subsection{Follow Free Software}
+
+The Free Software (FS) and the Open Source (OS) communities have a
+large overlap with HEP in terms of how they develop and use software.
+Of course, must of a typical HEP experiment software suite is FS/OS
+software.  
+
+How we are similar.
+
+How we differ.
+
+The joy of git.
+
+\subsection{Category Integration}
+
+CMT vs. UPS/CET.
+
+\subsection{Embrace Change}
+
+Seek paradigm shifts. (guix/nix, conda, cvmfs, xrootd, waf)
+
+Examples of ossification.
+
+\subsection{Automate}
+
+Big suites, efficient use of time, don't solve same problem twice, help newbies.
+
+\subsection{Opportunity for improvement}
+
+
+
 \subsubsection{Editing notes}
 
 \textit{(authors: Brett, Peter)}
@@ -28,7 +149,3 @@
 \item Repository and collections of repository.  Private vs. public.  Monolithic vs fine-grained.  Psychology of developing in a parochial environment.  \textit{Eg, committing to Fermilab Redmine or Daya Bay's  isolated, private SVN repository tends to make myopic in my design.  When I know commits are going to GitHub I take a moment when I make decisions to think, ``how can this be useful in a wider context''.}
 \end{itemize}
 
-\subsection{Description}
-\subsection{What works, what doesn't}
-\subsection{Examples}
-\subsection{Opportunity for improvement}
