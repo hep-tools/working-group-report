@@ -1,51 +1,54 @@
 \section{Workflow and Workload Management}
 
-\subsubsection{Editing notes}
-
-\textbf{(authors: Anders, Maxim, Mike, Peter)}
-
-\textit{This is not a real section and will be deleted}
-
-Note: I mark my comments as -mxp- for brevity - Maxim
-
-\begin{itemize}
-\item -mxp- there is workflow mgt and workload mgt. While they overlap at times, and also include varying degree of data management functionality, it is best to make this distinction (also based on existing literature). For that reason, I changed the title of the section.
-\item -mxp- DIRAC, PanDA, Phedex.
 
 
-\end{itemize}
-Possible sub-categories
-\begin{description}
-\item[Processing] issues:
-
-  \begin{itemize}
-  \item Submission tools:
-  \item Running multiple instances of a job differing only by parameters or input files
-  \item Running jobs in parallel on local batch or wider Grid
-  \item Workflow engines
-  \end{itemize}
-\item[Monitoring] issues:
-  \begin{itemize}
-  \item Overall health, throughput, usage, abuse
-  \item Locating and understanding failures
-  \item Determining systemic problems
-  \item Drilling down to details at the level of individual jobs
-  \end{itemize}
-\item[Recovery] issues:
-  \begin{itemize}
-  \item rerun failed jobs
-  \item clean up droppings
-  \item fix systemic problems
-  \end{itemize}
-\end{description}
-
-\subsection{WMS}
 \subsection{Description}
+\subsubsection{Definitions}
+
+\textit{Grid vs Cloud}
+\\
 According to a common definition, Grid computing is the collection of computer resources from multiple locations to reach a common goal. Cloud computing is essentially evolution of the same concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access. In the following, we won't distinguish between these two concepts unless absolutely necessary.
+\\
+\\
+\textit{Workflow vs Workload}
+\\
+A scientific workflow system is a specialized case of a \textit{workflow management system}. In it, computations and/or transformations and exchange of data are performed according to a defined set of rules in order to achieve an overall goal ~\cite{grid_workflow_taxonomy}, ~\cite{grid_workflow_fit}. In the context of this document, this process involves execution on distributed resources. Since the process is typically largely (or completely) automated, it is often described as ``orchestration'' of execution of multiple interdependent tasks. Workflow systems are sometimes described using the concepts of a \textit{control flow}, which refers to the logic of execution, and \textit{data flow}, which concerns itself with the logic and rules of transmitting data.
+
+A simple and rather typical example of a workflow is often found in Monte Carlo studies performed in High Energy Physics and related fields, where there is a chain of processing steps similar to the pattern below:
+\\
+\\
+\textit{Event  Generation $\Longrightarrow$ Simulation $\Longrightarrow$ Digitization $\Longrightarrow$ Reconstruction}
+\\
+\\
+Patterns like this one may also include optional additional steps (implied or made explicit in the logic of the workflow) such as merging of units of data (e.g.files) for more efficient storage and transmission.
+
+Conceptually, this level of abstraction of the workflow does not  involve issues of resource provisioning and utilization, monitoring, optimization, recovery from errors, as well as plethora of other items essential
+for efficient execution of workflows in the distributed environment. These tasks are typically handled in the context of \textit{Workload Management}. According to one definition, \textit{``the purpose of the Workload Manager Service (WMS) is to accept requests for job submission and
+management coming from its clients and take the appropriate actions to satisfy them''} ~\cite{egee_user_guide}. Effectively, the function of a Workload Management System can be dscribed as ``brokerage'', in the sense that it matches resource requests to the actual distributed resources, which can include a variety of factors such as access rules, priorities set in the system, or even data locality - which is in fact an important and interesting part of this process~\cite{panda_chep11}.
+
+In summary, we make a distinction between the \textit{Workflow Management} domain which concerns itself with controlling the scientific workflow, and \textit{Workload Management} which is a domain of resource provisioning, allocation, execution control and monitoring of execution etc. The former is a level of abstraction above Workload Management, whereas the latter is in turn a layer of abstractions above the distributed execution environment such as the Grid or Cloud.
 
 
 
-\subsection{test}
+\subsubsection{The Role and Engineering of Data Management}
+In most cases of interest to us, data management plays crucial role in reaching the scientific goals. It is covered separately (see Section~\ref{data}). As noted above, it represents the \textit{data flow} component of the overall workflow management and therefore needs to be addressed here as well.
+
+\subsubsection{Examples}
+There are a variety of Workflow and Workload Management systems deployed in the past and at present. Our goal here is not to compile an exhaustive list of such systems but rather pick a few representative examples, which have been deployed and utilized at scale.
+
+
+\begin{center}
+  \begin{tabular}{  c | c | c | c }
+    \hline
+    Primary User & Workload Mgt & Workflow Mgt & Data Mgt\\ \hline
+    ATLAS & PanDA & ProdSys2 & Rucio\\ \hline
+    CMS  & GlideinWMS & Crab3 & PhEDEx\\ \hline
+    LHCb  & DIRAC & DIRAC Production Management System & DIRAC DMS\\ \hline
+    \hline
+  \end{tabular}
+\end{center}
+
+\subsection{Placeholder}
 \subsubsection{What works, what doesn't}
 \subsubsection{Examples}
 \subsubsection{Opportunity for improvement}
