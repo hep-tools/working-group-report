@@ -1,17 +1,31 @@
 \section{Workflow and Workload Management}
 
 \subsection{Motivations and Background}
-According to a common definition, Grid Computing is the collection of computer resources from multiple locations to reach a common goal. Oftentimes an additional characteristics added to this include decentralized
+\subsubsection{Grid Computing}
+According to a common definition, Grid Computing is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional characteristics added to this include decentralized
 administration and management and adherence to open standards. It was formulated as a concept in early 1990s, and motivated by the fact that computational tasks handled by large research projects reached
 the limits of scalability of most individual computing sites. On the other hand, due to variations in demand, some resources were underutilized at times. There is therefore a benefit in implementing a federation of
 computing resources, whereby large spikes in demand can be hadled by federated sites, while ``backfilling'' the available capacity with lower priority tasks submitted by a larger community of users.
-Technologies developed in the framework of Grid Computing became a major enabling factor for many scientific collaborations including nuclear and high-energy physics.
+Technologies developed in the framework of Grid Computing (such as a few reliable and popular types of \textit{Grid Middleware} became a major enabling factor for many scientific collaborations including
+nuclear and high-energy physics.
 
-\subsection{Description}
+\subsubsection{From the Grid to Workload Management}
+Utilization of the Grid sites via appropriate middelware does establish a degree of resource federation, but it leaves it up to the user to manage data movement and job submission to multiple sites,
+track job status, handle failures and error conditions, aggregate bookkeeping information and perform many other tasks. In absense of automation, this does not scale very well and limits the efficacy
+of the overall system.
+
+It was therefore inevitable that soon after the advent of reliable Grid middleware multiple physics experiments and other projects started developing and deploying \textit{Workload Management Systems}.
+
 \subsubsection{Grid vs Cloud}
 
-Cloud computing is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
-In the following, we won't distinguish between these two concepts unless absolutely necessary.
+Cloud Computing is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
+In addition, Cloud Computing is characterized by widespread adoption of \textit{virtualization} - which is also used in the traditional Grid environment but at a smaller scale.
+At the time of writing, Cloud is prominently mentioned in the context of commercial services available on the network, whereby computing resources can be ``rented'' for a fee in the form of a Virtual Machine allocated
+to the user, or a  number of nodes in the Cloud can be dynamically assigned to perform a neccesary computational task - as a transient, ephemeral resource. Such dynamic, on-demand characteristic
+of the Cloud led to it being described as an ``elastic'' resource (cf. ``Amazon Elastic Compute Cloud'' - the EC2).
+
+Regardless of the obvious differentiation of Cloud computing (due to its characteristics as \textit{a utility computing platform} and pervasive reliance on virtualization), many of its fundamental concepts and challenges
+are common with its predesessor, Grid Computing. In the following, we won't distinguish between the two unless  necessary.
 
 
 %
@@ -37,7 +51,7 @@ Conceptually, this level of abstraction of the workflow does not  involve issues
 for efficient execution of workflows in the distributed environment. These tasks are typically handled in the context of \textit{Workload Management}. According to one definition,
 \textit{``the purpose of the Workload Manager Service (WMS) is to accept requests for job submission and management coming from its clients and take the appropriate actions to satisfy them''} ~\cite{egee_user_guide}.
 Effectively, one of the functions of a Workload Management System can be described as ``brokerage'', in the sense that it matches resource requests to the actual distributed resources, which can include a
-variety of factors such as access rules, priorities set in the system, or even data locality - which is in fact an important and interesting part of this process~\cite{panda_chep11}.
+variety of factors such as access rules, priorities set in the system, or even data locality - which is in fact an important and interesting part of this process~\cite{panda_chep10}.
 
 In summary, we make a distinction between the \textit{Workflow Management} domain which concerns itself with controlling the scientific workflow, and \textit{Workload Management} which
 is a domain of resource provisioning, allocation, execution control and monitoring of execution etc. The former is a level of abstraction above Workload Management, whereas the latter is in
