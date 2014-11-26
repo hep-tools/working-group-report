@@ -1,22 +1,13 @@
 \section{Workflow and Workload Management}
 
-\subsection{Motivations and Background}
-\subsubsection{Grid Computing}
+\subsection{Description}
+\subsubsection{Grid and Cloud Computing}
 According to a common definition, Grid Computing is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional characteristics added to this include decentralized
 administration and management and adherence to open standards. It was formulated as a concept in early 1990s, and motivated by the fact that computational tasks handled by large research projects reached
 the limits of scalability of most individual computing sites. On the other hand, due to variations in demand, some resources were underutilized at times. There is therefore a benefit in implementing a federation of
 computing resources, whereby large spikes in demand can be hadled by federated sites, while ``backfilling'' the available capacity with lower priority tasks submitted by a larger community of users.
 Technologies developed in the framework of Grid Computing (such as a few reliable and popular types of \textit{Grid Middleware} became a major enabling factor for many scientific collaborations including
 nuclear and high-energy physics.
-
-\subsubsection{From the Grid to Workload Management}
-Utilization of the Grid sites via appropriate middelware does establish a degree of resource federation, but it leaves it up to the user to manage data movement and job submission to multiple sites,
-track job status, handle failures and error conditions, aggregate bookkeeping information and perform many other tasks. In absense of automation, this does not scale very well and limits the efficacy
-of the overall system.
-
-It was therefore inevitable that soon after the advent of reliable Grid middleware multiple physics experiments and other projects started developing and deploying \textit{Workload Management Systems}.
-
-\subsubsection{Grid vs Cloud}
 
 Cloud Computing is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
 In addition, Cloud Computing is characterized by widespread adoption of \textit{virtualization} - which is also used in the traditional Grid environment but at a smaller scale.
@@ -30,7 +21,24 @@ are common with its predesessor, Grid Computing. In the following, we won't dist
 
 %
 % There is also the need for seemless lightweight unit testing, regression testing and module development on small local systems outside of large grid or cloud environments.\\
-% -mxp- Brian - good point but it obfuscates the simple statement re: cloud. I just wanted this tobe minimalistic - we will definitely put this statement in the document, just in a different loication.
+% -mxp- Brian - good point but it obfuscates the simple statement re: cloud. I just wanted this t obe minimalistic - we will definitely put this statement in the document, just in a different loication.
+
+\subsubsection{From the Grid to Workload Management}
+Utilization of the Grid sites via appropriate middelware does establish a degree of resource federation, but it leaves it up to the user to manage data movement and job submission to multiple sites,
+track job status, handle failures and error conditions, aggregate bookkeeping information and perform many other tasks. In absense of automation, this does not scale very well and limits the efficacy
+of the overall system.
+
+It was therefore inevitable that soon after the advent of reliable Grid middleware multiple physics experiments and other projects started developing and deploying \textit{Workload Management Systems} (WMS).
+Despite differing approaches and features, all of them appear to share certain primary objectives, such as:
+\begin{itemize}
+\item{Insulation of the user from the complex and potentially heterogeneous environment of the Grid, and shielding the user from common failure modes of the Grid infrastructure}
+\item{Facilitation of basic monitoring functions, e.g. providing efficient ways to determine the status of jobs being submitted and executed}
+\item{Prioritization and load balancing across the computing sites}
+\item{Either interface to an external data management system, or a degree of adequate data movement and monitoring functionality built into the WMS}
+\end{itemize}
+
+The first item on this list is arguably most important in terms of the overall system usability. Perhaps the most successful and elegant solution to these issues is the introduction of \textit{late binding}
+of the payload job to the identified available coputing resource such as a Worker Node residing in some remote data center.
 
 \subsubsection{Workflow vs Workload}
 
