@@ -1,8 +1,10 @@
 \section{Workflow and Workload Management}
 
 \subsection{Motivations and Background}
-According to a common definition, Grid Computing is the collection of computer resources from multiple locations to reach a common goal. 
-It was formulated as a concept in early 1990s. It was motivated by the fact that computational tasks handled by large research projects reached the limits of scalability of most computing sites.
+According to a common definition, Grid Computing is the collection of computer resources from multiple locations to reach a common goal. Oftentimes an additional characteristics added to this include decentralized
+administration and management and adherence to open standards. It was formulated as a concept in early 1990s, and motivated by the fact that computational tasks handled by large research projects reached
+the limits of scalability of most individual computing sites. On the other hand, due to variations in demand, some resources were underutilized at times. There is therefore a benefit in implementing a federation of
+computing resources, whereby large spikes in demand can be hadled by federated sites, while ``backfilling'' the available capacity with lower priority tasks submitted by a larger community of users.
 Technologies developed in the framework of Grid Computing became a major enabling factor for many scientific collaborations including nuclear and high-energy physics.
 
 \subsection{Description}
@@ -14,7 +16,7 @@ In the following, we won't distinguish between these two concepts unless absolut
 
 %
 % There is also the need for seemless lightweight unit testing, regression testing and module development on small local systems outside of large grid or cloud environments.\\
-% -mxp- good point but it obfuscates the simple statement re: cloud
+% -mxp- Brian - good point but it obfuscates the simple statement re: cloud. I just wanted this tobe minimalistic - we will definitely put this statement in the document, just in a different loication.
 
 \subsubsection{Workflow vs Workload}
 
@@ -62,6 +64,7 @@ There are a variety of Workflow and Workload Management systems deployed in rece
 
 %    Small Exp & BOINC & CONDOR & mySQL/Postgres \\ \hline
 % -mxp- the preamble to the table mentions deployment at scale. Also mySQL in itself does not fill the role of any component mentioned.
+
     \hline
   \end{tabular}
 \end{center}
