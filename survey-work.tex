@@ -1,6 +1,19 @@
 \section{Workflow and Workload Management}
+\subsection{The Challenge}
+In the past three decades, technological revolution in industry has enabled, and was paralleled by growing complexity in the field of scientific computing, where 
+more and more sophisicated methods of data processing and analysis were constantly introduced, oftentimes at a dramatically increased scale. The rate of progress
+and constant time pressures to deliver in competetive fields such as HEP led to design and implementation of complete solutions to satisfy the needs of specific  research projects.
+This had two consequences:
+
+\begin{itemize}
+\item Highly integrated and project-specific design of workflow and workload management (for definitions see~\ref{workflow_workload}).
+\item Tight coupling of workflow and workload management with data handling at all levels of the overall system.
+\end{itemize}
+
+In the following, we  bring together a few standard definitions and real life examples to help clarify relationships among distinct elements of this domain and make appropriate recommendations.
 
 \subsection{Description}
+
 \subsubsection{Grid and Cloud Computing}
 According to a common definition, Grid Computing is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional characteristics added to this include decentralized
 administration and management and adherence to open standards. It was formulated as a concept in early 1990s, and motivated by the fact that computational tasks handled by large research projects reached
@@ -11,7 +24,7 @@ nuclear and high-energy physics.
 
 Cloud Computing is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
 In addition, Cloud Computing is characterized by widespread adoption of \textit{virtualization} - which is also used in the traditional Grid environment but at a smaller scale.
-At the time of writing, Cloud is prominently mentioned in the context of commercial services available on the network, whereby computing resources can be ``rented'' for a fee in the form of a Virtual Machine allocated
+At the time of writing, Cloud prominently figures in the context of commercial services available on the network, whereby computing resources can be ``rented'' for a fee in the form of a Virtual Machine allocated
 to the user, or a  number of nodes in the Cloud can be dynamically assigned to perform a neccesary computational task - as a transient, ephemeral resource. Such dynamic, on-demand characteristic
 of the Cloud led to it being described as an ``elastic'' resource (cf. ``Amazon Elastic Compute Cloud'' - the EC2).
 
@@ -24,6 +37,7 @@ are common with its predesessor, Grid Computing. In the following, we won't dist
 % -mxp- Brian - good point but it obfuscates the simple statement re: cloud. I just wanted this t obe minimalistic - we will definitely put this statement in the document, just in a different loication.
 
 \subsubsection{From the Grid to Workload Management}
+
 Utilization of the Grid sites via appropriate middelware does establish a degree of resource federation, but it leaves it up to the user to manage data movement and job submission to multiple sites,
 track job status, handle failures and error conditions, aggregate bookkeeping information and perform many other tasks. In absense of automation, this does not scale very well and limits the efficacy
 of the overall system.
@@ -32,16 +46,17 @@ It was therefore inevitable that soon after the advent of reliable Grid middlewa
 Despite differing approaches and features, all of them appear to share certain primary objectives, such as:
 \begin{itemize}
 \item{Insulation of the user from the complex and potentially heterogeneous environment of the Grid, and shielding the user from common failure modes of the Grid infrastructure}
+\item{Rationalization, bookkeeping and automation of software provisioning - for example, distribution of binaries and configuration files to multiple sites}
 \item{Facilitation of basic monitoring functions, e.g. providing efficient ways to determine the status of jobs being submitted and executed}
 \item{Prioritization and load balancing across the computing sites}
-\item{Either interface to an external data management system, or a degree of adequate data movement and monitoring functionality built into the WMS}
+\item{Implementation of interfaces to external data management systems, or actual data movement and monitoring functionality built into certain components of the WMS}
 \end{itemize}
 
-The first item on this list is arguably most important in terms of the overall system usability. Perhaps the most successful and elegant solution to these issues is the introduction of \textit{late binding}
+The first item on this list is very important in terms of the overall system usability. Perhaps the most successful and elegant solution to these issues is the introduction of \textit{late binding}
 of the payload job to the identified available coputing resource such as a Worker Node residing in some remote data center.
 
 \subsubsection{Workflow vs Workload}
-
+\label{workflow_workload}
 A scientific workflow system is a specialized case of a \textit{workflow management system}. In it, computations and/or transformations and exchange of data are performed according to a defined set of rules
 in order to achieve an overall goal ~\cite{grid_workflow_taxonomy}, ~\cite{grid_workflow_fit}. In the context of this document, this process involves execution on distributed resources. Since the process is
 typically largely (or completely) automated, it is often described as ``orchestration'' of execution of multiple interdependent tasks. Workflow systems are sometimes described using the concepts of a \textit{control flow},
@@ -72,8 +87,8 @@ In most cases of interest to us, data management plays crucial role in reaching 
 
 \subsubsection{Examples}
 \label{wms_examples}
-There are a variety of Workflow and Workload Management systems deployed in recent past and at present. Our goal here is not to compile an exhaustive list of such systems but rather pick a few representative examples, which have been deployed and utilized \textit{at scale}.
-
+There are a variety of Workflow and Workload Management systems deployed in recent past and at present. Our goal here is not to compile an exhaustive list of such systems but rather pick a (very) few representative examples, which have been deployed and utilized \textit{at scale}.
+Let's start with the LHC experiments:
 
 \begin{center}
   \begin{tabular}{ c | c | c | c }
