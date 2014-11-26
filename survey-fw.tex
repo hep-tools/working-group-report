@@ -1,7 +1,149 @@
-\section{Software Frameworks}
+\section{Event Processing Software Frameworks}
+\textit{(authors: Brett, ??)}
+
+\subsection{Description}
+
+A software framework abstracts common functionality expected in some
+domain.  It provides some generic implementation of a full system in
+an abstract way that lets application-specific functionality to be
+added through a modular implementation of framework interfaces.
+
+Whereas toolkit libraries encourages different functionality through
+developing different applications a framework provides the overall
+processing control function with typically one main entry point.
+Different functionality is obtained by configuring a the framework to
+use different module implementations.
+
+In the context of HEP software, the term ``event'' is probably the
+most overloaded and poorly defined term that is commonly used.  The
+term ``module'' is probably second.  Both are used here.  In this
+context, an ``event'' is a unit of data of a scope which is dependent
+on the ``module'' of code which is processing.  In the context of a
+code module that generates initial kinematics an event is the
+information about the interaction.  In a module that simulates the
+passage of particles through a detector an event may contain all
+energy depositions in active volumes.  In a detector electronics
+simulation it may contain all signals collected from these active
+volumes.  In a trigger simulation module, it would be all readouts of
+these signals above some threshold or other criteria.  At this point
+data from real detectors gain symmetry with simulation.  Beyond this
+data reduction, calibration, reconstruction and other analysis modules
+each have a unique concept of the ``event'' of data they operate on.
+Depending on the nature of the physics, detector, and follow on
+analysis, every module may not preserve the multiplicity of data.  For
+example, a single interaction may produce multiple triggers, or none.
+
+With that description, an event processing software framework is
+largely responsible to marshal data through a series (in general a
+graph) of such code modules which then mutate the data.  To support
+these modules the framework provides access to external services such
+as those that give access to the data itself, handle file I/O, access
+to descriptions of the detectors, provide for visualization or
+statistical summaries, and databases of conditions for applying
+calibrations.
+
+The defining nature of these frameworks are to aggregate and organize
+code modules provided by a disparate set of developers.  As such,
+quality frameworks provide means to manage this complexity.  The
+modular design itself is one.  Particularly in C++ based frameworks,
+these modules are implemented by inheriting from a framework-provided
+base class. In order to avoid hard-linking which modules to use at
+compile time they are best put into shared libraries which can be
+loaded at run time as driven by a user configuration layer provided by
+the framework.  Even with this, compile-time dependencies can balloon
+build times and frameworks should best implement the base classes with
+pure-virtual interface classes such that changes to one part of the
+code base do not require a full rebuild/relink.
+
+\subsection{Gaudi}
+
+The Gaudi event processing framework provides a comprehensive set of
+features and is extensible enough that it is suitable for a wide
+variety of experiments.  It was conceived by LHCb and adopted by ATLAS
+and these two experiments still drive its development.  It has been
+adopted by a diverse set of experiments including HARP, Fermi/GLAST,
+MINER$\nu$A, Daya Bay and others.  The experience of Daya Bay is
+illuminating for both Gaudi specifically and of more general issues of
+this report.
+
+First, this adoption was greatly helped by the support from the LHCb
+and ATLAS Gaudi developers.  Although not strictly their
+responsibility, they found the time to offer help and support to other
+experiments.  Without this, the success of the adoption is uncertain
+and at best would have taken much more effort.  Daya Bay recognized
+the need and importance of such support and, partly selfishly, formed
+a mailing list\cite{gauditalk} and got Gaudi developers from many
+experiments involved.  It became a forum the more efficiently spread
+beneficial information from the main developers as well as offloaded
+some support to new experts from the other experiments to help
+themselves.
+
+Other aspects were beneficial to adoption.  The Gaudi build system
+based on CMT was cross platform, open and easy to port.  It had layers
+of functionality (package build system, release build system, support
+for experiment packages and ``external'' ones) but it did not require
+all-or-nothing adoption.  This allowed for some staged approach that
+allowed Daya Bay to get started using the framework more quickly.
+
+The importance of having all Gaudi source code open and available can
+not be diminished.  Also important was Gaudi developers inclusion of
+the growing community in the release process.
+
+There were, however areas that would improve the adoption of Gaudi.
+The primary one would be direct guides on how to actually adopt it.
+This is something that must come from the community and likely in
+conjunction with some future adoption.  Documentation on Gaudi itself
+was also a problem particularly for Daya Bay where many of the basic
+underlying framework concepts where new.  Older design documents and
+some experiment-specific ones were available but not always accurate
+nor focused on what was needed.  Over time Daya Bay produced it's own
+Daya Bay-specific documentation which unfortunately perpetuates this
+problem.
+
+While Gaudi's CMT-based package and release build system ultimately
+proved very useful, it hampered initial adoption as it is not commonly
+used and required understanding.  It is understood that there is a
+movement to provide a CMake based build system which may alleviate
+this hurdle.
+
+Finally, although Gaudi is full featured and flexible it does not come
+with all framework level functionality and, in its core, misses some
+important extensions.  In particular, Daya Bay adopted three Gaudi
+extensions from LHCb's code base.  These are actually very general
+purpose but due to historical reasons were not provided separately.
+These were GaudiObjDesc (data model definition), GiGa (Geant4
+interface) and DetDesc (detector description).  Some extensions
+developed by other experiments were rejected and in-house
+implementations were developed.  In particular the extension that
+provided for file I/O was considered too much effort to adopt.   
+
+One aspect of Gaudi, as a framework, that left it unsuitable for Daya
+Bay had to do with the event processing model.  Unlike collider
+experiments, Daya Bay necessarily had to deal with a non-sequential,
+linear event stream.  Multiple detectors at multiple sites produced
+data in time order but not synchronously.  Simulation and processing
+did not preserve the same ``event'' multiplicity.  Multiple sources of
+events (many independent backgrounds in addition to signal) must be
+properly mixed.  Finally, of the strongest background rejection
+criteria to select inverse beta decay from anti-neutrino interactions
+is to require a coincidence in time between a prompt positron
+interaction in the scintilator followed by delayed activity from the
+absorption of a neutron.  The flexibility of Gaudi allowed Daya Bay to
+extend its very event processing model to add the support necessary
+for these features.  
+
+
+
+\subsection{What works, what doesn't}
+\subsection{Examples}
+\subsection{Opportunity for improvement}
+
+
+
+
 \subsubsection{Editing notes}
 
-\textit{(authors: Brett, ??)}
+
 
 \textit{This is not a real section and will be deleted}
 
@@ -32,8 +174,3 @@ Comparisons:
 \begin{itemize}
 \item for Daya Bay \url{https://wiki.bnl.gov/dusel/index.php/Software_Framework_Comparison}
 \end{itemize}
-
-\subsection{Description}
-\subsection{What works, what doesn't}
-\subsection{Examples}
-\subsection{Opportunity for improvement}
