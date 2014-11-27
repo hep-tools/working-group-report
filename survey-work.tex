@@ -43,7 +43,12 @@ track job status, handle failures and error conditions, aggregate bookkeeping in
 of the overall system.
 
 It was therefore inevitable that soon after the advent of reliable Grid middleware multiple physics experiments and other projects started developing and deploying \textit{Workload Management Systems} (WMS).
-Despite differing approaches and features, all of them appear to share certain primary objectives, such as:
+ According to one definition,
+\textit{``the purpose of the Workload Manager Service (WMS) is to accept requests for job submission and management coming from its clients and take the appropriate actions to satisfy them''}~\cite{egee_user_guide}.
+Thus, one of the principal functions of a Workload Management System can be described as ``brokerage'', in the sense that it matches resource requests to the actual distributed resources
+on multiple sites. This matching process can include a variety of factors such as access rules for users and groups, priorities set in the system, or even data locality - which is in fact an important and interesting part of this process~\cite{panda_chep10}.
+
+In practice, despite differing approaches and features, most existing WMS appear to share certain primary objectives, such as:
 \begin{itemize}
 \item{Insulation of the user from the complex and potentially heterogeneous environment of the Grid, and shielding the user from common failure modes of the Grid infrastructure}
 \item{Rationalization, bookkeeping and automation of software provisioning - for example, distribution of binaries and configuration files to multiple sites}
@@ -69,17 +74,14 @@ A simple and rather typical example of a workflow is often found in Monte Carlo 
 Patterns like this one may also include optional additional steps (implied or made explicit in the logic of the workflow) such as merging of units of data (e.g.files) for more efficient storage and transmission.
 
 Conceptually, this level of abstraction of the workflow does not  involve issues of resource provisioning and utilization, monitoring, optimization, recovery from errors, as well as plethora of other items essential
-for efficient execution of workflows in the distributed environment. These tasks are typically handled in the context of \textit{Workload Management}. According to one definition,
-\textit{``the purpose of the Workload Manager Service (WMS) is to accept requests for job submission and management coming from its clients and take the appropriate actions to satisfy them''}~\cite{egee_user_guide}.
-Effectively, one of the principal functions of a Workload Management System can be described as ``brokerage'', in the sense that it matches resource requests to the actual distributed resources
-on multiple sites. This matching process can include a variety of factors such as access rules for users and groups, priorities set in the system, or even data locality - which is in fact an important and interesting part of this process~\cite{panda_chep10}.
+for efficient execution of workflows in the distributed environment. These tasks are handled in the context of \textit{Workload Management} which we very briefly described in~\ref{from_grid_to_workload}.
 
 In summary, we make a distinction between the \textit{Workflow Management} domain which concerns itself with controlling the scientific workflow, and \textit{Workload Management} which
 is a domain of resource provisioning, allocation, execution control and monitoring of execution etc. The former is a level of abstraction above Workload Management, whereas the latter is in
 turn a layer of abstractions above the distributed execution environment such as the Grid or Cloud.
 
 % As we already noted, 
-Historically, in many cases the Workflow Management layer was not designed together with the underlying Workload Management system, and was (\textbf{FIXME})
+% Historically, in many cases the Workflow Management layer was not designed together with the underlying Workload Management system, and was (\textbf{FIXME})
 
 \subsubsection{The Role and Engineering of Data Management}
 In most cases of interest to us, data management plays crucial role in reaching the scientific goals. It is covered separately (see Section~\ref{data}).
@@ -104,13 +106,17 @@ in the pilot. This is extremely important for troubleshooting and monitoring, wh
 
 \subsection{Examples}
 \label{wms_examples}
+\subsubsection{HTCondor and glideinWMS}
+HTCondor~\cite{htcondor} is an important part of the available software stack and a Workload Management System in its own right.
+
+\subsubsection{LHC}
 There are a variety of Workflow and Workload Management systems deployed in recent past and at present. Our goal here is not to compile an exhaustive list of such systems but rather pick a (very) few representative examples, which have been deployed and utilized \textit{at scale}.
 Let's start with the LHC experiments:
 
 \begin{center}
   \begin{tabular}{ c | c | c | c }
     \hline
-    Primary User & Workload Mgt & Workflow Mgt & Data Mgt\\ \hline
+    \textbf{Primary User} & \textbf{Workload Mgt} & \textbf{Workflow Mgt} & \textbf{Data Mgt}\\ \hline \hline
     ATLAS & PanDA & ProdSys2 & Rucio\\ \hline
     CMS  & GlideinWMS & Crab3 & PhEDEx\\ \hline
     LHCb  & DIRAC & DIRAC Production Management & DIRAC DMS\\ \hline
@@ -121,8 +127,8 @@ Let's start with the LHC experiments:
   \end{tabular}
 \end{center}
 
-
-
+\subsubsection{@HOME}
+TBD - BOINC etc.
 
 \subsubsection{What works, what doesn't}
 \subsubsection{Examples}
