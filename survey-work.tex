@@ -1,3 +1,4 @@
+\newpage
 \section{Workflow and Workload Management}
 \subsection{The Challenge}
 In the past three decades, technological revolution in industry has enabled, and was paralleled by growing complexity in the field of scientific computing, where 
@@ -7,10 +8,9 @@ This had two consequences:
 
 \begin{itemize}
 \item Highly integrated and project-specific design of workflow and workload management (for definitions see~\ref{workflow_workload}).
-\item Tight coupling of workflow and workload management with data handling at all levels of the overall system.
+\item Tight coupling of workflow and workload management to data handling components.
 \end{itemize}
-
-In the following, we  bring together a few standard definitions and real life examples to help clarify relationships among distinct elements of this domain and make appropriate recommendations.
+This had a substantial impact on reusability of these solutions. In the following, we  bring together a few standard definitions and real life examples to help clarify relationships among distinct elements of this domain and make appropriate recommendations.
 
 \subsection{Description}
 
@@ -37,7 +37,7 @@ are common with its predesessor, Grid Computing. In the following, we won't dist
 % -mxp- Brian - good point but it obfuscates the simple statement re: cloud. I just wanted this t obe minimalistic - we will definitely put this statement in the document, just in a different loication.
 
 \subsubsection{From the Grid to Workload Management}
-
+\label{from_grid_to_workload}
 Utilization of the Grid sites via appropriate middelware does establish a degree of resource federation, but it leaves it up to the user to manage data movement and job submission to multiple sites,
 track job status, handle failures and error conditions, aggregate bookkeeping information and perform many other tasks. In absense of automation, this does not scale very well and limits the efficacy
 of the overall system.
@@ -56,7 +56,7 @@ Despite differing approaches and features, all of them appear to share certain p
 \subsubsection{Workflow vs Workload}
 \label{workflow_workload}
 A scientific workflow system is a specialized case of a \textit{workflow management system}. In it, computations and/or transformations and exchange of data are performed according to a defined set of rules
-in order to achieve an overall goal ~\cite{grid_workflow_taxonomy}, ~\cite{grid_workflow_fit}. In the context of this document, this process involves execution on distributed resources. Since the process is
+in order to achieve an overall goal ~\cite{grid_workflow_taxonomy},~\cite{grid_workflow_fit}. In the context of this document, this process involves execution on distributed resources. Since the process is
 typically largely (or completely) automated, it is often described as ``orchestration'' of execution of multiple interdependent tasks. Workflow systems are sometimes described using the concepts of a \textit{control flow},
 which refers to the logic of execution, and \textit{data flow}, which concerns itself with the logic and rules of transmitting data.
 
@@ -70,21 +70,39 @@ Patterns like this one may also include optional additional steps (implied or ma
 
 Conceptually, this level of abstraction of the workflow does not  involve issues of resource provisioning and utilization, monitoring, optimization, recovery from errors, as well as plethora of other items essential
 for efficient execution of workflows in the distributed environment. These tasks are typically handled in the context of \textit{Workload Management}. According to one definition,
-\textit{``the purpose of the Workload Manager Service (WMS) is to accept requests for job submission and management coming from its clients and take the appropriate actions to satisfy them''} ~\cite{egee_user_guide}.
-Effectively, one of the functions of a Workload Management System can be described as ``brokerage'', in the sense that it matches resource requests to the actual distributed resources, which can include a
-variety of factors such as access rules, priorities set in the system, or even data locality - which is in fact an important and interesting part of this process~\cite{panda_chep10}.
+\textit{``the purpose of the Workload Manager Service (WMS) is to accept requests for job submission and management coming from its clients and take the appropriate actions to satisfy them''}~\cite{egee_user_guide}.
+Effectively, one of the principal functions of a Workload Management System can be described as ``brokerage'', in the sense that it matches resource requests to the actual distributed resources
+on multiple sites. This matching process can include a variety of factors such as access rules for users and groups, priorities set in the system, or even data locality - which is in fact an important and interesting part of this process~\cite{panda_chep10}.
 
 In summary, we make a distinction between the \textit{Workflow Management} domain which concerns itself with controlling the scientific workflow, and \textit{Workload Management} which
 is a domain of resource provisioning, allocation, execution control and monitoring of execution etc. The former is a level of abstraction above Workload Management, whereas the latter is in
 turn a layer of abstractions above the distributed execution environment such as the Grid or Cloud.
 
 % As we already noted, 
-Historically, in many cases the Workflow Management layer was not designed together with the underlying Workload Management system, and was (fixme)
+Historically, in many cases the Workflow Management layer was not designed together with the underlying Workload Management system, and was (\textbf{FIXME})
 
 \subsubsection{The Role and Engineering of Data Management}
-In most cases of interest to us, data management plays crucial role in reaching the scientific goals. It is covered separately (see Section~\ref{data}). As noted above, it represents the \textit{data flow} component of the overall workflow management and therefore needs to be addressed here as well.
+In most cases of interest to us, data management plays crucial role in reaching the scientific goals. It is covered separately (see Section~\ref{data}).
+As noted above, it represents the \textit{data flow} component of the overall workflow management and therefore needs to be addressed here as well.
 
-\subsubsection{Examples}
+
+\subsubsection{Late Binding}
+As we mentioned in ~\ref{from_grid_to_workload}, one of the primary functions of a WMS is to insulate the user from the heterogeneous and sometimes complex
+Grid environment and certain failure modes inherent in it (e.g. misconfigured cites, transient connectivity problems, ``flaky'' worker nodes etc).
+Perhaps the most successful and elegant solution to these issues is the introduction of the so called \textit{late binding} step in
+the proccess of Workload Management. According to this concept, it is not the actual ``payload job'' that is initially dispatched to a  Worker Node residing in a
+remote data center, but an intelligent ``wrapper'', often termed a ``pilot job'', which first validates the resource, its configuration and some details of the environment
+(for example, outbound network connectivity may be tested). In this context, ``binding'' means matching process whereby the payload job (such as a production job or
+a user analysis job) which is submitted to the WMS and is awaiting execution is assigned to a live pilot which has already perfomed validation and configuration of
+the execution environment. The part of the overall resource pool that exhibit problems prior to job dispatch can be identified and flagged at both site and worker node
+level. This eliminates a very large fraction of potential failures that the user would otherwise have to deal with and account for.
+% Thus, for the user (or for an automated client performing job submission) x
+
+An added benefit of this approach is also diagnostic and logging capability that maybe included
+in the pilot. This is extremely important for troubleshooting and monitoring, which we shall discuss later.
+
+
+\subsection{Examples}
 \label{wms_examples}
 There are a variety of Workflow and Workload Management systems deployed in recent past and at present. Our goal here is not to compile an exhaustive list of such systems but rather pick a (very) few representative examples, which have been deployed and utilized \textit{at scale}.
 Let's start with the LHC experiments:
@@ -104,10 +122,6 @@ Let's start with the LHC experiments:
 \end{center}
 
 
-\subsection{Late Binding}
-\textbf{FIXME}\\
-The first item on this list is very important in terms of the overall system usability. Perhaps the most successful and elegant solution to these issues is the introduction of \textit{late binding}
-of the payload job to the identified available coputing resource such as a Worker Node residing in some remote data center.
 
 
 \subsubsection{What works, what doesn't}
