@@ -52,8 +52,6 @@ Despite differing approaches and features, all of them appear to share certain p
 \item{Implementation of interfaces to external data management systems, or actual data movement and monitoring functionality built into certain components of the WMS}
 \end{itemize}
 
-The first item on this list is very important in terms of the overall system usability. Perhaps the most successful and elegant solution to these issues is the introduction of \textit{late binding}
-of the payload job to the identified available coputing resource such as a Worker Node residing in some remote data center.
 
 \subsubsection{Workflow vs Workload}
 \label{workflow_workload}
@@ -80,6 +78,7 @@ In summary, we make a distinction between the \textit{Workflow Management} domai
 is a domain of resource provisioning, allocation, execution control and monitoring of execution etc. The former is a level of abstraction above Workload Management, whereas the latter is in
 turn a layer of abstractions above the distributed execution environment such as the Grid or Cloud.
 
+% As we already noted, 
 Historically, in many cases the Workflow Management layer was not designed together with the underlying Workload Management system, and was (fixme)
 
 \subsubsection{The Role and Engineering of Data Management}
@@ -97,16 +96,22 @@ Let's start with the LHC experiments:
     ATLAS & PanDA & ProdSys2 & Rucio\\ \hline
     CMS  & GlideinWMS & Crab3 & PhEDEx\\ \hline
     LHCb  & DIRAC & DIRAC Production Management & DIRAC DMS\\ \hline
-    Alice  & gLite WMS & AliEn & AliEn\\ \hline
-
+    Alice  & gLite WMS & AliEn & AliEn\\ 
 %    Small Exp & BOINC & CONDOR & mySQL/Postgres \\ \hline
-% -mxp- the preamble to the table mentions deployment at scale. Also mySQL in itself does not fill the role of any component mentioned.
-
+% -mxp- the preamble to the table mentions deployment at scale. Also mySQL in itself does not fill the role of any component mentioned. To better describe this, we add more text below!
     \hline
   \end{tabular}
 \end{center}
 
-\subsection{Placeholder}
+
+\subsection{Late Binding}
+\textbf{FIXME}\\
+The first item on this list is very important in terms of the overall system usability. Perhaps the most successful and elegant solution to these issues is the introduction of \textit{late binding}
+of the payload job to the identified available coputing resource such as a Worker Node residing in some remote data center.
+
+
 \subsubsection{What works, what doesn't}
 \subsubsection{Examples}
-\subsubsection{Opportunity for improvement}
+\subsection{Opportunity for improvement}
+
+
