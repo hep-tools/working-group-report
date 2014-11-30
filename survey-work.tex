@@ -91,8 +91,8 @@ As noted above, it represents the \textit{data flow} component of the overall wo
 \subsubsection{Late Binding}
 As we mentioned in ~\ref{from_grid_to_workload}, one of the primary functions of a WMS is to insulate the user from the heterogeneous and sometimes complex
 Grid environment and certain failure modes inherent in it (e.g. misconfigured cites, transient connectivity problems, ``flaky'' worker nodes etc).
-Perhaps the most successful and elegant solution to these issues is the introduction of the so called \textit{late binding} step in
-the proccess of Workload Management. According to this concept, it is not the actual ``payload job'' that is initially dispatched to a  Worker Node residing in a
+There is a proven solution to these issues, which involved the so called \textit{late binding} approach  to the deployment of computational payload.
+According to this concept, it is not the actual ``payload job'' that is initially dispatched to a  Worker Node residing in a
 remote data center, but an intelligent ``wrapper'', often termed a ``pilot job'', which first validates the resource, its configuration and some details of the environment
 (for example, outbound network connectivity may be tested). In this context, ``binding'' means matching process whereby the payload job (such as a production job or
 a user analysis job) which is submitted to the WMS and is awaiting execution is assigned to a live pilot which has already perfomed validation and configuration of
@@ -107,7 +107,8 @@ in the pilot. This is extremely important for troubleshooting and monitoring, wh
 \subsection{Examples}
 \label{wms_examples}
 \subsubsection{HTCondor and glideinWMS}
-HTCondor~\cite{htcondor} is an important part of the available software stack and a Workload Management System in its own right.
+HTCondor~\cite{htcondor} is perhaps the best known and  very important set of Grid and High-Throughput Computing (HTC) tools. It provides Workload Management System functionality,
+
 
 \subsubsection{LHC}
 There are a variety of Workflow and Workload Management systems deployed in recent past and at present. Our goal here is not to compile an exhaustive list of such systems but rather pick a (very) few representative examples, which have been deployed and utilized \textit{at scale}.
