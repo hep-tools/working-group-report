@@ -3,14 +3,15 @@
 \subsection{The Challenge}
 In the past three decades, technological revolution in industry has enabled, and was paralleled by growing complexity in the field of scientific computing, where 
 more and more sophisicated methods of data processing and analysis were constantly introduced, oftentimes at a dramatically increased scale. The rate of progress
-and constant time pressures to deliver in competetive fields such as HEP led to design and implementation of complete solutions to satisfy the needs of specific  research projects.
+and constant time pressures to deliver in a competetive field such as HEP led to design and implementation of complete solutions to satisfy the needs of specific  research projects.
 This had two consequences:
 
 \begin{itemize}
 \item Highly integrated and project-specific design of workflow and workload management (for definitions see~\ref{workflow_workload}).
 \item Tight coupling of workflow and workload management to data handling components.
 \end{itemize}
-This had a substantial impact on reusability of these solutions. In the following, we  bring together a few standard definitions and real life examples to help clarify relationships among distinct elements of this domain and make appropriate recommendations.
+This had a substantial impact on reusability of these solutions. In the following, we  bring together a few standard definitions and real life examples to help clarify
+relationships among distinct elements of this domain and form the basis for possible recommendations.
 
 \subsection{Description}
 
@@ -107,12 +108,16 @@ in the pilot. This is extremely important for troubleshooting and monitoring, wh
 \subsection{Examples}
 \label{wms_examples}
 \subsubsection{HTCondor and glideinWMS}
-HTCondor~\cite{htcondor} is perhaps the best known and  very important set of Grid and High-Throughput Computing (HTC) tools. It provides Workload Management System functionality,
-
+\label{htcondor}
+HTCondor~\cite{htcondor} is perhaps the best known and  very important set of Grid and High-Throughput Computing (HTC) tools. It provides an array of functionality, such as
+as a batch system solution for a computing cluster, remote submission to Grid sites (via Condor-G) and sutomated transer (stage-in and stage-out) of data.
+In the past decade, HTCondor was augmented with a  Workload Management System layer, known as \textit{glideinWMS}~\cite{glideinwms}. The latter abstracts remote resources (Worker Nodes) residing on the Grid
+and effectively creates a local resource pool accessible by the user. This is highly beneficial to the users already having familiarity with HTCondor since it shortens the learning curve. On the other hand,
+deployment of this system is not always trivial and typically requires a central service to be operated with the desired agree of service level (the so-called ``glidein factory'').
 
 \subsubsection{LHC}
-There are a variety of Workflow and Workload Management systems deployed in recent past and at present. Our goal here is not to compile an exhaustive list of such systems but rather pick a (very) few representative examples, which have been deployed and utilized \textit{at scale}.
-Let's start with the LHC experiments:
+There are a variety of Workflow and Workload Management systems deployed in recent past and at present. Our goal here is not to compile an exhaustive list of such systems but rather pick a (very)
+few representative examples, which have been deployed and utilized \textit{at scale}. Let's start with the LHC experiments:
 
 \begin{center}
   \begin{tabular}{ c | c | c | c }
@@ -129,7 +134,19 @@ Let's start with the LHC experiments:
 \end{center}
 
 \subsubsection{@HOME}
-TBD - BOINC etc.
+There are outstanding examples of open source middleware system for volunteer and grid computing, such as BOINC (the original platform behind SETI@HOME), FOLDING@HOME and others.
+The central part of their design is the server-client architecture, where the clients can be running on a variety of platforms, such as PCs and game consoles made available by volunteering
+owners. Deployment on a cluster or a farm is also possible.
+
+While this approach to distributes computing won't work well for most experiments of the LHC scale (where moving significant amounts of data presents a perennial problem) it is clearly of
+interest to smaller scale projects with more modes I/O requirements. Distributed platforms in this class have been deployed, validated and used at scale.
+
+\subsubsection{European Middleware Initiative}
+The European Middleware Initiative~\cite{emi} is a concortium of Grid services providers (such as ARC, dCache, gLite, and UNICORE).
+It plays an important role in the the Worldwide LHC Computing Grid (WLCG). The \textit{gLite} middleware toolkit was used by LHC experiments as one of methods
+to achive resource federation on the European Grids. 
+
+
 
 \subsubsection{What works, what doesn't}
 \subsubsection{Examples}
