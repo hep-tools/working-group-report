@@ -1,17 +1,22 @@
 \newpage
 \section{Workflow and Workload Management}
-\subsection{The Challenge}
+\subsection{The Challenge of the Three Domains}
 In the past three decades, technological revolution in industry has enabled, and was paralleled by growing complexity in the field of scientific computing, where 
-more and more sophisicated methods of data processing and analysis were constantly introduced, oftentimes at a dramatically increased scale. The rate of progress
-and constant time pressures to deliver in a competetive field such as HEP led to design and implementation of complete solutions to satisfy the needs of specific  research projects.
+more and more sophisicated methods of data processing and analysis were constantly introduced, oftentimes at a dramatically increased scale. Processing power and storage
+were becoming increasingly decentralized, leading to the need to manage these distributed resources in an optimal manner. On the other hand, increased sophistication of
+scientific workflows created the need to support these workflows in new distributed computing medium. The rate of progress and constant time pressures to deliver in a
+competetive field such as HEP led to design and implementation of solutions (complete to varying degrees) to satisfy the needs of specific  research projects.
 This had two consequences:
 
 \begin{itemize}
-\item Highly integrated and project-specific design of workflow and workload management (for definitions see~\ref{workflow_workload}).
+\item Integrated and oftentimes project-specific design of workflow and workload management (for definitions see~\ref{workflow_workload}).
 \item Tight coupling of workflow and workload management to data handling components.
 \end{itemize}
-This had a substantial impact on reusability of these solutions. In the following, we  bring together a few standard definitions and real life examples to help clarify
-relationships among distinct elements of this domain and form the basis for possible HEP-FCE recommendations.
+
+We observe that there are essentially three interconnected domains at play here: Workflow Management, Workload Management, and Data Management.
+In the following, we  bring together a few standard definitions and real life examples to help clarify
+relationships among these domains and in doing so form the basis for possible HEP-FCE recommendations.
+Our goal will be to offer ideas about how to enhance reusability of existing and future systems of this kind.
 
 \subsection{Description}
 
@@ -84,6 +89,14 @@ turn a layer of abstractions above the distributed execution environment such as
 % As we already noted, 
 % Historically, in many cases the Workflow Management layer was not designed together with the underlying Workload Management system, and was (\textbf{FIXME})
 
+\subsubsection{HTC vs HPC}
+The term ``High-Performance Computing'' (HPC) is used in reference to systems of exceptionally high processing capacity (such as individual supercomputers, which are typically highly parallel systems),
+in the sense that they handle substational workload and deliver results over a relatively short period of time. By contrast, High-Throughput Computing (HTC) involves harnessing to a wider pool
+of more conventional resources in order to deliver a considerable amount of computational power, although potentially over loger periods of time. 
+\begin{quote}
+\textit{``HPC brings enormous amounts of computing power to bear over relatively short periods of time. HTC employs large amounts of computing power for very lengthy periods.''}~\cite{htc}
+\end{quote}
+
 \subsubsection{The Role and Engineering of Data Management}
 In most cases of interest to us, data management plays crucial role in reaching the scientific goals. It is covered separately (see Section~\ref{data}).
 As noted above, it represents the \textit{data flow} component of the overall workflow management and therefore needs to be addressed here as well.
@@ -100,11 +113,11 @@ to those systems which are more immediately relevant to HEP and related fields t
 
 \subsubsection{HTCondor and glideinWMS}
 \label{htcondor}
-HTCondor~\cite{htcondor} is perhaps the best known and  very important set of Grid and High-Throughput Computing (HTC) tools. It provides an array of functionality, such as
+HTCondor~\cite{htcondor} is one of the best known and  very important set of Grid and High-Throughput Computing (HTC) tools. It provides an array of functionality, such as
 as a batch system solution for a computing cluster, remote submission to Grid sites (via Condor-G) and sutomated transer (stage-in and stage-out) of data.
-In the past decade, HTCondor was augmented with a  Workload Management System layer, known as \textit{glideinWMS}~\cite{glideinwms}. The latter abstracts remote resources (Worker Nodes) residing on the Grid
-and effectively creates a local resource pool accessible by the user. This is highly beneficial to the users already having familiarity with HTCondor since it shortens the learning curve. On the other hand,
-deployment of this system is not always trivial and typically requires a central service to be operated with the desired agree of service level (the so-called ``glidein factory'').
+In the past decade, HTCondor was augmented with a  Workload Management System layer, known as \textit{glideinWMS}~\cite{glideinwms}. The latter abstracts remote resources (Worker Nodes)
+residing on the Grid and effectively creates a local resource pool accessible by the user. This is highly beneficial to the users already having familiarity with HTCondor since it shortens the learning curve.
+On the other hand, deployment of this system is not always trivial and typically requires a central service to be operated with the desired agree of service level (the so-called ``glidein factory'').
 
 \subsubsection{Workload Management for LHC Experiments}
 This is the list of systems utilized by the major LHC experiments - note that in each, we identify components representing layers or subdomains such as Workload Management etc:
@@ -114,7 +127,7 @@ This is the list of systems utilized by the major LHC experiments - note that in
     \hline
     \textbf{Primary User} & \textbf{Workload Mgt} & \textbf{Workflow Mgt} & \textbf{Data Mgt}\\ \hline \hline
     ATLAS & PanDA & ProdSys2 & Rucio\\ \hline
-    CMS  & GlideinWMS & Crab3 & PhEDEx\\ \hline
+    CMS  & GlideinWMS & Crab3~\cite{crab3_chep12} & PhEDEx\\ \hline
     LHCb  & DIRAC & DIRAC Production Mgt & DIRAC DMS\\ \hline
     Alice  & gLite WMS & AliEn & AliEn\\ 
 %    Small Exp & BOINC & CONDOR & mySQL/Postgres \\ \hline
@@ -124,9 +137,9 @@ This is the list of systems utilized by the major LHC experiments - note that in
 \end{center}
 
 \subsubsection{@HOME}
-There are outstanding examples of open source middleware system for volunteer and grid computing, such as BOINC (the original platform behind SETI@HOME), FOLDING@HOME and others.
-The central part of their design is the server-client architecture, where the clients can be running on a variety of platforms, such as PCs and game consoles made available by volunteering
-owners. Deployment on a cluster or a farm is also possible.
+There are outstanding examples of open source middleware system for volunteer and grid computing, such as BOINC (the original platform behind SETI@HOME),
+FOLDING@HOME and others. The central part of their design is the server-client architecture, where the clients can be running on a variety of platforms,
+such as PCs and game consoles made available by volunteering owners. Deployment on a cluster or a farm is also possible.
 
 While this approach to distributes computing won't work well for most experiments of the LHC scale (where moving significant amounts of data presents a perennial problem) it is clearly of
 interest to smaller scale projects with more modes I/O requirements. Distributed platforms in this class have been deployed, validated and used at scale.
@@ -138,22 +151,30 @@ to achive resource federation on the European Grids.
 
 \subsection{Common Salient Features}
 
-\subsubsection{Late Binding and the Role of the ``Pilot'', or ``Core Client''}
+\subsubsection{``Late Binding''}
 As we mentioned in ~\ref{from_grid_to_workload}, one of the primary functions of a WMS is to insulate the user from the heterogeneous and sometimes complex
 Grid environment and certain failure modes inherent in it (e.g. misconfigured cites, transient connectivity problems, ``flaky'' worker nodes etc).
 There is a proven solution to these issues, which involved the so called \textit{late binding} approach  to the deployment of computational payload.
+
 According to this concept, it is not the actual ``payload job'' that is initially dispatched to a  Worker Node residing in a
-remote data center, but an intelligent ``wrapper'', often termed a ``pilot job'', which first validates the resource, its configuration and some details of the environment
-(for example, outbound network connectivity may be tested). In this context, ``binding'' means matching process whereby the payload job (such as a production job or
-a user analysis job) which is submitted to the WMS and is awaiting execution is assigned to a live pilot which has already perfomed validation and configuration of
-the execution environment. The part of the overall resource pool that exhibit problems prior to job dispatch can be identified and flagged at both site and worker node
-level. This eliminates a very large fraction of potential failures that the user would otherwise have to deal with and account for.
+remote data center, but an intelligent ``wrapper'', sometimes termed a ``pilot job'', which first validates the resource, its configuration and
+some details of the environment (for example, outbound network connectivity may be tested). In this context, ``binding'' means matching process
+whereby the payload job (such as a production job or a user analysis job) which is submitted to the WMS and is awaiting execution is assigned to a
+live pilot which has already perfomed validation and configuration of the execution environment. The part of the overall resource pool that exhibit
+problems prior to job dispatch can be identified and flagged at both site and worker node level. This eliminates a very large fraction of potential failures
+that the user would otherwise have to deal with and account for.
 % Thus, for the user (or for an automated client performing job submission) x
 
+\subsubsection{The Role of the ``Pilot'', or ``Core Client''}
 An added benefit of this approach is also diagnostic and logging capability that maybe included
 in the pilot. This is extremely important for troubleshooting and monitoring, which we shall discuss later.
-\subsubsection{What works, what doesn't}
-\subsubsection{Examples}
+% \subsubsection{What works, what doesn't}
+% \subsubsection{Examples}
 \subsection{Opportunity for improvement}
+
+Outline (TBD -mxp-)
+
+Pilots, modularity, monitoring.
+
 
 
