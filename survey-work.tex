@@ -1,45 +1,47 @@
 \newpage
 \section{Workflow and Workload Management}
 \subsection{The Challenge of the Three Domains}
-In the past three decades, technological revolution in industry has enabled, and was paralleled by growing complexity in the field of scientific computing, where 
-more and more sophisicated methods of data processing and analysis were constantly introduced, oftentimes at a dramatically increased scale. Processing power and storage
-were becoming increasingly decentralized, leading to the need to manage these distributed resources in an optimal manner. On the other hand, increased sophistication of
-scientific workflows created the need to support these workflows in new distributed computing medium. The rate of progress and constant time pressures to deliver in a
-competetive field such as HEP led to design and implementation of solutions (complete to varying degrees) to satisfy the needs of specific  research projects.
-This had two consequences:
+In the past three decades, technological revolution in industry has enabled and was paralleled by the growing complexity in the field of scientific computing, where 
+more and more sophisicated methods of data processing and analysis were constantly introduced, oftentimes at a dramatically increased scale.
+Processing power and storage were becoming increasingly decentralized, leading to the need to manage these distributed resources in an optimal manner.
+On the other hand, increasing sophistication of scientific workflows created the need to support these workflows in the new distributed computing medium.
+Rapid evolution of the field such as HEP and time pressures to deliver in this competetive environment led to design and implementation of complete (to varying degrees) and successful solutions
+to satisfy the needs of specific  research projects. This had two consequences:
 
 \begin{itemize}
 \item Integrated and oftentimes project-specific design of workflow and workload management (for definitions see~\ref{workflow_workload}).
 \item Tight coupling of workflow and workload management to data handling components.
 \end{itemize}
 
-We observe that there are essentially three interconnected domains at play here: Workflow Management, Workload Management, and Data Management.
+We observe that there are essentially \textbf{three interconnected domains} involved: Workflow Management, Workload Management, and Data Management.
 In the following, we  bring together a few standard definitions and real life examples to help clarify
 relationships among these domains and in doing so form the basis for possible HEP-FCE recommendations.
 Our goal will be twofold:
 \begin{itemize}
 \item to identify the features and design considerations proven to be successful and which can serve as guidance going forward.
-\item to offer ideas about how to enhance \textit{reusability} of existing and future systems of this kind.
+\item to identify common design and implementation elements and to develop understanding of how to enhance \textit{reusability} of existing and future systems of this kind.
 \end{itemize}
 
 \subsection{Description}
 
 \subsubsection{Grid and Cloud Computing}
-According to a common definition, Grid Computing is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional characteristics added to this include decentralized
+According to a common definition, \textbf{Grid Computing} is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional characteristics added to this include decentralized
 administration and management and adherence to open standards. It was formulated as a concept in early 1990s, and motivated by the fact that computational tasks handled by large research projects reached
 the limits of scalability of most individual computing sites. On the other hand, due to variations in demand, some resources were underutilized at times. There is therefore a benefit in implementing a federation of
 computing resources, whereby large spikes in demand can be hadled by federated sites, while ``backfilling'' the available capacity with lower priority tasks submitted by a larger community of users.
-Technologies developed in the framework of Grid Computing (such as a few reliable and popular types of \textit{Grid Middleware} became a major enabling factor for many scientific collaborations including
+Technologies developed in the framework of Grid Computing (such as a few reliable and popular types of \textit{Grid Middleware}) became a major enabling factor for many scientific collaborations including
 nuclear and high-energy physics.
 
-Cloud Computing is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
+\textbf{Cloud Computing} is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
 In addition, Cloud Computing is characterized by widespread adoption of \textit{virtualization} - which is also used in the traditional Grid environment but at a smaller scale.
 At the time of writing, Cloud prominently figures in the context of commercial services available on the network, whereby computing resources can be ``rented'' for a fee in the form of a Virtual Machine allocated
 to the user, or a  number of nodes in the Cloud can be dynamically assigned to perform a neccesary computational task - as a transient, ephemeral resource. Such dynamic, on-demand characteristic
 of the Cloud led to it being described as an ``elastic'' resource (cf. ``Amazon Elastic Compute Cloud'' - the EC2).
 
 Regardless of the obvious differentiation of Cloud computing (due to its characteristics as \textit{a utility computing platform} and pervasive reliance on virtualization), many of its fundamental concepts and challenges
-are common with its predesessor, Grid Computing. In the following, we won't distinguish between the two unless  necessary.
+are common with its predesessor, Grid Computing. In the following, we won't distinguish between the two unless  necessary. In fact, the boundary is blurred even further by enhancing Grid middleware with tools
+based on virtualization and Cloud API which essentially extrend Grid resources with on-demand, elastic Cloud capability~\cite{star_acat11}.
+The two are often seen as ``complementary technologies that will coexist at different levels of resource abstraction'' \cite{atlas_chep13}.
 
 
 %
@@ -129,69 +131,81 @@ residing on the Grid and effectively creates a local resource pool accessible by
 On the other hand, deployment of this system is not always trivial and typically requires a central service to be operated with the desired agree of service level (the so-called ``glidein factory'').
 
 \subsubsection{Workload Management for LHC Experiments}
-This is the list of systems utilized by the major LHC experiments - note that in each, we identify components representing layers or subdomains such as Workload Management etc:
+This is the list of systems (with a few references to bibliography) utilized by the major LHC experiments - note that in each, we identify components representing layers or subdomains such as Workload Management etc:
 
 \begin{center}
   \begin{tabular}{ c | c | c | c }
     \hline
     \textbf{Primary User} & \textbf{Workload Mgt} & \textbf{Workflow Mgt} & \textbf{Data Mgt}\\ \hline \hline
-    ATLAS & PanDA & ProdSys2 & Rucio\\ \hline
-    CMS  & GlideinWMS & Crab3~\cite{crab3_chep12} & PhEDEx\\ \hline
-    LHCb  & DIRAC & DIRAC Production Mgt & DIRAC DMS\\ \hline
-    Alice  & gLite WMS & AliEn & AliEn\\ 
-%    Small Exp & BOINC & CONDOR & mySQL/Postgres \\ \hline
-% -mxp- the preamble to the table mentions deployment at scale. Also mySQL in itself does not fill the role of any component mentioned. To better describe this, we add more text below!
+    ATLAS & PanDA~\cite{panda_chep10} & ProdSys2 & Rucio~\cite{rucio_chep13}\\ \hline
+    CMS  & GlideinWMS~\cite{glideinwms} & Crab3~\cite{crab3_chep12} & PhEDEx~\cite{phedex_chep10}\\ \hline
+    LHCb  & DIRAC~\cite{dirac_acat09}  & DIRAC Production Mgt & DIRAC DMS\\ \hline
+    Alice  & gLite WMS~\cite{glite_chep09} & AliEn~\cite{alien_chep07} & AliEn~\cite{alien_chep07}\\ 
     \hline
   \end{tabular}
 \end{center}
 
 \subsubsection{@HOME}
 \label{at_home}
-There are outstanding examples of open source middleware system for volunteer and grid computing, such as BOINC (the original platform behind SETI@HOME),
+There are outstanding examples of open source middleware system for volunteer and grid computing, such as BOINC~\cite{boinc} (the original platform behind SETI@HOME),
 FOLDING@HOME and others. The central part of their design is the server-client architecture, where the clients can be running on a variety of platforms,
 such as PCs and game consoles made available to specific projects by volunteering owners. Deployment on a cluster or a farm is also possible.
 
-While this approach to distributes computing won't work well for most experiments of the LHC scale (where moving significant amounts of data presents a perennial problem)
+While this approach to distributed computing won't work well for most experiments of the LHC scale (where moving significant amounts of data presents a perennial problem)
 it is clearly of interest to smaller scale projects with more modes I/O requirements. Distributed platforms in this class have been deployed, validated and used at scale.
 
 \subsubsection{European Middleware Initiative}
 The European Middleware Initiative~\cite{emi} is a concortium of Grid services providers (such as ARC, dCache, gLite, and UNICORE).
-It plays an important role in the the Worldwide LHC Computing Grid (WLCG). The \textit{gLite} middleware toolkit was used by LHC experiments as one of methods
+It plays an important role in the the Worldwide LHC Computing Grid (WLCG). The \textit{gLite}~\cite{glite_chep09} middleware toolkit was used by LHC experiments as one of methods
 to achive resource federation on the European Grids. 
 
-\subsection{Common Salient Features}
+\subsection{Common Features}
 
-\subsubsection{``Late Binding''}
+\subsubsection{``Pilots''}
 As we mentioned in ~\ref{from_grid_to_workload}, one of the primary functions of a WMS is to insulate the user from the heterogeneous and sometimes complex
 Grid environment and certain failure modes inherent in it (e.g. misconfigured cites, transient connectivity problems, ``flaky'' worker nodes etc).
-There is a proven solution to these issues, which involved the so called \textit{late binding} approach  to the deployment of computational payload.
+There is a proven solution to these issues, which involved the so called \textbf{late binding} approach  to the deployment of computational payload.
 
 According to this concept, it is not the actual ``payload job'' that is initially dispatched to a  Worker Node residing in a
-remote data center, but an intelligent ``wrapper'', sometimes termed a ``pilot job'', which first validates the resource, its configuration and
+remote data center, but an intelligent ``wrapper'', sometimes termed a \textbf{``pilot job''}, which first validates the resource, its configuration and
 some details of the environment (for example, outbound network connectivity may be tested). In this context, ``binding'' means matching process
 whereby the payload job (such as a production job or a user analysis job) which is submitted to the WMS and is awaiting execution is assigned to a
-live pilot which has already perfomed validation and configuration of the execution environment. The part of the overall resource pool that exhibit
-problems prior to actual job dispatch can be identified and flagged at both site and worker node level. This eliminates a very large fraction of potential failures
-that the user would otherwise have to deal with and account for, since the resource pool exposed to the user (or for an automated client performing job submission)
-is effectively validated.
+live pilot which has already perfomed validation and configuration of the execution environment (for this reason, this technique is sometimes referred
+to as \textbf{``just-in-time workload management''}). Where and how exactly this matching process happens is a subject of a design decision - in PanDA, it's done by
+the central server, whereas in DIRAC this process takes place on the Worker Node by utilising the \textit{JobAgent}~\cite{dirac_chep10}.
+
+With proper design,\textbf{ late binding} brings about the following benefits:
+\begin{itemize}
+\item The part of the overall resource pool that exhibit problems prior to actual job dispatch is excluded from the matching process by design.
+This eliminates a very large fraction of potential failures that the user would otherwise have to deal with and account for, since the resource pool
+exposed to the user (or for an automated client performing job submission) is effectively validated.
+
+\item Some very useful diagnostic and logging capability may reside in the pilot. This is extremely important for troubleshooting and monitoring, which we shall discuss later.
+Problematic resources can be identified and flagged at both site and worker node level.
+
+\item In many cases, the overall latency of the system (in the sense of the time between the job submission by the user, and the start of actual execution) will be reduced --
+due to the pilot waiting to accept a payload job -- leading to a more optimal user experience (agan, cf. the ``just-in-time'' reference).
+\end{itemize}
 
 DIRAC was one of the first systems where this concept was proposed and successfully implemented~\cite{dirac_acat09}. This approach also forms the architectural core
 of the PanDA WMS~\cite{panda_chep12}.
 
 In distributed systems where the resources are highly opportunistic and/or ephemeral, such as volunteer computing we mentioned in~\ref{at_home}, this variant
 of the client-server model is the essential centerpiece of the design. In BOINC, the ``core client'' (similar to a ``pilot'') performs functions such as maintaining
-communications with the server, downloading the payload applications, logging and others.
+communications with the server, downloading the payload applications, logging and others~\cite{boinc_client}.
 
 In HTCondor and GlideinWMS (see~\ref{htcondor}) there is no concept of a sophisticated pilot job or core client, but there is a \textit{glidein} agent, which is deployed on Grid resources
 and which is a wrapper for the HTCondor daemon process (\textit{startd}). One the latter is initiated
 on the remote worker node it then the joins the HTCondor pool. At this point, matching of jobs submitted by the user to HTCondor \textit{slots} becomes possible \cite{glideinwms}.
 While this ``lean client'' provides less benefits than more complex ``pilots'', it also belongs to the class of late-binding workload management systems, although at a simpler level.
 
-\subsubsection{The Role of the ``Pilot'', or ``Core Client''}
-An added benefit of this approach is also diagnostic and logging capability that maybe included
-in the pilot. This is extremely important for troubleshooting and monitoring, which we shall discuss later.
+
+
 % \subsubsection{What works, what doesn't}
 % \subsubsection{Examples}
+
+\subsubsection{Monitoring}
+
 \subsection{Opportunity for improvement}
 
 Outline (TBD -mxp-)
