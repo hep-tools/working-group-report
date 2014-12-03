@@ -5,18 +5,18 @@ In the past three decades, technological revolution in industry has enabled and 
 more and more sophisicated methods of data processing and analysis were constantly introduced, oftentimes at a dramatically increased scale.
 Processing power and storage were becoming increasingly decentralized, leading to the need to manage these distributed resources in an optimal manner.
 On the other hand, increasing sophistication of scientific workflows created the need to support these workflows in the new distributed computing medium.
-Rapid evolution of the field such as HEP and time pressures to deliver in this competetive environment led to design and implementation of complete (to varying degrees) and successful solutions
-to satisfy the needs of specific  research projects. This had two consequences:
+Rapid evolution of the field such as HEP and time pressures to deliver in this competetive environment led to design and implementation of complete (to varying degrees)
+and successful solutions to satisfy the needs of specific  research projects. In general, this had two consequences:
 
 \begin{itemize}
-\item Integrated and oftentimes project-specific design of workflow and workload management (for definitions see~\ref{workflow_workload}).
+\item Integrated and oftentimes -- not always -- project-specific design of workflow and workload management (see~\ref{workflow_workload} for definitions).
 \item Tight coupling of workflow and workload management to data handling components.
 \end{itemize}
 
-We observe that there are essentially \textbf{three interconnected domains} involved: Workflow Management, Workload Management, and Data Management.
+We observe that there are essentially \textbf{three interconnected domains} involved in this subject: Workflow Management, Workload Management,
+and Data Management. In many systems (cf. Pegasus~\cite{pegasus}) some of these domains can be ``fused'' (e.g. Workflow+Workload).
 In the following, we  bring together a few standard definitions and real life examples to help clarify
-relationships among these domains and in doing so form the basis for possible HEP-FCE recommendations.
-Our goal will be twofold:
+relationships among these domains and in doing so form the basis for possible HEP-FCE recommendations. Our goal will be twofold:
 \begin{itemize}
 \item to identify the features and design considerations proven to be successful and which can serve as guidance going forward.
 \item to identify common design and implementation elements and to develop understanding of how to enhance \textit{reusability} of existing and future systems of this kind.
@@ -40,7 +40,7 @@ of the Cloud led to it being described as an ``elastic'' resource (cf. ``Amazon 
 
 Regardless of the obvious differentiation of Cloud computing (due to its characteristics as \textit{a utility computing platform} and pervasive reliance on virtualization), many of its fundamental concepts and challenges
 are common with its predesessor, Grid Computing. In the following, we won't distinguish between the two unless  necessary. In fact, the boundary is blurred even further by enhancing Grid middleware with tools
-based on virtualization and Cloud API which essentially extrend Grid resources with on-demand, elastic Cloud capability~\cite{star_acat11}.
+based on virtualization and Cloud API which essentially extend Grid resources with on-demand, elastic Cloud capability~\cite{star_acat11}.
 The two are often seen as ``complementary technologies that will coexist at different levels of resource abstraction'' \cite{atlas_chep13}.
 
 
@@ -54,28 +54,37 @@ Utilization of the Grid sites via appropriate middelware does establish a degree
 track job status, handle failures and error conditions, aggregate bookkeeping information and perform many other tasks. In absense of automation, this does not scale very well and limits the efficacy
 of the overall system.
 
-It was therefore inevitable that soon after the advent of reliable Grid middleware multiple physics experiments and other projects started developing and deploying \textit{Workload Management Systems} (WMS).
+It was therefore inevitable that soon after the advent of reliable Grid middleware multiple physics experiments and other projects started developing and deploying \textbf{Workload Management Systems (WMS)}.
  According to one definition,
 \textit{``the purpose of the Workload Manager Service (WMS) is to accept requests for job submission and management coming from its clients and take the appropriate actions to satisfy them''}~\cite{egee_user_guide}.
 Thus, one of the principal functions of a Workload Management System can be described as ``brokerage'', in the sense that it matches resource requests to the actual distributed resources
 on multiple sites. This matching process can include a variety of factors such as access rules for users and groups, priorities set in the system, or even data locality - which is in fact an important and interesting part of this process~\cite{panda_chep10}.
 
-In practice, despite differing approaches and features, most existing WMS appear to share certain primary objectives, such as:
+In practice, despite differing approaches and features, most existing WMS appear to share certain primary goals, and provide solutions to achieve these (to a varying degree). Examples:
+
 \begin{itemize}
-\item{Insulation of the user from the complex and potentially heterogeneous environment of the Grid, and shielding the user from common failure modes of the Grid infrastructure}
-\item{Rationalization, bookkeeping and automation of software provisioning - for example, distribution of binaries and configuration files to multiple sites}
-\item{Facilitation of basic monitoring functions, e.g. providing efficient ways to determine the status of jobs being submitted and executed}
-\item{Prioritization and load balancing across the computing sites}
-\item{Implementation of interfaces to external data management systems, or actual data movement and monitoring functionality built into certain components of the WMS}
+
+\item Insulation of the user from the complex and potentially heterogeneous environment of the Grid, and shielding the user from common failure modes of the Grid infrastructure.
+
+\item Rationalization, bookkeeping and automation of software provisioning - for example, distribution of binaries and configuration files to multiple sites.
+
+\item Facilitation of basic monitoring functions, e.g. providing efficient ways to determine the status of jobs being submitted and executed.
+
+\item Prioritization and load balancing across the computing sites.
+
+\item Implementation of interfaces to external data management systems, or actual data movement and monitoring functionality built into certain components of the WMS.
+
 \end{itemize}
 
+We shall present examples of existing WMS in one of the following sections.
 
 \subsubsection{Workflow vs Workload}
 \label{workflow_workload}
-A scientific workflow system is a specialized case of a \textit{workflow management system}. In it, computations and/or transformations and exchange of data are performed according to a defined set of rules
-in order to achieve an overall goal ~\cite{grid_workflow_taxonomy},~\cite{grid_workflow_fit}. In the context of this document, this process involves execution on distributed resources. Since the process is
+A \textit{scientific workflow} system is a specialized case of a \textbf{workflow management system}, in which computations and/or transformations and exchange of data are performed according to a defined set of rules
+in order to achieve an overall goal ~\cite{grid_workflow_taxonomy,grid_workflow_fit,pegasus}. In the context of this document, this process involves execution on distributed resources. Since the process is
 typically largely (or completely) automated, it is often described as ``orchestration'' of execution of multiple interdependent tasks. Workflow systems are sometimes described using the concepts of a \textit{control flow},
-which refers to the logic of execution, and \textit{data flow}, which concerns itself with the logic and rules of transmitting data.
+which refers to the logic of execution, and \textit{data flow}, which concerns itself with the logic and rules of transmitting data. There are various patterns identified in both control and data flow~\cite{workflow_patterns}.
+Complete discussion of this subject is beyond the scope of this document.
 
 A simple and rather typical example of a workflow is often found in Monte Carlo studies performed in High Energy Physics and related fields, where there is a chain of processing steps similar to the pattern below:
 \\
@@ -84,11 +93,15 @@ A simple and rather typical example of a workflow is often found in Monte Carlo 
 \\
 \\
 Patterns like this one may also include optional additional steps (implied or made explicit in the logic of the workflow) such as merging of units of data (e.g.files) for more efficient storage and transmission.
+Even the most trivial cases of processing, with one step only, may involve multiple files in input and/or output streams, which creates the need to manage this as a workflow. Oftentimes, however,
+workflows that need to be created by researchers are quite complex. At extreme scale, understanding the behavior of scientific workflows becomes a challenge and an object of studies in its own right~\cite{panorama}.
 
+Many (but not all) workflows important in the context of this document can be modeled as
+\textbf{Directed Acyclic Graphs} (DAG)~\cite{pegasus,deft1,grid_workflow_taxonomy}.
 Conceptually, this level of abstraction of the workflow does not  involve issues of resource provisioning and utilization, monitoring, optimization, recovery from errors, as well as plethora of other items essential
 for efficient execution of workflows in the distributed environment. These tasks are handled in the context of \textit{Workload Management} which we very briefly described in~\ref{from_grid_to_workload}.
 
-In summary, we make a distinction between the \textit{Workflow Management} domain which concerns itself with controlling the scientific workflow, and \textit{Workload Management} which
+In summary, \textbf{we make a distinction between the Workflow Management} domain which concerns itself with controlling the scientific workflow, \textbf{and Workload Management} which
 is a domain of resource provisioning, allocation, execution control and monitoring of execution etc. The former is a level of abstraction above Workload Management, whereas the latter is in
 turn a layer of abstractions above the distributed execution environment such as the Grid or Cloud.
 
@@ -96,8 +109,8 @@ turn a layer of abstractions above the distributed execution environment such as
 % Historically, in many cases the Workflow Management layer was not designed together with the underlying Workload Management system, and was (\textbf{FIXME})
 
 \subsubsection{HTC vs HPC}
-The term ``High-Performance Computing'' (HPC) is used in reference to systems of exceptionally high processing capacity (such as individual supercomputers, which are typically highly parallel systems),
-in the sense that they handle substational workload and deliver results over a relatively short period of time. By contrast, High-Throughput Computing (HTC) involves harnessing to a wider pool
+The term \textbf{High-Performance Computing} (HPC) is used in reference to systems of exceptionally high processing capacity (such as individual supercomputers, which are typically highly parallel systems),
+in the sense that they handle substational workload and deliver results over a relatively short period of time. By contrast,\textbf{ High-Throughput Computing} (HTC) involves harnessing to a wider pool
 of more conventional resources in order to deliver a considerable amount of computational power, although potentially over loger periods of time. 
 \begin{quote}
 \textit{``HPC brings enormous amounts of computing power to bear over relatively short periods of time. HTC employs large amounts of computing power for very lengthy periods.''}~\cite{htc}.
@@ -108,12 +121,14 @@ opportunistic basis (e.g. the so-capped ``spare cycles'', utilizing temporary dr
 throughput). Majority of the computational tasks of the LHC experiments were completed using standard off-the-shelf equipment rather than supercomputers. It is important to note, however,
 that modern Workload Management Systems can be adapted to deliver payload to HPC systems such as Leadrship Class Facilities in the US, and such efforts are currently under way~\cite{panda_chep13}.
 
-\subsubsection{The Role and Engineering of Data Management}
-In most cases of interest to us, data management plays crucial role in reaching the scientific goals. It is covered separately (see Section~\ref{data}).
+\subsubsection{The Role of Data Management}
+In most cases of interest to us, data management plays a crucial role in reaching the scientific goals of an experiment. It is covered in detail separately (see Section~\ref{data}).
 As noted above, it represents the \textit{data flow} component of the overall workflow management and therefore needs to be addressed here as well.
 
+In a nutshell, we can distinguish between two different approaches to handling data -- on one hand, managed replication and transfers to sites, and on the other hand, network-centric
+methods of access to data repositories such as \textbf{xrootd}~\cite{xrootd}.
 
-
+An important design characteristic of a Workflow Management System is the degree to which it is coupled to the Data Management components.
 
 \subsection{Examples}
 \label{wms_examples}
@@ -127,8 +142,9 @@ to those systems which are more immediately relevant to HEP and related fields t
 HTCondor~\cite{htcondor} is one of the best known and  important set of Grid and High-Throughput Computing (HTC) tools. It provides an array of functionality, such as
 as a batch system solution for a computing cluster, remote submission to Grid sites (via Condor-G) and sutomated transer (stage-in and stage-out) of data.
 In the past decade, HTCondor was augmented with a  Workload Management System layer, known as \textit{glideinWMS}~\cite{glideinwms}. The latter abstracts remote resources (Worker Nodes)
-residing on the Grid and effectively creates a local resource pool accessible by the user. This is highly beneficial to the users already having familiarity with HTCondor since it shortens the learning curve.
-On the other hand, deployment of this system is not always trivial and typically requires a central service to be operated with the desired agree of service level (the so-called ``glidein factory'').
+residing on the Grid and effectively creates a local (in terms of the interface) resource pool accessible by the user.
+This is highly beneficial to the users already having familiarity with HTCondor since it shortens the learning curve.
+On the other hand, deployment of this system is not always trivial and typically requires a central service to be operated with the desired degree of service level (the so-called ``glidein factory'').
 
 \subsubsection{Workload Management for LHC Experiments}
 This is the list of systems (with a few references to bibliography) utilized by the major LHC experiments - note that in each, we identify components representing layers or subdomains such as Workload Management etc:
@@ -138,7 +154,7 @@ This is the list of systems (with a few references to bibliography) utilized by 
     \hline
     \textbf{Primary User} & \textbf{Workload Mgt} & \textbf{Workflow Mgt} & \textbf{Data Mgt}\\ \hline \hline
     ATLAS & PanDA~\cite{panda_chep10} & ProdSys2 & Rucio~\cite{rucio_chep13}\\ \hline
-    CMS  & GlideinWMS~\cite{glideinwms} & Crab3~\cite{crab3_chep12} & PhEDEx~\cite{phedex_chep10}\\ \hline
+    CMS  & GlideinWMS~\cite{glideinwms} & Crab3~\cite{crab3_chep12} & PhEDEx~\cite{phedex_chep09,phedex_chep10}\\ \hline
     LHCb  & DIRAC~\cite{dirac_acat09}  & DIRAC Production Mgt & DIRAC DMS\\ \hline
     Alice  & gLite WMS~\cite{glite_chep09} & AliEn~\cite{alien_chep07} & AliEn~\cite{alien_chep07}\\ 
     \hline
