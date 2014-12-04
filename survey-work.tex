@@ -128,7 +128,8 @@ As noted above, it represents the \textit{data flow} component of the overall wo
 In a nutshell, we can distinguish between two different approaches to handling data -- on one hand, managed replication and transfers to sites, and on the other hand, network-centric
 methods of access to data repositories such as \textbf{xrootd}~\cite{xrootd}.
 
-An important design characteristic of a Workflow Management System is the degree to which it is coupled to the Data Management components.
+An important design characteristic which varies widely among Workflow Management Systems is the degree of coupling to the Data Management components. That has significant impact
+on reusability of these systems as a more tight coupling usually entails necessity of a larger and more complex stack of software than would otherwise be optimal and has other consequences.
 
 \subsection{Examples}
 \label{wms_examples}
@@ -145,6 +146,10 @@ In the past decade, HTCondor was augmented with a  Workload Management System la
 residing on the Grid and effectively creates a local (in terms of the interface) resource pool accessible by the user.
 This is highly beneficial to the users already having familiarity with HTCondor since it shortens the learning curve.
 On the other hand, deployment of this system is not always trivial and typically requires a central service to be operated with the desired degree of service level (the so-called ``glidein factory'').
+
+HTCondor has other notable features. One of the most basic parts of its functionality is the ability to trasnfer data consumed and/or produced by the payload job according to certain rules set by the user. This works well
+when used in local cluster situations and is somewhat less reliable when utilized at scale in the context of Grid environment. One of HTCondor components, \textit{DAGMan}, is a meta-scheduler
+which uses DAGs (see~\ref{workflow_workload}) to manage workflows~\cite{dagman}.
 
 \subsubsection{Workload Management for LHC Experiments}
 This is the list of systems (with a few references to bibliography) utilized by the major LHC experiments - note that in each, we identify components representing layers or subdomains such as Workload Management etc:
@@ -216,11 +221,14 @@ on the remote worker node it then the joins the HTCondor pool. At this point, ma
 While this ``lean client'' provides less benefits than more complex ``pilots'', it also belongs to the class of late-binding workload management systems, although at a simpler level.
 
 
-
-% \subsubsection{What works, what doesn't}
-% \subsubsection{Examples}
-
 \subsubsection{Monitoring}
+We begin with an observation that in a few examples of WMS there is a concept of a \textbf{task} which is a collection or grouping of jobs either created from the same template
+and differening only by some input parameters, or grouped together based on their interdependence and purpose (this is not a universal definition and it does clash with ``tasks'' used
+in the batch system context but we'll stick with with in this chapter since it's widely used). The task in this case is a rudimentary case of workflow management tool.
+
+The ability of the user or operator of WMS to get immediate and efficient access to information describing the status of jobs and tasks is an essential feature of a good Workload Management System~\cite{pandamon_chep10}.
+
+
 
 \subsection{Opportunity for improvement}
 
