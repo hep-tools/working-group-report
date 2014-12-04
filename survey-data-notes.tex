@@ -1,0 +1,39 @@
+\section{Data Management Editing notes}
+
+\subsubsection{A few notes by Maxim}
+
+Dear All,
+
+I created this file because I wanted to write down a few thoughts but didn't want to obfuscate
+the latex source for this section or create a conflict at check-in.
+
+Maxim -mxp-
+
+\begin{itemize}
+
+\item Do we need to define file catalog as something complementary to ``true'' metadata? In the sense that it's a translation to path/localization but doe not necessarily carry other info. [awb] But it may contain a lot of metadata. For example, the Fermi Space Telescope Data Catalog contains a large set of meta-data which enables users to do queries. In that sense, the Data Catalog is (just) a meta-database i.e. it's a convenient way to organize meta-data.
+
+\item Evolution of Metadata - do we need to mention event indexing?
+
+\item File catalog - right now there is always a centralized DB which may become a bottleneck in some instances.
+Is it possible or desirable to have a truly distributed DB for better availability and speed? Consistency is the main problem
+
+\item Coordinated push to sites vs on-demand access via network (cf. xrootd) - to which extent can the latter dominate technology choices?
+
+\item Do we need to take a look at Globus Online and its possible limitations with regard to policy/pricing/scalability?
+
+\item I already covered the mutual dependency of three domains in my WMS section:
+\begin{itemize}
+\item Workflow mgt
+\item Workload mgt
+\item Data mgt
+ \end{itemize}
+ There needs to be a tie-in in this section as well. Data management is congruent with workflow (data component) but is ultimately
+ translated to workload and what the latter does with the data.
+ 
+ \item Most systems deployed at scale in HEP are more or less experiment specific.
+ 
+ \item Network performance monitoring and its role in data distribution.
+ 
+ \end{itemize}
+
