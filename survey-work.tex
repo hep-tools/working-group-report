@@ -157,7 +157,7 @@ This is the list of systems (with a few references to bibliography) utilized by 
 \begin{center}
   \begin{tabular}{ c | c | c | c }
     \hline
-    \textbf{Primary User} & \textbf{Workload Mgt} & \textbf{Workflow Mgt} & \textbf{Data Mgt}\\ \hline \hline
+    \textbf{Project} & \textbf{Workload Mgt} & \textbf{Workflow Mgt} & \textbf{Data Mgt}\\ \hline \hline
     ATLAS & PanDA~\cite{panda_chep10} & ProdSys2 & Rucio~\cite{rucio_chep13}\\ \hline
     CMS  & GlideinWMS~\cite{glideinwms} & Crab3~\cite{crab3_chep12} & PhEDEx~\cite{phedex_chep09,phedex_chep10}\\ \hline
     LHCb  & DIRAC~\cite{dirac_acat09}  & DIRAC Production Mgt & DIRAC DMS\\ \hline
@@ -201,7 +201,7 @@ With proper design,\textbf{ late binding} brings about the following benefits:
 This eliminates a very large fraction of potential failures that the user would otherwise have to deal with and account for, since the resource pool
 exposed to the user (or for an automated client performing job submission) is effectively validated.
 
-\item Some very useful diagnostic and logging capability may reside in the pilot. This is extremely important for troubleshooting and monitoring, which we shall discuss later.
+\item Some very useful diagnostic and logging capability may reside in the pilot. This is very important for troubleshooting and monitoring, which we shall discuss later.
 Problematic resources can be identified and flagged at both site and worker node level.
 
 \item In many cases, the overall latency of the system (in the sense of the time between the job submission by the user, and the start of actual execution) will be reduced --
@@ -222,11 +222,14 @@ While this ``lean client'' provides less benefits than more complex ``pilots'', 
 
 
 \subsubsection{Monitoring}
-We begin with an observation that in a few examples of WMS there is a concept of a \textbf{task} which is a collection or grouping of jobs either created from the same template
-and differening only by some input parameters, or grouped together based on their interdependence and purpose (this is not a universal definition and it does clash with ``tasks'' used
-in the batch system context but we'll stick with with in this chapter since it's widely used). The task in this case is a rudimentary case of workflow management tool.
+In this section, we will need to refer to the concept of a \textbf{task}, and since this word is overloaded, we have to introduce a proper definition.
+A few examples of WMS incorporate a concept of the task in the sense of a collection or grouping of jobs either created from the same template (and based on same executable)
+and differentiated only by some input parameters or units of input data, or grouped together based on their interdependence and purpose (this is not a universal definition and it
+does clash with ``tasks'' used in the batch system context but we'll stick with with in this chapter since it's widely used). The task in this case is a rudimentary case of workflow management tool.
 
-The ability of the user or operator of WMS to get immediate and efficient access to information describing the status of jobs and tasks is an essential feature of a good Workload Management System~\cite{pandamon_chep10}.
+All three domains involved in the present discussion (Workflow, Workload, Data) benefit from monitoring capability.
+
+The ability of the user or operator of a WMS to get immediate and efficient access to information describing the status of jobs and tasks is an essential feature of a good Workload Management System~\cite{pandamon_chep10}.
 
 
 
