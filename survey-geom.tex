@@ -1,7 +1,143 @@
-\section{Geometry}
-\subsubsection{Editing notes}
+\section{Geometry Information Management}
 
 \textit{(authors: Brett, ??)}
+
+\subsection{Description}
+
+Almost every HEP experiment requires some system for geometry
+information management.  Such systems are responsible for providing a
+description of the experiment's detectors (and sometimes their
+particle beamlines), assigning versions to distinct descriptions,
+tracking the use of these versions through processing and converting
+between different representations of the description.  
+
+The geometry description is consumed mainly for the following
+purposes:
+
+\begin{itemize}
+\item Simulate the passage of particles through the detector or
+  beamline.  
+\item Reconstruct the kinematic parameters and particle identity
+  likely responsible for a given detector response (real or
+  simulated).
+\item Visualize the volumes to validate the description and in the
+  context of viewing representations of detector response and
+  simulation truth or reconstructed quantities.
+\end{itemize}
+
+The prevailing model for geometry information in HEP is Constructive
+Solid Geometry (CSG).  This model describes the arrangement of matter
+by the placement of volumes into other volumes up to a top level
+``world'' volume.  It is typical to describe this as a daughter volume
+being placed into a mother volume.  The placement is performed by
+providing a transformation (translation plus rotation) between
+conventional coordinate systems centered on each.  A volume may have
+an associated solid shape of some given dimensions and consist of some
+material with bulk and surface properties.  With no such association
+the volume is considered an ``assembly'', merely aggregating other
+volumes.
+
+While this model is predominant, there is no accepted standard for
+representing a description in this model.  Instead, there are a
+variety of applications, libraries and tools, each of which makes use
+of their own in-memory, transient object or persistent file formats.  
+
+For example, Geant4 is a dominant particle-tracking Monte Carlo
+simulation likely used by a majority of HEP experiments.  It defines a
+set of C++ classes for the description of a geometry and it can import
+a representation of a description in the form of an XML file following
+the GDML schema.  It has various built-in visualization methods and
+can export to some number of other formats for consumption by others.
+
+Another common example are the \texttt{TGeo} classes provided by ROOT.
+These can be constructed directly or via the import of a GDML file
+(with some technical limitations).  Like Geant4 objects, ROOT provides
+means to track rays through the geometry as well as a few
+visualization techniques.
+
+There are stand-alone visualization tools such as HepRApp (which take
+HEPREP files that Geant4 can produce), GraXML (which can read GDML
+with some limitations or AGDD XML).  There are also CAD programs that
+can read OpenInventor files which can be produced.  In experiments
+that make use of Gaudi and DetDesc, the PANORAMIX OpenInventor based
+visualization library can be used.
+
+\subsection{Unified System}
+
+This variety has lead to a ``tower of babel'' situation.  In practice,
+experiments limit themselves to some subset of tools.  Developing
+their own solutions is often seen as the least effort compared to
+adopting others.  This of course leads to an ever larger tower.  Some
+common ground can be had by converting between different
+representations.  This is the approach taken by the Virtual Geometry
+Model (VGM) and the General Geometry Description (GGD).
+
+VGM provides a suite of libraries that allow for applications to be
+developed which populate one system of geometry objects (eg, Geant4 or
+ROOT).  These can then be converted to a general representation and
+finally converted to some end-form.  Care must be taken to keep
+implicit units correct and in an explicit system of units (the one
+followed by GEANT3).  There is no facilities provided for the actual
+authoring of the geometry description and that is left to the
+application developer.
+
+Addressing this failing is a main goal of GGD.  This system provides a
+layered design.  At the top is a simple text-based configuration
+system which is what is expected to be exposed to the end user.  This
+drives a layer of Python modules which interpret the configuration
+into a set of general in-memory, transient objects.  These objects are
+follow a strict CSG schema compatible in concept with Geant4's.  This
+schema includes specifying an objects allowed quantities and provides
+a system of units not tied to any particular ``client'' system.  A
+final layer exports these objects into some other representation,
+typically by writing a file.  Access to both the set of general
+geometry object and any export-specific representation is available in
+order to implement validation checks.  Thus, in GGD the source of
+geometry information for any ``world'' is the Python module and the
+end-user configuration files.
+
+\subsection{Problems with CAD}
+
+It is not unusual for an experiment at some point to consider
+integrating CAD to their geometry information management system.  CAD
+provides far better authoring and visualization methods that most HEP
+geometry software.  It is typical that a CAD model for an experiment's
+detectors or beamline must be produced for engineering purposes and it
+is natural to want to leverage that information.  However, there are
+several major drawbacks to this approach.
+
+CAD models sufficient for engineering purposes typically contain
+excessive levels of information.  Applied to a tracking simulation
+this leads to an explosion in the number of objects that must be
+queried on each step of the particle's trajectory.  It leads to large
+memory and CPU requirements with minimal or incremental improvements.
+
+Use of CAD usually requires expensive, proprietary software with
+significant effort required to use.  This limits which individuals can
+effectively work on the geometry and tends to lock in the success of
+the experiment to on vendors offering.  It is typical for the geometry
+description to require modification over a significant portion of the
+experiment's lifetime and these limitations are not acceptable.
+
+Finally, the use of a CSG model is uncommon in CAD.  Instead a
+surface-oriented description is used.  For its use in Geant4, a CSG
+model is required.  Converting from one to the other is very
+challenging particularly if the CAD user has not attempted to follow
+the CSG model in effect, if not in deed.
+
+There is, however, potential in using CAD with HEP geometries.  This
+is being explored in GGD in the production of OpenInventor files which
+can be loaded into FreeCAD, a Free Software CAD application.  While
+FreeCAD can currently view an OpenInventor CSG representation it can
+not be used to produce them.  FreeCAD is extensible to new
+representation types.  With effort, it may be extended to produce and
+operate on a suite of novel CSG objects which follow a schema
+similarly to that required by Geant4.
+
+
+\subsection{Opportunity for improvement}
+
+\subsubsection{Editing notes}
 
 \textit{This is not a real section and will be deleted}
 
@@ -54,9 +190,10 @@ directory).  Components of this problem space:
   \item Optimizing tracking algorithms
   \item Feedback from tracking to find optimization in the geometry organization 
   \end{itemize}
+\item[Others] 
+  \begin{itemize}
+  \item LCDD
+  \item 
+  \end{itemize}
 \end{description}
 
-\subsection{Description}
-\subsection{What works, what doesn't}
-\subsection{Examples}
-\subsection{Opportunity for improvement}
