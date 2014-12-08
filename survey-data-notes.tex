@@ -13,12 +13,20 @@ Maxim -mxp-
 
 \item Do we need to define file catalog as something complementary to ``true'' metadata? In the sense that it's a translation to path/localization but doe not necessarily carry other info. [awb] But it may contain a lot of metadata. For example, the Fermi Space Telescope Data Catalog contains a large set of meta-data which enables users to do queries. In that sense, the Data Catalog is (just) a meta-database i.e. it's a convenient way to organize meta-data.
 
+[mhk] I agree with Anders that one of the things that we should discuss is the usefulness of File Catalogs that allow the selection of a subset of files based on metadata. From my experience, I have the impression that this feature for a File Catalog is more important that the translation of filename -> location. I haven’t used anything other that SAM from Fermilab over the years, but feel that this is it’s best feature. Querying the meta-database to get only the files that I want to process. And really, it should be separated out from location determination. (I think that it actually does have the capability to use several different backends for file delivery, but the delivery of a URI and filename is also part of the default information returned.)
+
 \item Evolution of Metadata - do we need to mention event indexing?
+
+[mhk] Not sure what you mean by event indexing? Is this a listing of the event or frame numbers available within a file? I know that indexing the range of run and event numbers in files has been very useful for me in the past, but the listing of all of the events hasn’t been required. And with xrootd and sparse access protocols coming, I’m not sure it would be necessary. But I’m happy to hear about other use cases where it was useful to have the events indexed in the metadata.
 
 \item File catalog - right now there is always a centralized DB which may become a bottleneck in some instances.
 Is it possible or desirable to have a truly distributed DB for better availability and speed? Consistency is the main problem
 
+[mhk] I know of at least one instance where there was a one-time replication of a file catalog to a remote site (and matching relocation of a large dataset) that became necessary due to bandwidth limits. The use case was to have a remote site reprocessing archived data with new versions of the reconstruction and then once completed, everything transferred back to what you can call the Tier-0 location (this was CDF and not LHC). Anyway, this is a very different situation that having a truly distributed DB which you asked the question about. I think that this model worked well, and I’m not sure how much difficulty there has been with CMS/ATLAS/LHCb/etc File Catalogs becoming the bottleneck for process data. Also, I thought that the possibility of using squids in front of the database would limit this from being a bottleneck?
+
 \item Coordinated push to sites vs on-demand access via network (cf. xrootd) - to which extent can the latter dominate technology choices?
+
+[mhk] I had the impression that there wasn’t much push to go beyond having Tier-1 data distribution. That network speed really had made delivering data to the jobs the most reasonable approach when considering personpower vs computing efficiency.
 
 \item Do we need to take a look at Globus Online and its possible limitations with regard to policy/pricing/scalability?
 
