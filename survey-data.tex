@@ -10,6 +10,45 @@ cycle of the data.
 
 
 
+\subsubsection{Metadata}
+To be able to manage the data it has to be described. Metadata is therefore a necessary part of data management. The 
+list of possible metadata is long, but a few key ones are 'Data provenance' and 'Data file location' since they map onto 
+applications like file managers and data catalogs and their possible ties to workflow management.
+
+\subsubsection{Data catalogs And Logical Data Sets}
+A data catalog combines a file catalog i.e. information about where the data files are stored, with additional metadata.
+This enables the construction of logical (virtual) data sets and makes it possible for users to make a selection of a 
+subset of the available data.
+
+\begin{description}
+\item[Fermi Data Catalog] One way to do this is to register all the metadata when you register the file. A slightly
+different approach was chosen by the Fermi Space Telescope Data Catalog. In addition to the initial metadata, it had a
+data crawler that would go through all registered files and extract metadata like number of events etc. The advantage is
+that the set of metadata then can be easily expanded after the fact - you just let loose the crawler with the new list
+of quantities to extract. It should be noted that the Fermi Data Catalog is independent of any workflow 
+management system (so any processing metadata will have to be explicitly added), but can be chained together with 
+the Fermi workflow engine ('pipeline') to easily produce user defined skims i.e. the user selects cuts and what 
+logical data sets to use and the relevant file locations are automatically forwarded to the processing pipeline that 
+produce the requested output files and make them avaialble for download by the user.
+
+\item[SAM] [more detailed description - SAM is more tied into workflow management than the Fermi Data catalog]
+
+\item[ATLAS] ....
+
+\item[CMS] ....
+
+\end{description}
+
+
+\subsubsection{File Catalogs and Federated Storage/XRootD}
+One interesting evolution is the use of XRootD and Federated Storage. A traditional file catalog will contain the 
+location of the data files. With XRootD the notion of location is outsourced to the XRootD director. 
+[awb: more details ....]
+
+
+
+
+
 \subsubsection{Editing notes}
 
 \fixme{This is not a real section and will be deleted}
