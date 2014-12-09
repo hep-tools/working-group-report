@@ -3,9 +3,15 @@
 \fixme{(authors: Anders, Brett, all)}
 
 This section presents a general overview of the current landscape of
-HEP libraries and tools.  Each of the following sections provides a
-survey focused on one select \textit{area of opportunity} for
-improving on this landscape.
+HEP libraries and tools.  
+%
+First, general patterns that run counter to cross-experiment sharing
+are listed.
+%
+% what about general beneficial patterns?
+%
+Finally a prioritized list of activities and where involvement by the
+HEP-FCE could be beneficial.
 
 \subsection{Forces Counter to Cross-experiment Software}
 
@@ -13,8 +19,8 @@ Sharing software libraries and tools between experiment more
 frequently than is currently done is expected, by the group, to
 increase overall productivity.  Independent of cross-experiment
 sharing, designing and implementing software in a more general manner
-is expected to benefit the lone experiment.  The working group
-identified some reasons why such general use experiment is not as
+is expected to be beneficial.  The working group
+identified some reasons why such general use software is not as
 predominant as it could be.
 
 \subsubsection{Up-front Effort}
@@ -36,8 +42,8 @@ management, data analyst and software developer.  As data rates
 increased, algorithms become more complex, networking, storage and
 computation technology advanced, the requirements for a Physicist to
 be software developer have become more challenging to meet while
-maintaining needed capabilities in all the other multitude of
-disciplines.  As a consequence some experiments, typically the smaller
+maintaining needed capabilities in the other
+disciplines.  As a consequence, some experiments, especially the smaller
 ones, lack the software expertise and knowledge of what is available
 needed to develop general software solutions or adopt existing ones.
 This leads to the same result of solving ``just'' the immediate
@@ -48,12 +54,12 @@ problem and associated consequences described above.
 A specific example of lack of expertise manifests in developers who
 ignore basic, tried and true software design patterns.  This can be
 seen in software that lacks any notion of interfaces or layering
-between different functionality.  Often software is developed by
+between different functionality.  Often new features are developed by
 finding a spot that ``looks good'' and pasting in some more code to
-achieve an immediate goal with no understanding of the consequences.
-Like the up-front costs problem, this is often rewarded as the
-individual produces desired results quickly and the problem that was
-caused is not made apparent until later.
+achieve an immediate goal with no understanding of the long-term consequences.
+Like the ``up-front'' costs problem, this strategy is often rewarded as the
+individual produces desired results quickly and the problem that this change
+causes is not made apparent until later.
 
 \subsubsection{Limited Support}
 
@@ -61,19 +67,19 @@ Some experiments have a high degree of software expertise.  These
 efforts may even naturally produce software that can have some
 cross-experiment benefit.  However, they lack the necessary ability to
 support their developers to make the final push needed to offer that
-software more widely.  In many cases they also do not have the ability
-to assure continued support of the software for the use of others.
-Some are able to manage this support on a limited or best effort basis
-and while this helps others adopt the software it still leaves room
-for improvements.
+software more broadly.  In many cases they also do not have the ability
+to assure continued support of the software for its use by others.
+In the best cases, some are able to provide support on a limited or best effort basis.  
+While this helps others adopt the software it still leaves room
+for improvements.  A modest amount of expert time can save a large amount of time of many novices.
 
 \subsubsection{Transitory Members}
 
 Many software developers in an experiment are transitory.  After
 graduate students and post-docs make a contribution to the software
 development and the experiment in general they typically move on to
-other experiments in the advancement of their career.  In part this
-can help disseminate software from old to new experiments but it also
+other experiments in the advancement of their careers.  In part, this migration
+can help disseminate software between experiments but it also
 posses a problem of retaining a nucleus of long-term knowledge and
 support around the software they developed.
 
@@ -81,9 +87,12 @@ support around the software they developed.
 
 In some cases, beneficial software sharing is hampered by experiments,
 groups, labs, etc which suffer from the infamous ``not invented here''
-syndrome.  A parochial view leads preferring solutions to come from
+syndrome.  A parochial view leads to preferring solutions to come from
 within the unit rather than venturing out and surveying a broader
-landscape.
+landscape where better, more general solutions are likely to be found.
+Parochialism compounds itself by making it ever more difficult for
+motivated people to improve the entranced systems by bringing in more 
+general solutions.
 
 \subsubsection{Discounting the Problem}
 
@@ -94,9 +103,8 @@ solutions were indeed not as important as they are now.  It may also
 come as a consequence of that person enjoying the fruits of high
 quality software and computing environments and being ignorant of the
 effort needed to provide and maintain them.  Whatever the origin,
-underestimating the importance of solving these problems in a general,
-cross-experiment way can lead to decisions that downplay that
-strategy.
+underestimating the importance of developing quality software tools leads
+to inefficiency and lack of progress. 
 
 \subsubsection{Turf Wars}
 
@@ -111,22 +119,23 @@ really prototypes can become too loved to be replaced.
 
 The group made the observation that cues from the audience for the
 software and the context in which it is developed lead to shifts in
-software design.  For example, design tend to be more narrowly
+thinking about a software design.  For example, resulting designs tend to be more narrowly
 applicable when one knows that the code will be committed to a private
-repository only accessible by a single collaboration as compared to
+repository only accessible by a single collaboration.  On the other hand, 
 when one is pushing commits to a repository that is fully accessible
-by a wide public audience.
+by a wide public audience one naturally thinks about broader use cases and 
+solutions to more general problems.
 
 \subsubsection{Disparate Communications}
 
 Different experiments and experiment-independent software projects
 have differing means of communicating.  Technical support, knowledge
 bases, software repositories, bug trackers, release announcements are
-all areas that have not standard implementation.  Some groups even
+all areas that have no standard implementation.  Some groups even
 have multiple types of any of these means of communication.
 Independent of this, different policies mean that not all information
-may be publicly available.  This poses a hurdle for cross-sharing and
-adoption of these groups products.
+may be publicly available.  These all pose a hurdles for the sharing of 
+software between these groups.
 
 \subsubsection{Design vs. Promotion}
 
@@ -140,21 +149,21 @@ former and excel at the latter has little overlap.
 \subsubsection{Decision Making}
 
 An experiment's software is no better than the best software expert
-involved in the decision making process and it's often worse.
+involved in the decision making process used to provide it. And it's often worse.
 Decision making is a human action and as such it can suffer from being
 driven by the loudest argument and not necessarily the one most sound.
 Many times, choices are made in a vacuum lacking suitable opposition.
-At times they are made without a decision-making policy in place or
+At times they are made without a decision-making policy and procedures in place or
 ignored if one exists, or if followed, without sufficient information
 to make an informed decision.  Politics and familiarity can trump
 rationality and quality.
 
 \subsubsection{Getting off on the wrong foot}
 
-There is often no initial review of what exists when a new experiment begins.
+There is often no initial review of what software is available when a new experiment begins.
 Frequently a Physicist charged with software duties on an experiment will 
 jump in and begin to do things the way that they were done in their 
-last project, propogating and baking in inefficencies for another generation.  
+last project, thus propagating and baking in inefficencies for another generation.  
 No time will be spent to see what has changed since an earlier experiment's 
 software design, and whole evolutions in ways of thinking or recently available
 tools updates may be missed.
