@@ -224,22 +224,86 @@ While this ``lean client'' provides less benefits than more complex ``pilots'', 
 
 
 \subsubsection{Monitoring}
-In this section, we will need to refer to the concept of a \textbf{task}, and since this word is overloaded, we have to introduce a proper definition.
-A few examples of WMS incorporate a concept of the task in the sense of a collection or grouping of jobs either created from the same template (and based on same executable)
-and differentiated only by some input parameters or units of input data, or grouped together based on their interdependence and purpose (this is not a universal definition and it
-does clash with ``tasks'' used in the batch system context but we'll stick with with in this chapter since it's widely used). The task in this case is a rudimentary case of workflow management tool.
-
-All three domains involved in the present discussion (Workflow, Workload, Data) benefit from monitoring capability.
-
-The ability of the user or operator of a WMS to get immediate and efficient access to information describing the status of jobs and tasks is an essential feature of a good Workload Management System~\cite{pandamon_chep10}.
+The ability of the user or operator of a WMS to gain immediate and efficient access to information describing the status of jobs, tasks and operations performed on the data
+is an essential feature of a good Workload Management System~\cite{pandamon_chep10}. For operators and administrators, it provides crucial debugging and troubleshooting
+capabilities. For the users and production managers, it allows better diagnostics of application-level issues and performance, and helps to better plan the user's workflow
+~\cite{pandamon_isgc14}.
 
 
+%In this section, we will need to refer to the concept of a \textbf{task}, and since this word is overloaded, we have to introduce a proper definition.
+%A few examples of WMS incorporate a concept of the task in the sense of a collection or grouping of jobs either created from the same template (and based on same executable)
+%and differentiated only by some input parameters or units of input data, or grouped together based on their interdependence and purpose (this is not a universal definition and it
+%does clash with ``tasks'' used in the batch system context but we'll stick with with in this chapter since it's widely used). The task in this case is a rudimentary case of workflow management tool.
+%All three domains involved in the present discussion (Workflow, Workload, Data) benefit from monitoring capability.
 
-\subsection{Opportunity for improvement}
+\subsubsection{The Back-end Database}
+The power of a successful WMS comes in part from its ability to effectively manage state transitions of the many objects present
+in the system (units of data, jobs, tasks etc). This is made possible by utilizing a database to keep the sates of these objects.
+Most current implementations reply on a RDBMS for this function (e.g. ATLAS PanDA is using the Oracle RDBMS at the time of writing).
+The database serves both as the core intrument in the ``brokerage'' logic (matching of workload to resources) and as the source
+of data for many kinds of monitoring.
 
-\fixme{Outline (TBD -mxp-)}
+In seeking shared and reusable solutions, we would like to point out that it is highly desirable to avoid coupling of the WMS application code to a particular
+type or flavor of the database system, e.g. Oracle vs MySQL etc. Such dependency may lead to difficulties in deployment due to available
+expertise and maintenance policies at the target organization and in some cases even cost (cf. Oracle). Solutions such as an ORM layer
+should be utilized to make possible utilization of a variety of database products as the back-end for the Workload Management System,
+without the need to rewrite any significant amount of its code. This is all the more important in light of the widening application of noSQL
+technologies in industry and research, since the possibilities for future migration to a new type of DB must remain open.
 
-Pilots, modularity, monitoring.
 
+\subsection{Intelligent Networks and Network Intelligence}
+
+Once again, the issue of network performance, monitoring and application of such information to improve throughput and efficiency of workflow
+belongs to two domains, Workload Management and Data Management. In itself, the network performance monitoring is not a new subject by any means
+and effective monitoring tools have been deployed at scale~\cite{perfsonar_chep12}. However, until recently, network performance data was not
+widely used as a crucial factor in managing the workload distribution in HEP domain in ``near time''. In this approach, network perfromance information
+is aggregated from a few sources, analyzed and used in determine a more optimal placement of jobs relative to the data~\cite{panda_chep13}.
+
+% A complementary strategy is application of ``Intelligent Networks'', whereby 
+
+
+
+\subsection{Opportunities for improvement}
+
+% \fixme{Outline (TBD -mxp-)}
+
+\subsubsection{Reusability}
+Technical characteristics of Workload Management Systems currently used in HEP and related fields are regarded
+as sufficient to cover a wider range of applications and existing examples support that (cf. LSST and AMS utilizing PanDA~\cite{pandamon_isgc14}).
+Therefore, we need to focus on reusability, ease of deployment and maintenance, and efficient interfaces. These are our recommendations in this area:
+
+\begin{itemize}
+
+\item \textbf{Modularity}. Interface of a Workload Management System to the Data Management System needs to be designed in a way that
+excludes tight coupling of one to another. This will allow deployment of an efficient WMS in environments where a pre-existing data management  system
+is in place, or where installation of a particular data management system puts too much strain on local resources. For example, replicating an instance
+of a system like Rucio which is currently used in ATLAS would be prohibitively expensive for a smaller research organization.
+
+\item \textbf{Pilots}. The technique of deploying Pilot Jobs to worker nodes on the Grid proved very successful and it has the potential to provide needed
+flexibility in adapting WMS to the needs of organization looking to benefit from Workload Management. Use of pilot-based systems should be encouraged.
+
+\item \textbf{Flexible Monitoring}. The requirements of experiments and other projects will vary. We recommend seeking flexible and configurable solutions
+for the Monitoring System utilized in Workload Management and Data Management.
+
+\item \textbf{Back-end Database}. Ideally, there should be no coupling between the WMS application code and features of the specific database system
+utilized as its back-end. Such dependecies mut be abstracted out using techniques suchas ORM etc.
+
+\end{itemize}
+
+\subsubsection{Productivity}
+
+\begin{itemize}
+
+\item \textbf{Monitoring}. A comprehensive and easy-to-use monitoring system has a large impact on the overall productivity of personnel operating a Workload Management System. This area deserves proper
+investment of effort.
+
+\item \textbf{Workflow Management}. The concept of scientific workflow management is an old one, but recently it's coming to the forefront due to increased complexity
+of data transformations in many fields of research, both in HEP and in other disciplines. We recommend investigation of both existing and new solutions in this area,
+and design of proper interfaces between Workflow Management systems and underlying Workload Management systems.
+
+\item \textbf{Networks}. There are significant efficiencies to be obtained by utilizing network performance data in the workload management process. Likewise,
+intelligent and configurable networks can provide optimal bandwidth for workflow execution.
+
+\end{itemize}
 
 
