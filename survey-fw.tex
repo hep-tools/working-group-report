@@ -8,14 +8,13 @@ domain.  It provides some generic implementation of a full system in
 an abstract way that lets application-specific functionality to be
 added through a modular implementation of framework interfaces.
 
-Whereas toolkit libraries encourages different functionality through
-developing different applications (toolkits provide tools to design for a specific task), a framework provides the overall
-processing control function with typically one main entry point and through module implementation tasks are completed within the processing flow (the framework provides the infrastructure need for a tool to function).
-Different functionality is obtained by configuring the framework to
-use different module implementations.
+Toolkit libraries provide functionality addressing some domain in a
+form that requires the user-programmer to develop their own
+applications.  In contrast, frameworks provide the overall flow
+control and main function requiring the user-programmer to add
+application specific code in the form of modules.
 
-In the context of HEP software, the terms ``event'' and ``module" are an overloaded and poorly defined terms.
-%The term ``module'' is probably second.  Both are used here.  
+In the context of HEP software, the terms ``event'' and ``module" are often overloaded and poorly defined.
 In the context of software frameworks, an ``event'' is a unit of data whose scope is dependent
 on the ``module'' of code which is processing.  In the context of a
 code module that generates initial kinematics, an event is the
@@ -25,28 +24,35 @@ energy depositions in active volumes.  In a detector electronics
 simulation, it may contain all signals collected from these active
 volumes.  In a trigger simulation module, it would be all readouts of
 these signals above some threshold or other criteria.  At this point,
-data from real detectors gain symmetry with simulation.  Beyond this
+data from real detectors gain symmetry with simulation.  Going further,
 data reduction, calibration, reconstruction and other analysis modules
-each have a unique concept of the ``event'' of data they operate on.
-Depending on the nature of the physics, detector, and follow on
+each have a unique concept of the ``event'' they operate on.
+Depending on the nature of the physics, the detector, and the follow-on
 analysis, every module may not preserve the multiplicity of data.  For
 example, a single interaction may produce multiple triggers, or none.
 
 With that description, an event processing software framework is
 largely responsible to marshal data through a series (in general a
-graph) of such code modules which then mutate the data.  To support
+directed and possibly cyclic graph) of such code modules which then mutate the data.  To support
 these modules the framework provides access to external services such
 as those that give access to the data itself, handle file I/O, access
 to descriptions of the detectors, provide for visualization or
 statistical summaries, and databases of conditions for applying
-calibrations. How a framework marshall and associate data together as an event is largely varied across different HEP experiments and may be unique for a given data collection methodology (beam gate, online trigger, raw timing, etc). 
+calibrations. 
+%
+The implementation of these services may be left up to the experiment
+or some may be generically applicable.
+%
+How a framework marshalls and associates data together as an event is
+largely varied across different HEP experiments and may be unique for
+a given data collection methodology (beam gate, online trigger, raw
+timing, etc).
 
-%This paragraph is a very good comment, but it isn't really a description of general frameworks. It is a description of a well implemented framework. I think that we should move this to recommendations, etc.
 
-The defining nature of these frameworks are to aggregate and organize
-code modules provided by a disparate set of developers.  As such,
-quality frameworks provide means to manage this complexity.  The
-modular design itself is one.
+% The defining nature of these frameworks are to aggregate and organize
+% code modules provided by a disparate set of developers.  As such,
+% quality frameworks provide means to manage this complexity.  The
+% modular design itself is one.
 
 \subsection{Gaudi}
 
@@ -59,56 +65,61 @@ MINER$\nu$A, Daya Bay and others.  The experience of Daya Bay is
 illuminating for both Gaudi specifically and of more general issues of
 this report.
 
-First, this adoption was greatly helped by the support from the LHCb
+First, the adoption of Gaudi by the Daya Bay collaboration 
+was greatly helped by the support from the LHCb
 and ATLAS Gaudi developers.  Although not strictly their
-responsibility, they found the time to offer help and support to other
-experiments.  Without this, the success of the adoption is uncertain
+responsibility, they found the time to offer help and support to this and the other
+adopting experiments.  Without this, the success of the adoption would have been uncertain
 and at best would have taken much more effort.  Daya Bay recognized
 the need and importance of such support and, partly selfishly, formed
-a mailing list\cite{gauditalk} and got Gaudi developers from many
-experiments involved.  It became a forum that more efficiently spread
-beneficial information from the main developers as well as offloaded
-some support to new experts from the other experiments to help
+a mailing list\cite{gauditalk} and solicited the involvement of Gaudi developers from many
+of the experiments involved in its development and use.  It became a forum that more efficiently spread
+beneficial information from the main developers.  It also offloaded
+some support effort to the newly minted experts from the other experiments so that they could help
 themselves.
 
 There were, however areas that would improve the adoption of Gaudi.
+While described specifically in terms of Gaudi they are general in nature.
 The primary one would be direct guides on how to actually adopt it.
 This is something that must come from the community and likely in
 conjunction with some future adoption.  Documentation on Gaudi itself
-was also a problem particularly for Daya Bay where many of the basic
-underlying framework concepts where new.  Older design documents and
-some experiment-specific ones were available but not always accurate
-nor focused on what was needed.  Over time Daya Bay produced it's own
+was also a problem particularly for Daya Bay developers where many of the basic
+underlying framework concepts where new.  Older Gaudi design documents and
+some experiment-specific ones were available but they were not always accurate
+nor focused on just what was needed for adoption.  Over time, Daya Bay produced it's own
 Daya Bay-specific documentation which unfortunately perpetuates this
 problem.
 
-Other aspects were beneficial to adoption.  The Gaudi build system
-based on CMT (is there a reference for CMT?) was cross platform, open and easy to port.  It had layers
+Other aspects were beneficial to adoption.  The Gaudi build system,
+based on CMT\cite{cmt} is cross platform, open and easy to port.  It has layers
 of functionality (package build system, release build system, support
-for experiment packages and ``external'' ones) but it did not require
-all-or-nothing adoption.  This allowed for some staged approach that
+for experiment packages and ``external'' ones) but it does not require a full
+all-or-nothing adoption.  It supports a staged adoption approach that
 allowed Daya Bay to get started using the framework more quickly.
 
 The importance of having all Gaudi source code open and available can
-not be diminished.  Also important was Gaudi developers inclusion of
+not be diminished.  Also important was that the Gaudi developers included
 the growing community in the release process.
 
 While Gaudi's CMT-based package and release build system ultimately
-proved very useful, it hampered initial adoption as it is not commonly
-used and required understanding.  It is understood that there is a
-movement to provide a CMake based build system which may alleviate
-this hurdle.
+proved very useful, it hampered initial adoption as it was not commonly
+used widely outside  of Gaudi and the level of understanding required was high.  
+It is understood that there is now a
+movement to provide a CMake based build system.  This may alleviate
+this particular hurdle for future adopters as CMake is widely used both inside and outside HEP projects.
 
-Finally, although Gaudi is full featured and flexible it does not come
-with all framework level functionality and, in its core, misses some
-important extensions.  In particular, Daya Bay adopted three Gaudi
-extensions from LHCb's code base.  These are actually very general
-purpose but due to historical reasons were not provided separately.
-These were GaudiObjDesc (data model definition), GiGa (Geant4
-interface) and DetDesc (detector description).  Some extensions
-developed by other experiments were rejected and in-house
+Finally, although Gaudi is full featured and flexible it did not come
+with all needed framework-level functionality and, in its core, fails
+to provide some generally useful modules.  In particular, Daya Bay
+adopted three Gaudi extensions from LHCb's code base.  These are
+actually very general purpose but due to historical reasons were not
+provided separately.  These were GaudiObjDesc (data model definition),
+GiGa (Geant4 interface) and DetDesc (detector description).  Some
+extensions developed by other experiments were rejected and in-house
 implementations were developed.  In particular the extension that
-provided for file I/O was considered too much effort to adopt.   
+provided for file I/O was considered too much effort to adopt.  The
+in-house implementation was simple, adequate but its performance was
+somewhat lacking.  
 
 One aspect of the default Gaudi implementation that had to be modified for use by Daya
 Bay was the event processing model.  Unlike collider
@@ -117,10 +128,12 @@ linear event stream.  Multiple detectors at multiple sites produced
 data in time order but not synchronously.  Simulation and processing
 did not preserve the same ``event'' multiplicity.  Multiple sources of
 events (many independent backgrounds in addition to signal) must be
-properly mixed.  Finally, of the strongest background rejection
-criteria to select inverse beta decay from anti-neutrino interactions
-is to require a coincidence in time between a prompt positron
-interaction in the scintilator followed by delayed activity from the
+properly mixed in time and at multiple stages in the processing chain.  
+Finally, of the strongest background rejection
+criteria to select inverse beta decay events 
+from anti-neutrino interactions in the detector
+is to require a delayed coincidence in time between a prompt positron
+interaction in the scintilator followed by later activity from the
 absorption of a neutron.  The flexibility of Gaudi allowed Daya Bay to
 extend its very event processing model to add the support necessary
 for these features.
@@ -131,11 +144,11 @@ In 2005, the CMS Experiment developed their current software framework, CMSSW \c
 
 CMS Software Framework is designed around four basic elements: the framework, the event data model, software modules written by physicists, and the services needed by those modules\cite{cmssw_web}. The framework is intended to be a lightweight executable (cmsRun) that loads modules dynamically at run time. The configuration file for cmsRun defines the modules that are part of the processing and thus the loading of shared object libraries containing definitions of the modules. It also defines the configuration of modules parameters, the order of modules, filters, the data to be processed, and the output of each path defined by filters. The event data model (EDM) has several important properties: events are trigger based, the EDM contains only C++ object containers for all raw data and reconstruction objects, and it is directly browsable within ROOT. It should be noticed that the CMSSW framework is not limited to trigger based events, but this is the current implementation for the CMS experiment. Another important feature of the EDM over the ORCA data format was the requirement that all information about an event is contained within a single file. However file parentage information is also kept so that if object from an input file are dropped (eg. the raw data) that information can be recovered by reading both the parent file and the current file in downstream processes. The framework was also constructed such that the EDM would contain all of the provenance information for all reconstructed objects. Therefore it would be possible to regenerate and reproduce any processing output from the raw data given file produced from CMSSW. Another element of the framework that is useful for reproducibility is the strict requirement that no module can maintain state information about the processing, and all such information must be contained within the base framework structures.
 
-The art framework is event processing framework that is an evolution of the CMSSW framework. In 2010, the Fermilab Scientific Computing Division undertook the development of an experiment-agnostic framework for use by smaller experiments that lacked the personpower to develop a new framework. Working from the general CMSSW framework, most of the design elements were maintained: lightweight framework based on modulular development, event data model, and services required for modules. The output file is ROOT browsable and maintains the strict provenance requirements of CMSSW. For Intensity and Cosmic Frontier experiments, the strict definition of an event being trigger based isn't appropriate and so this structuring was removed and each instance of art allows the experiment to define the event period of interest as required. art is currently being used by the Muon g-2, $\mu2e$, NOvA, $\mu BooNE$, and LBNE/ 35T prototype experiments.
+The art framework is an event processing framework that is an evolution of the CMSSW framework. In 2010, the Fermilab Scientific Computing Division undertook the development of an experiment-agnostic framework for use by smaller experiments that lacked the personpower to develop a new framework. Working from the general CMSSW framework, most of the design elements were maintained: lightweight framework based on modulular development, event data model, and services required for modules. The output file is ROOT browsable and maintains the strict provenance requirements of CMSSW. For Intensity and Cosmic Frontier experiments, the strict definition of an event being trigger based isn't appropriate and so this structuring was removed and each instance of art allows the experiment to define the event period of interest as required. art is currently being used by the Muon g-2, $\mu2e$, NOvA, $\mu BooNE$, and LBNE/ 35T prototype experiments.
 
 CMSSW did initially have some limitations when implemented, the most significant being the use of non-interpreted, run-time configuration files defined by the FHiCL language. The significance of this being that configuration parameters could not be evaluated dynamically and were required to be explicitly set in the input file. This limitation meant it was impossible to include any scripting within the configuration file. This limitation was recognized by the CMS Collaboration and they quickly made the choice to instead transition to Python (in 2006) based configuration files. At that time, a choice was made that the Python evaluation of configuration code would be distinctly delineated from framework and module processing. Therefore, once the configuration file was interpreted, all configuration information was cast as const within C++ objects and immutable. Due to the requirement within CMSSW for strict inclusion of provenance information in the EDM, the dynamic evaluation of configuration files then cast as const parameters and stored in the EDM was not considered a limitation to reproduction from raw data. When the art framework was forked from CMSSW in 2010, the art framework reverted back to using FHiCL language configuration files, and, while acceptable to experiments at the time of adoption, some consider this a serious limitation.
 
-One of the challenges faced by the art framework that has been the portability of the framework to platforms other than Scientific Linux Fermilab or Cern. The utilization of the Fermilab UPS and cetbuildtools products within the build and release system that was integrated into the art suite resulted in reliance upon those products that is difficult to remove and therefore port to other platforms (OS X, Ubuntu, etc). The CMSSW framework was implemented for CMS such that the build system was completely available from source and mechanisms for porting to experiment supported platforms is integrated into the build system. While portability of art is not an inherent problem of the software framework design, and is currently being addressed by both Fermilab SCD and collaborative experiments, it serves as a significant design lesson when moving forward with art or designing other frameworks in the future.
+One of the challenges faced by the art framework that has been the portability of the framework to platforms other than Scientific Linux Fermilab or Cern. The utilization of the Fermilab UPS and cetbuildtools products within the build and release system that was integrated into the art suite resulted in reliance upon those products that is difficult to remove and therefore port to other platforms (OS X, Ubuntu, etc). The CMSSW framework was implemented for CMS such that the build system was completely available from source and mechanisms for porting to experiment-supported platforms is integrated into the build system. While portability of art is not an inherent problem of the software framework design, and is currently being addressed by both Fermilab SCD and collaborative experiments, it serves as a significant design lesson when moving forward with art or designing other frameworks in the future.
 
 \subsection{IceTray}
 
