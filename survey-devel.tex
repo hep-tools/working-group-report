@@ -3,9 +3,10 @@
 \fixme{(authors: Brett, Peter)}
 
 \subsection{Description}
+\label{sec:swdevpartitions}
 
 The tools supporting the full software development life-cycle can be
-partitioned into the orthogonal categories.
+partitioned into these orthogonal categories.
 
 \begin{description}
 \item[Code Repositories] store a historical record of revisions to a
@@ -13,7 +14,9 @@ partitioned into the orthogonal categories.
   identity of the developer and some note explaining the change.
   Repositories may be organized to hold a single logical unit of
   source code (ie, a \textit{source package}) or may include multiple
-  such units relying on some internal demarcation.
+  such units relying on some internal demarcation.  They allow
+  diverging lines of development, merging these lines and placing
+  labels to identify special points in the history (ie, release tags).
 
 \item[Package Build System] contains tools applied to the files of
   \textit{source package} in order to transform them into some number
@@ -23,62 +26,63 @@ partitioned into the orthogonal categories.
   compilation, locating dependencies, activating code features).  This
   system may directly install the results of the build to some area or
   in addition it may collect the build results into one or more
-  \textbf{binary packages}.
+  \textit{binary packages}.
 
 \item[Release Configuration] contains tools or specifications for the
   collection of information needed to build a cohesive suite of
   packages.  It includes the list of packages making up the suite,
-  their versions any build parameters, file system layout policy,
-  source locations, local patch files.
+  their versions, any build parameters, file system layout policy,
+  source locations, any local patch files and the collection of
+  commands needed to exercise the \textit{package build system}. 
 
-\item[Release Build] contains tools or processes (instructions) that can
-  apply a \textit{release configuration} to each \textit{package build
-    system}.  This process typically iterates on the collection of
-  packages in an order that honors their inter-dependencies.  As each
-  package is built the \textit{release build system} assures it is
-  done in a proper context containing the build products of
-  dependencies and ideally, controlling for any files provided by the
-  general operating system or user environment. This system may
-  directly install the results of the build to some area or in
-  addition it may collect the build results into one or more
-  \textbf{binary packages}.
+\item[Release Build System] contains tools or processes (instructions)
+  that can apply a \textit{release configuration} to each
+  \textit{package build system} in the software suite.  This process
+  typically iterates on the collection of packages in an order that
+  honors their inter-dependencies.  As each package is built, the
+  \textit{release build system} assures it is done in a proper context
+  containing the build products of dependencies and ideally,
+  controlling for any files provided by the general operating system
+  or user environment. This system may directly install the results of
+  the build to some area and it may collect the build results into one
+  or more \textit{binary packages}.
 
-\item[Package Installation] contains tools that, if binary
-  packages are produced, can download and unpack them into an
+\item[Package Installation System] contains tools that, if they are
+  produced, can download and unpack \textit{binary packages} into an
   installation area.  This system it typically tightly coupled to the
   binary package format.  It may rely on meta data internal or
   external to the binary package file in order to properly resolve
   dependencies, conflicts or perform pre- and post-installation
   procedures.  The system may require privileged access and a single
   rooted file system tree or may be run as an unprivileged user and
-  allows for multiple and even interwoven file system trees.
+  allow for multiple and even interwoven file system trees.
 
 \item[User Environment Management] contains tools that aggregating a
   subset of installed software in such a way that the end user may
   properly execute the programs it provides.  This aggregation is
-  typically done either via a set of environment variables interpreted
-  by the shell, such as \texttt{PATH}.  In some less common cases the
-  bulk of aggregation is done with the file system by copying or
+  typically done through the setting of environment variables
+  interpreted by the shell, such as \texttt{PATH}.  In other cases the
+  bulk of aggregation is done via the file system by copying or
   linking files from some installation store into a more localized
   area and then defining some minimal set of environment variables.
-  In the case where software is installed as system packages no
-  environment management may be needed.
+  In the case where software is installed as system packages 
+  environment management may not be required.
 
-\item[Development Environment] contains tools to assist the developer
-  in modifying existing software or writing novel packages.  Such
-  tools are not strictly required as a developer may use tools from
-  the above category to produce a personal release.  However, in
-  practice this makes the development cycle of modify-build-test
-  unacceptably long.  To reduce this time and effort, existing release
-  builds can be leveraged, installation steps can be minimized or
-  removed, and environment management can be such as to use the build
-  products in-place.  Care is needed in designing such tools to
-  mitigate interference between developers while allowing them
-  synchronize as needed.
+\item[Development Environment Management] contains tools to assist the
+  developer in modifying existing software or writing novel packages.
+  Such tools are not strictly required as a developer may use tools
+  from the above categories to produce a personal release.  However,
+  in practice this makes the development cycle (modify-build-test
+  loop) unacceptably long.  To reduce this time and effort, existing
+  release builds can be leveraged, installation steps can be minimized
+  or removed, and environment management can be such as to use the
+  build products in-place.  Care is needed in designing such tools to
+  mitigate interference between individual developers while allowing
+  them synchronize their development as needed.
 
 \item[Continuous Integration] contains tools and methodologies for
   developing and exercising the code in order to validate changes,
-  find and fix problems quickly, vet releases.
+  find and fix problems quickly, and vet releases.
 
 \item[Issues Tracker] contains tools to manage reporting,
   understanding and addressing problems with the software, requests
@@ -113,13 +117,13 @@ improvements can be made.
 \item Physics is the primary focus, not software.  Of course this is
   proper.  But, software is often not considered as important as other
   secondary aspects such as detector hardware design despite the fact
-  that detector data is useless today without quality software.  Even
+  that detector data is essentially useless today without quality software.  Even
   in areas where software is the focus, often the ``hard core''
   software issues are down-played or considered unimportant.
 \item The use and development of HEP software is often tightly
   intertwined.  End users of software are often its developers.
-  Making formal releases is often seen as a hindrance or not done
-  performed due to lack of familiarity or access to easily used
+  Making formal releases is often seen as a hindrance or not 
+  performed due to lack of familiarity or access to easily usable
   release tools.
 \item HEP software typically must be installed with no special
   permissions (non-''root''), in non-system locations, and with
@@ -129,7 +133,7 @@ improvements can be made.
   shared installation.
 \item Versions matter a lot until they don't.  A single code commit
   may radically change results and so upgrades must be done with care
-  and constantly validated.  Old versions must be kept accessible
+  and changes constantly validated.  Old versions must be kept accessible
   until new are vetted.  They then become unimportant but must be
   forever reproducible in case some issue is found in the future which
   requires rerunning of the old version.
@@ -146,14 +150,15 @@ improvements can be made.
 
 \subsection{Category Integration}
 
-The categories above describe some ideal.  Real world tools often
-cover multiple categories.  When this integration is done well it can
-be beneficial.  Where it is not done well it can lead to  lock-in,
-lack of portability, increasing maintenance costs and other pathology.
+The categories described in section \ref{sec:swdevpartitions} present
+some ideal partitioning.  Real world tools often cover multiple
+categories.  When this integration is done well it can be beneficial.
+Where it is not done well it can lead to lock-in, lack of portability,
+increasing maintenance costs and other pathology.
 
-Configuration Management Tools (CMT) spans most of these categories.
+The functions of Configuration Management Tools (CMT) spans most of these categories.
 Its design is such that it provides beneficial integration with some
-capability to select which categories in which to apply it.  For
+capability to select the categories in which to apply it.  For
 example, it provides a package build system but one which is flexible
 enough to either directly execute build commands or to delegate to
 another package build system.  This allows building and use of
@@ -170,55 +175,63 @@ others).  It is used across the three major computer platforms (Linux,
 Mac OS X and Windows).
 
 In contrast is the UPS/CET system from Fermilab currently used to
-build the Art framework and its applications.  UPS itself shares some
+build the art framework and its applications.  UPS itself shares some
 passing familiarity to CMT although its implementation is such that
-even its proponents do not typically use it as it was designed.  Its
-entire ability to build packages is largely avoided.  It's other
+even its proponents do not typically use it fully as it was designed.  Its
+entire ability to build packages is largely avoided.  Its other
 primary purpose of managing user environment is often augmented with
 custom shell scripts.  
 
 The CET portion adds a package build system based on CMake but with
 hard wired entanglements with UPS.  It tightly locks in to the source
-code which versions of dependency any particular package is allowed to
-be built against.  Developers commonly have their own effort derailed
-if they attempt to incorporate work from others as any intervening
-release forces their development base to become broken and require
-reinitializing.  Attempting to port software entangled with this
-system (Art and LArSoft) from the only supported Linux distribution
-(Scientific Linux) to another (Debian) was found to be effectively
-impossible in any reasonable time frame.  This has led to an effort to
-fully remove the UPS/CET package build system to one based on pure
-CMake functionality.  It took far less effort to rewrite than to
-adopt.
+code which versions of dependencies must be built against and the
+mechanism to locate them.  Developers commonly have their own effort
+derailed if they attempt to incorporate work from others as any
+intervening release forces their development base to become broken and
+require reinitializing.  Attempting to port the software (art and
+LArSoft) entangled with this build system from the only supported
+Linux distribution (Scientific Linux) to another (Debian) was found to
+be effectively impossible in any reasonable time frame.  This has led
+to an effort by the LBNE collaboration to fully remove the UPS/CET
+package build system from this software and replace it with one still
+based on CMake but which follows standard forms and best practices.
+It took far less effort to reimplement a build system than to adopt
+the initial one.  Effort is ongoing to incorporate these changes back
+into the original software.
 
 \subsection{Distributed Software Tools}
 
 Network technology has lead to paradigm shifts in binary code
-distribution (CVMFS) and in distributing data (Xrood).  HEP software
-development has always been very distributed and it is important to
-embrace this.
+distribution (eg CVMFS) and in distributing data (eg Xrood).  HEP
+software development has always been very distributed and it is
+important to continue to embrace this.
 
-On successful embrace has been the move to Git for managing source
+On successful embrace has been the move to \texttt{git} for managing source
 code revisions.  In comparison, any code development that is still
 kept in Concurrent Versions System (CVS) or Subversion (SVN) is at a
 relative disadvantage in terms of the ability to distribute
 development effort and share its results.
 
-Aggregating Git repositories along with associated issue trackers, web
+Aggregating \texttt{git} repositories along with associated issue trackers, web
 content (wikis) to provide a definitive, if only by convention, center
 of development is also important.  Some institutions provide these
 aggregation services (Fermilab's Redmine) but the full benefit comes
-with the software is exposed in a more global way such as through
-online repository aggregates like GitHub or Bitbucket.
+when the software is exposed in a more global way such as through
+online repository aggregators like GitHub or BitBucket.
 
-Building software is an areas that would benefit from more
-distribution.  The traditional model is that an experiment's software
-managed by the experiment, built by a site administrator or an
-individual.  In some cases an institution will take on the job of
-building software for multiple experiments such as at CERN or
-Fermilab.  While this service is good, it tends to lock out users who
-do not use officially supported computer platforms, which would
-otherwise be capable.  
+Building software is an area that would benefit from a more
+distributed approach.  The traditional model is that the software
+needed by the experiment is built from source by a site administrator
+or an individual.  In some cases, an institution will take on the job
+of building software for multiple experiments such as is done for some
+experiments centered at CERN and Fermilab.  While this service is
+helpful for users of the platforms supported by the institution, it
+tends to lock out users who do not use the officially supported
+computer platforms.  These unsupported platforms are otherwise
+suitable for use and are often more advanced that then officially
+supported ones.  Small incompatibilities build-up in the code base
+because they go undetected in the relative monoculture created by
+limiting support to a small number of platforms.
 
 Distributed software build and installation systems are becoming
 established and should be evaluated for adoption.  Examples include
@@ -231,37 +244,39 @@ system instead of polluting the user's environment variables.
 Another example is Conda which provides a method to bundle up the
 build configuration and a one-package unit of a release build system.
 It also provides an end-user tool to install the packaged results.  A
-coupled project is Binstar.org which can be thought of as a mix
-between GitHub and the Python Package Index (PyPI).  It allows upload
-and distribution of packages built by Conda.  
+coupled project is Binstar which can be thought of as a mix between
+GitHub and the Python Package Index (PyPI).  It allows upload and
+distribution of packages built by Conda for later end-user download
+and installation.
 
 HEP community software projects and individual experiments can make
-use either the Nix/Guix or Conda/Binstar approaches to provide
+use of either the Nix/Guix or Conda/Binstar approaches to provide
 ready-to-use code binaries to any networked computer in a trusted
 manner.
 %
 Sharing and coordinating the production of these packages would take
-additional effort but it easily be payed back by the reduction of so
+additional effort but this will be payed back by the reduction of so
 much redundant effort that goes into building the same package by each
-individual experiment or project.
+individual, experiment or project.
 
 
 \subsection{Automate}
 
-The majority of most HEP software suites are composed of software
-written by HEP members.  The remainder may be provided by the
-operating system but often in order to control versions, provide for a
-uniform base or because some desired platforms to not provide the
-software, even these ``external'' packages are built from source.
-Much of this work is repeated by individuals, sites, experiments and
-sometimes institutions.
+The majority of most HEP software suites are composed of four layers:
+the experiment software on top is supported by general-use HEP
+software.  Below that is FS/OS packages which may be included in some
+operating system distributions but in order to control versions and to
+provide a uniform base for those OS distributions which do not provide
+them, they are build from source.  Finally there is some lowest layer
+provided by the OS.  Each experiment draws each of these lines
+differently and some may choose to blur them.
 
 To produce proper and consistent release configurations and to track
 them through time is challenging.  Once created, in principle, a
 system can then apply these configurations in a way that automates the
-production of the release build.  Without this automation the
-integrated amount effort balloons.  This is only partially mitigated by
-distributing the build results (addressed above).
+production of the release build.  Without this automation the amount
+of effort balloons.  This is only partially mitigated by distributing
+the build results (addressed above).
 
 Some experiments have developed their own build automation based on
 scripts.  These help the collaborators but they are not generally
