@@ -17,19 +17,17 @@ applications like file managers and data catalogs and their possible ties to wor
 
 \subsubsection{Data catalogs And Logical Data Sets}
 A data catalog combines a file catalog i.e. information about where the data files are stored, with additional metadata.
-This enables the construction of logical (virtual) data sets and makes it possible for users to make a selection of a 
-subset of the available data.
+This enables the construction of logical (virtual) data sets like 'Higgs2GammaGamma' and makes it possible for users to 
+make a selection of a subset of the available data.
 
 \begin{description}
 \item[Fermi Data Catalog] One way to do this is to register all the metadata when you register the file. A slightly
 different approach was chosen by the Fermi Space Telescope Data Catalog. In addition to the initial metadata, it had a
 data crawler that would go through all registered files and extract metadata like number of events etc. The advantage is
-that the set of metadata then can be easily expanded after the fact - you just let loose the crawler with the new list
-of quantities to extract. It should be noted that the Fermi Data Catalog is independent of any workflow 
-management system (so any processing metadata will have to be explicitly added), but can be chained together with 
-the Fermi workflow engine ('pipeline') to easily produce user defined skims i.e. the user selects cuts and what 
-logical data sets to use and the relevant file locations are automatically forwarded to the processing pipeline that 
-produce the requested output files and make them avaialble for download by the user.
+that the set of metadata then can be easily expanded after the fact - you just let loose the crawler with the list
+of new quantities to extract. Note that since the Fermi Data Catalog is independent of any workflow management system, 
+any data processing metadata will have to be explicitly added. 
+
 
 \item[SAM] [more detailed description - SAM is more tied into workflow management than the Fermi Data catalog]
 
@@ -46,6 +44,47 @@ location of the data files. With XRootD the notion of location is outsourced to 
 [awb: more details ....]
 
 
+\subsection{Data distribution}
+
+\subsubsection{Data Skimmers}
+A Data Catalog can be combined with a workflow engine to produce skims. These can be either user skims or collaboration 
+wide skims. 
+
+\begin{description}
+\item[Fermi data skimmer] Even though the Fermi Data Catalog is independent of any workflow management system, it 
+can be chained together with for example the Fermi workflow engine ('pipeline') to easily produce user defined skims 
+i.e. the user selects cuts and what logical data sets to use and the relevant file locations are automatically 
+forwarded to the processing pipeline that produce the requested output files and make them available for download 
+by the user. 
+
+\item[Pointer skims] (Needed?) Instead of producing new deep copies of skimmed files one can instead make a list 
+containing 
+pointers to events in the original data files. This was, for example, done by the BaBar pointer skims. While it has 
+certain advantages, like minimizing duplication of data, it has possible I/O and latency issues. In addition, it's not 
+clear how this works with the Federated Storage model.
+\end{description}
+
+\subsubsection{Authentication/Authorization} This is a potential touchy subject ....  
+
+
+\subsubsection{Hot Datasets}
+All data are not created equal. There will inevitably be hot data sets (Higgs skims for example) accessed often and by 
+many. There will also be colder data sets rarely accessed at all. The temperature of the different datasets maps  
+naturally onto different storage technology. For example, in a three-tiered system the hot datasets are stored on SSD, 
+warm datasets are stored on fast disks and cold datasets are stored on slow disks or tape. XRootD makes the 
+management of such a system easier as it can be configured to automatically retrieve datasets from tape in case they 
+don't exist on disk. Note that such a system is dynamic i.e. today's hot dataset is tomorrow's cold one so datasets will 
+need to be automatically migrated from one storage layer to the following one based on access patterns. [add some details about the ATLAS/CMS systems for caching and purging] 
+
+
+
+\subsubsection{What Works, What Doesn't}
+[Needs to be expanded] One danger with DM systems is that they become monolithic - especially over time - as more 
+and more functionality is added and there is a desire to make the overall system easier to use (automating more 
+and more functions). Maybe somebody has some experience with how LHC experiments have tried to make things modular?
+
+
+\subsubsection{Common Elements vs Experiment Specific Ones}
 
 
 
