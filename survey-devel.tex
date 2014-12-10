@@ -57,7 +57,7 @@ partitioned into these orthogonal categories.
   rooted file system tree or may be run as an unprivileged user and
   allow for multiple and even interwoven file system trees.
 
-\item[User Environment Management] contains tools that aggregating a
+\item[User Environment Management] contains tools that aggregate a
   subset of installed software in such a way that the end user may
   properly execute the programs it provides.  This aggregation is
   typically done through the setting of environment variables
@@ -134,7 +134,7 @@ improvements can be made.
 \item Versions matter a lot until they don't.  A single code commit
   may radically change results and so upgrades must be done with care
   and changes constantly validated.  Old versions must be kept accessible
-  until new are vetted.  They then become unimportant but must be
+  until new ones are vetted.  They then become unimportant but must be
   forever reproducible in case some issue is found in the future which
   requires rerunning of the old version.
 \item HEP software suites tend to be relatively large, often with the
@@ -229,7 +229,7 @@ helpful for users of the platforms supported by the institution, it
 tends to lock out users who do not use the officially supported
 computer platforms.  These unsupported platforms are otherwise
 suitable for use and are often more advanced that then officially
-supported ones.  Small incompatibilities build-up in the code base
+supported ones.  Small incompatibilities build up in the code base
 because they go undetected in the relative monoculture created by
 limiting support to a small number of platforms.
 
@@ -255,7 +255,7 @@ ready-to-use code binaries to any networked computer in a trusted
 manner.
 %
 Sharing and coordinating the production of these packages would take
-additional effort but this will be payed back by the reduction of so
+additional effort but this will be paid back by the reduction of so
 much redundant effort that goes into building the same package by each
 individual, experiment or project.
 
@@ -267,7 +267,7 @@ the experiment software on top is supported by general-use HEP
 software.  Below that is FS/OS packages which may be included in some
 operating system distributions but in order to control versions and to
 provide a uniform base for those OS distributions which do not provide
-them, they are build from source.  Finally there is some lowest layer
+them, they are build from source.  Finally, there is some lowest layer
 provided by the OS.  Each experiment draws each of these lines
 differently and some may choose to blur them.
 
@@ -295,7 +295,7 @@ automation and LCGCMT, the Worch project was developed to provide
 build ``orchestration''.  This includes a release configuration method
 and an automated release build tool.  It is extensible to provide
 support for the other software development tool categories.  For
-example it has support for producing needed configuration files to
+example, it has support for producing needed configuration files to
 provide support for using Environment Modules as a method for end-user
 environment management.
 
