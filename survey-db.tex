@@ -47,6 +47,11 @@
 \end{itemize}
 
 \subsection{Description}
+
+Every HEP experiment has some form of ``conditions database''. The purpose of such as database is to capture and store any information that is needed in order to interpret or simulate events taken by the DAQ system. The underlying principle behind such a database is that the ``conditions'' at the time an event is acquired vary significantly slower that that the quantities read out by the DAQ in the event itself. The period over which these condition quantities can change range from seconds to the lifetime of the experiment.
+
+In implementing a conditions database, an experiment is providing a mechanism by which to associate an event to a set of conditions without having to save a complete copy of those conditions with every event. A secondary feature is that the event-to-conditions association can normally be configured to select a particular version of the conditions as knowledge about the conditions can change over time as they are better understood.
+
 \subsection{What works, what doesn't}
 \subsection{Examples}
 \subsection{Opportunity for improvement}
