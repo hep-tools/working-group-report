@@ -7,7 +7,7 @@ In the past three decades, technological revolution in industry has enabled and 
 more and more sophisicated methods of data processing and analysis were constantly introduced, oftentimes at a dramatically increased scale.
 Processing power and storage were becoming increasingly decentralized, leading to the need to manage these distributed resources in an optimal manner.
 On the other hand, increasing sophistication of scientific workflows created the need to support these workflows in the new distributed computing medium.
-Rapid evolution of the field such as HEP and time pressures to deliver in this competetive environment led to design and implementation of complete (to varying degrees)
+Rapid evolution of the field such as HEP and time pressures to deliver in this competitive environment led to design and implementation of complete (to varying degrees)
 and successful solutions to satisfy the needs of specific  research projects. In general, this had two consequences:
 
 \begin{itemize}
@@ -30,7 +30,7 @@ relationships among these domains and in doing so form the basis for possible HE
 According to a common definition, \textbf{Grid Computing} is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional characteristics added to this include decentralized
 administration and management and adherence to open standards. It was formulated as a concept in early 1990s, and motivated by the fact that computational tasks handled by large research projects reached
 the limits of scalability of most individual computing sites. On the other hand, due to variations in demand, some resources were underutilized at times. There is therefore a benefit in implementing a federation of
-computing resources, whereby large spikes in demand can be hadled by federated sites, while ``backfilling'' the available capacity with lower priority tasks submitted by a larger community of users.
+computing resources, whereby large spikes in demand can be handled by federated sites, while ``backfilling'' the available capacity with lower priority tasks submitted by a larger community of users.
 Technologies developed in the framework of Grid Computing (such as a few reliable and popular types of \textit{Grid Middleware}) became a major enabling factor for many scientific collaborations including
 nuclear and high-energy physics.
 
@@ -53,7 +53,7 @@ The two are often seen as ``complementary technologies that will coexist at diff
 \subsubsection{From the Grid to Workload Management}
 \label{from_grid_to_workload}
 Utilization of the Grid sites via appropriate middelware does establish a degree of resource federation, but it leaves it up to the user to manage data movement and job submission to multiple sites,
-track job status, handle failures and error conditions, aggregate bookkeeping information and perform many other tasks. In absense of automation, this does not scale very well and limits the efficacy
+track job status, handle failures and error conditions, aggregate bookkeeping information and perform many other tasks. In absence of automation, this does not scale very well and limits the efficacy
 of the overall system.
 
 It was therefore inevitable that soon after the advent of reliable Grid middleware multiple physics experiments and other projects started developing and deploying \textbf{Workload Management Systems (WMS)}.
@@ -94,13 +94,13 @@ A simple and rather typical example of a workflow is often found in Monte Carlo 
 \textit{Event  Generation $\Longrightarrow$ Simulation $\Longrightarrow$ Digitization $\Longrightarrow$ Reconstruction}
 \\
 \\
-Patterns like this one may also include optional additional steps (implied or made explicit in the logic of the workflow) such as merging of units of data (e.g.files) for more efficient storage and transmission.
+Patterns like this one may also include optional additional steps (implied or made explicit in the logic of the workflow) such as merging of units of data (e.g. files) for more efficient storage and transmission.
 Even the most trivial cases of processing, with one step only, may involve multiple files in input and/or output streams, which creates the need to manage this as a workflow. Oftentimes, however,
 workflows that need to be created by researchers are quite complex. At extreme scale, understanding the behavior of scientific workflows becomes a challenge and an object of studies in its own right~\cite{panorama}.
 
 Many (but not all) workflows important in the context of this document can be modeled as
 \textbf{Directed Acyclic Graphs} (DAG)~\cite{pegasus,deft1,grid_workflow_taxonomy}.
-Conceptually, this level of abstraction of the workflow does not  involve issues of resource provisioning and utilization, monitoring, optimization, recovery from errors, as well as plethora of other items essential
+Conceptually, this level of abstraction of the workflow does not  involve issues of resource provisioning and utilization, monitoring, optimization, recovery from errors, as well as a plethora of other items essential
 for efficient execution of workflows in the distributed environment. These tasks are handled in the context of \textit{Workload Management} which we very briefly described in~\ref{from_grid_to_workload}.
 
 In summary, \textbf{we make a distinction between the Workflow Management} domain which concerns itself with controlling the scientific workflow, \textbf{and Workload Management} which
@@ -113,22 +113,22 @@ turn a layer of abstractions above the distributed execution environment such as
 \subsubsection{HTC vs HPC}
 The term \textbf{High-Performance Computing} (HPC) is used in reference to systems of exceptionally high processing capacity (such as individual supercomputers, which are typically highly parallel systems),
 in the sense that they handle substational workload and deliver results over a relatively short period of time. By contrast,\textbf{ High-Throughput Computing} (HTC) involves harnessing to a wider pool
-of more conventional resources in order to deliver a considerable amount of computational power, although potentially over loger periods of time. 
+of more conventional resources in order to deliver a considerable amount of computational power, although potentially over longer periods of time. 
 \begin{quote}
 \textit{``HPC brings enormous amounts of computing power to bear over relatively short periods of time. HTC employs large amounts of computing power for very lengthy periods.''}~\cite{htc}.
 \end{quote}
 
 In practice, the term \textit{HTC} does cover most cases of Grid Computing where remote resources are managed for the benefit of the end user and are often made available on prioritized and/or
 opportunistic basis (e.g. the so-capped ``spare cycles'', utilizing temporary drops in resource utilization on a particular site to deploy additional workload thus increasing the overall system
-throughput). Majority of the computational tasks of the LHC experiments were completed using standard off-the-shelf equipment rather than supercomputers. It is important to note, however,
-that modern Workload Management Systems can be adapted to deliver payload to HPC systems such as Leadrship Class Facilities in the US, and such efforts are currently under way~\cite{panda_chep13}.
+throughput). A majority of the computational tasks of the LHC experiments were completed using standard off-the-shelf equipment rather than supercomputers. It is important to note, however,
+that modern Workload Management Systems can be adapted to deliver payload to HPC systems such as Leadership Class Facilities in the US, and such efforts are currently under way~\cite{panda_chep13}.
 
 \subsubsection{The Role of Data Management}
 In most cases of interest to us, data management plays a crucial role in reaching the scientific goals of an experiment. It is covered in detail separately (see Section~\ref{data}).
 As noted above, it represents the \textit{data flow} component of the overall workflow management and therefore needs to be addressed here as well.
 
 In a nutshell, we can distinguish between two different approaches to handling data -- on one hand, managed replication and transfers to sites, and on the other hand, network-centric
-methods of access to data repositories such as \textbf{xrootd}~\cite{xrootd}.
+methods of access to data repositories such as \textbf{xrootd}~\cite{XRootD}.
 
 An important design characteristic which varies widely among Workflow Management Systems is the degree of coupling to the Data Management components. That has significant impact
 on reusability of these systems as a more tight coupling usually entails necessity of a larger and more complex stack of software than would otherwise be optimal and has other consequences.
@@ -136,20 +136,20 @@ on reusability of these systems as a more tight coupling usually entails necessi
 \subsection{Examples}
 \label{wms_examples}
 \subsubsection{The Scope of this Section}
-Workflow and Workload Management, especially taken in conjunction with Data Management (areas which they are typically interconnected) is a vast
+Workflow and Workload Management, especially taken in conjunction with Data Management (areas with which they are typically interconnected) is a vast
 subject and  covering features of each example of WMS in any detail would go well beyond the scope of this document. In the following, we provide references
 to those systems which are more immediately relevant to HEP and related fields than others.
 
 \subsubsection{HTCondor and glideinWMS}
 \label{htcondor}
 HTCondor~\cite{htcondor} is one of the best known and  important set of Grid and High-Throughput Computing (HTC) tools. It provides an array of functionality, such as
-as a batch system solution for a computing cluster, remote submission to Grid sites (via Condor-G) and sutomated transer (stage-in and stage-out) of data.
+as a batch system solution for a computing cluster, remote submission to Grid sites (via Condor-G) and automated transfer (stage-in and stage-out) of data.
 In the past decade, HTCondor was augmented with a  Workload Management System layer, known as \textit{glideinWMS}~\cite{glideinwms}. The latter abstracts remote resources (Worker Nodes)
 residing on the Grid and effectively creates a local (in terms of the interface) resource pool accessible by the user.
 This is highly beneficial to the users already having familiarity with HTCondor since it shortens the learning curve.
 On the other hand, deployment of this system is not always trivial and typically requires a central service to be operated with the desired degree of service level (the so-called ``glidein factory'').
 
-HTCondor has other notable features. One of the most basic parts of its functionality is the ability to trasnfer data consumed and/or produced by the payload job according to certain rules set by the user. This works well
+HTCondor has other notable features. One of the most basic parts of its functionality is the ability to transfer data consumed and/or produced by the payload job according to certain rules set by the user. This works well
 when used in local cluster situations and is somewhat less reliable when utilized at scale in the context of Grid environment. One of HTCondor components, \textit{DAGMan}, is a meta-scheduler
 which uses DAGs (see~\ref{workflow_workload}) to manage workflows~\cite{dagman}.
 
@@ -186,7 +186,7 @@ to achive resource federation on the European Grids.
 
 \subsubsection{``Pilots''}
 As we mentioned in ~\ref{from_grid_to_workload}, one of the primary functions of a WMS is to insulate the user from the heterogeneous and sometimes complex
-Grid environment and certain failure modes inherent in it (e.g. misconfigured cites, transient connectivity problems, ``flaky'' worker nodes etc).
+Grid environment and certain failure modes inherent in it (e.g. misconfigured sites, transient connectivity problems, ``flaky'' worker nodes etc).
 There is a proven solution to these issues, which involved the so called \textbf{late binding} approach  to the deployment of computational payload.
 
 According to this concept, it is not the actual ``payload job'' that is initially dispatched to a  Worker Node residing in a
@@ -207,18 +207,18 @@ exposed to the user (or for an automated client performing job submission) is ef
 Problematic resources can be identified and flagged at both site and worker node level.
 
 \item In many cases, the overall latency of the system (in the sense of the time between the job submission by the user, and the start of actual execution) will be reduced --
-due to the pilot waiting to accept a payload job -- leading to a more optimal user experience (agan, cf. the ``just-in-time'' reference).
+due to the pilot waiting to accept a payload job -- leading to a more optimal user experience (again, cf. the ``just-in-time'' reference).
 \end{itemize}
 
 DIRAC was one of the first systems where this concept was proposed and successfully implemented~\cite{dirac_acat09}. This approach also forms the architectural core
 of the PanDA WMS~\cite{panda_chep12}.
 
-In distributed systems where the resources are highly opportunistic and/or ephemeral, such as volunteer computing we mentioned in~\ref{at_home}, this variant
+In distributed systems where the resources are highly opportunistic and/or ephemeral, such as the volunteer computing we mentioned in~\ref{at_home}, this variant
 of the client-server model is the essential centerpiece of the design. In BOINC, the ``core client'' (similar to a ``pilot'') performs functions such as maintaining
 communications with the server, downloading the payload applications, logging and others~\cite{boinc_client}.
 
 In HTCondor and GlideinWMS (see~\ref{htcondor}) there is no concept of a sophisticated pilot job or core client, but there is a \textit{glidein} agent, which is deployed on Grid resources
-and which is a wrapper for the HTCondor daemon process (\textit{startd}). One the latter is initiated
+and which is a wrapper for the HTCondor daemon process (\textit{startd}). Once the latter is initiated
 on the remote worker node it then the joins the HTCondor pool. At this point, matching of jobs submitted by the user to HTCondor \textit{slots} becomes possible \cite{glideinwms}.
 While this ``lean client'' provides less benefits than more complex ``pilots'', it also belongs to the class of late-binding workload management systems, although at a simpler level.
 
@@ -238,7 +238,7 @@ capabilities. For the users and production managers, it allows better diagnostic
 
 \subsubsection{The Back-end Database}
 The power of a successful WMS comes in part from its ability to effectively manage state transitions of the many objects present
-in the system (units of data, jobs, tasks etc). This is made possible by utilizing a database to keep the sates of these objects.
+in the system (units of data, jobs, tasks etc). This is made possible by utilizing a database to keep the states of these objects.
 Most current implementations reply on a RDBMS for this function (e.g. ATLAS PanDA is using the Oracle RDBMS at the time of writing).
 The database serves both as the core intrument in the ``brokerage'' logic (matching of workload to resources) and as the source
 of data for many kinds of monitoring.
@@ -256,7 +256,7 @@ technologies in industry and research, since the possibilities for future migrat
 Once again, the issue of network performance, monitoring and application of such information to improve throughput and efficiency of workflow
 belongs to two domains, Workload Management and Data Management. In itself, the network performance monitoring is not a new subject by any means
 and effective monitoring tools have been deployed at scale~\cite{perfsonar_chep12}. However, until recently, network performance data was not
-widely used as a crucial factor in managing the workload distribution in HEP domain in ``near time''. In this approach, network perfromance information
+widely used as a crucial factor in managing the workload distribution in HEP domain in ``near time''. In this approach, network perforymance information
 is aggregated from a few sources, analyzed and used in determine a more optimal placement of jobs relative to the data~\cite{panda_chep13}.
 
 % A complementary strategy is application of ``Intelligent Networks'', whereby 
