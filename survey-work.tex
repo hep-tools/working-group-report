@@ -7,7 +7,7 @@ In the past three decades, technological revolution in industry has enabled and 
 more and more sophisicated methods of data processing and analysis were constantly introduced, oftentimes at a dramatically increased scale.
 Processing power and storage were becoming increasingly decentralized, leading to the need to manage these distributed resources in an optimal manner.
 On the other hand, increasing sophistication of scientific workflows created the need to support these workflows in the new distributed computing medium.
-Rapid evolution of the field such as HEP and time pressures to deliver in this competitive environment led to design and implementation of complete (to varying degrees)
+Rapid evolution of the field and time pressures to deliver in this competitive environment led to design and implementation of complete (to varying degrees)
 and successful solutions to satisfy the needs of specific  research projects. In general, this had two consequences:
 
 \begin{itemize}
@@ -27,7 +27,7 @@ relationships among these domains and in doing so form the basis for possible HE
 \subsection{Description}
 
 \subsubsection{Grid and Cloud Computing}
-According to a common definition, \textbf{Grid Computing} is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional characteristics added to this include decentralized
+According to a common definition, \textbf{Grid Computing} is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional characteristics added to this including decentralized
 administration and management and adherence to open standards. It was formulated as a concept in early 1990s, and motivated by the fact that computational tasks handled by large research projects reached
 the limits of scalability of most individual computing sites. On the other hand, due to variations in demand, some resources were underutilized at times. There is therefore a benefit in implementing a federation of
 computing resources, whereby large spikes in demand can be handled by federated sites, while ``backfilling'' the available capacity with lower priority tasks submitted by a larger community of users.
@@ -36,7 +36,7 @@ nuclear and high-energy physics.
 
 \textbf{Cloud Computing} is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
 In addition, Cloud Computing is characterized by widespread adoption of \textit{virtualization} - which is also used in the traditional Grid environment but at a smaller scale.
-At the time of writing, ``Cloud'' prominently figures in the context of commercial services available on the network, whereby computing resources can be ``rented'' for a fee in the form of a Virtual Machine allocated
+At the time of writing, ``Cloud'' prominently figures in the context of commercial services available on the Internet, whereby computing resources can be ``rented'' for a fee in the form of a Virtual Machine allocated
 to the user, or a  number of nodes in the Cloud can be dynamically assigned to perform a neccesary computational task - often as a transient, ephemeral resource. Such dynamic, on-demand characteristic
 of the Cloud led to it being described as an ``elastic'' resource (cf. ``Amazon Elastic Compute Cloud'' - the EC2).
 
@@ -112,9 +112,9 @@ turn a layer of abstractions above the distributed execution environment such as
 % As we already noted, 
 % Historically, in many cases the Workflow Management layer was not designed together with the underlying Workload Management system, and was (\textbf{FIXME})
 
-\subsubsection{HTC vs HPC}
+\subsubsection{HPC vs HTC}
 The term \textbf{High-Performance Computing} (HPC) is used in reference to systems of exceptionally high processing capacity (such as individual supercomputers, which are typically highly parallel systems),
-in the sense that they handle substational workload and deliver results over a relatively short period of time. By contrast,\textbf{ High-Throughput Computing} (HTC) involves harnessing to a wider pool
+in the sense that they handle substantial workload and deliver results over a relatively short period of time. By contrast, HTC involves harnessing to a wider pool
 of more conventional resources in order to deliver a considerable amount of computational power, although potentially over longer periods of time. 
 \begin{quote}
 \textit{``HPC brings enormous amounts of computing power to bear over relatively short periods of time. HTC employs large amounts of computing power for very lengthy periods.''}~\cite{htc}.
@@ -254,8 +254,8 @@ technologies in industry and research, since the possibilities for future migrat
 Once again, the issue of network performance, monitoring and application of such information to improve throughput and efficiency of workflow
 belongs to two domains, Workload Management and Data Management. In itself, the network performance monitoring is not a new subject by any means
 and effective monitoring tools have been deployed at scale~\cite{perfsonar_chep12}. However, until recently, network performance data was not
-widely used as a crucial factor in managing the workload distribution in HEP domain in ``near time''. In this approach, network perforymance information
-is aggregated from a few sources, analyzed and used in determine a more optimal placement of jobs relative to the data~\cite{panda_chep13}.
+widely used as a crucial factor in managing the workload distribution in HEP domain in ``near time''. In this approach, network performance information
+is aggregated from a few sources, analyzed and used in determining a more optimal placement of jobs relative to the data~\cite{panda_chep13}.
 
 A complementary strategy is application of ``Intelligent Networks'', whereby optimized data conduits of specified badwidth are created using
 appropriate software, and utilized for optimized data delivery to the location where the computation is to take place according to the WMS logic.
