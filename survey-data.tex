@@ -9,15 +9,59 @@ Distribution and Curation. It includes technical solutions, procedures and polic
 cycle of the data. 
 
 
+\subsection{Data Movement}
+Data in a modern HEP experiment will move around quite a lot. Here are some of the main elements:
 
-\subsubsection{Metadata}
+\begin{description}
+\item[Bulk Raw Data Transfer] The bulk raw data need to be transfered from where they are taken to the main storage site (which sometimes is also the 
+main processing site). Sometimes this may be on the same location (LHC, Tier 0 at CERN), other times the data may be transfered over large 
+distances and even between continents (Daya Bay). These tools can be file transfer utilities or additional tools layered on top of such utilities. 
+Some of these tools are:  
+\begin{itemize}
+\item bbcp 
+\item gridFTP
+\item SPADE 
+\end{itemize}
+
+\item[Tiers] For smaller experiments there will only be one processing site and it is co-located at the main storage site. For larger experiments 
+a tiered system is prefered as no single site has enough capacity. Tier 0 will be the main site, usually storing all the raw data. Tier 1 sites will 
+usually be large sites that can contain reconstructed data. Tier 2 sites will then be sites with smaller capacity, but still enough to contain 
+analysis data (or at least a subset of this). Note that processing can be decoupled from the (storage) sites if it uses grid computing. Also note 
+that data sets may be moved around by a WMS like PanDA, for example, to where the processing is.  
+
+\item[File Access Protocols] Once files have been transfered and processed, they will eventually be accessed by the users (with the help of 
+Data Catalogs, see below). File access protocols are not to be confused with file transfer tools which is moving a file from A to B. 
+A well known example, XRootD, is at the lowest level a protocol for opening and reading (writing) a file across the network. Multiple XRootDs can 
+be put together, and via the simple functionality to redirect and reconnect, can be used to shield the client from the details of the storage 
+behind the scenes (SSD, fast/slow disks, tape). One interesting development is to also shield the geographical location of the file from the user i.e. 
+Federated Storage.
+
+\item[Federated Storage] XRootD redirectors can be put into a system of mutiple layers. A user request for a file goes first to the top 
+redirector and can then cascade down until it reaches a machines that has the file. This way one can build up a federated storage model i.e. 
+'World federation' containing 'US' and 'Europe' and 'XXX' federations, and where 'US' again can have multiple layers. A user requesting a file 
+will in this model not care where the file is geographically located i.e. all the data will be available all the time everywhere. Underlying this 
+model is the fact that today's networks have enough bandwidth to shuffle all this data around. 
+Note that the original LHC computing model was the opposite of this i.e. processing was moved to where the data were stored.
+\end{description}
+
+
+\subsection{Metadata}
 To be able to manage the data it has to be described. Metadata is therefore a necessary part of data management. The 
-list of possible metadata is long, but a few key ones are 'Data provenance' and 'Data file location' since they map onto 
-applications like file managers and data catalogs and their possible ties to workflow management.
+list of possible metadata is long. Some key ones are:
 
-\subsubsection{Data catalogs And Logical Data Sets}
+\begin{itemize}
+\item Data Provenance i.e. when and where it was taken, which raw data were used if the data are processed etc.
+\item Data processing description i.e. processing status including calibrations, code versions etc.
+\item Data location i.e. where the files are located (especially since data may be moved around). Note that the meaning of this changes in a 
+Federated Storage Model. 
+\item Data description i.e. analysis summary information.
+\end{itemize}
+
+
+
+\subsection{Data catalogs And Logical Data Sets}
 A data catalog combines a file catalog i.e. information about where the data files are stored, with additional metadata.
-This enables the construction of logical (virtual) data sets like 'Higgs2GammaGamma' and makes it possible for users to 
+This enables the construction of logical (virtual) data sets like 'WIMPcandidatesLoose' and makes it possible for users to 
 make a selection of a subset of the available data.
 
 \begin{description}
@@ -25,8 +69,9 @@ make a selection of a subset of the available data.
 different approach was chosen by the Fermi Space Telescope Data Catalog. In addition to the initial metadata, it had a
 data crawler that would go through all registered files and extract metadata like number of events etc. The advantage is
 that the set of metadata then can be easily expanded after the fact - you just let loose the crawler with the list
-of new quantities to extract. Note that since the Fermi Data Catalog is independent of any workflow management system, 
-any data processing metadata will have to be explicitly added. 
+of new quantities to extract which then is just added to the existing list of metadata). Obviously this only works for 
+metadata included in the file and file headers.  Note that since the Fermi 
+Data Catalog is independent of any workflow management system, any data processing metadata will have to be explicitly added. 
 
 
 \item[SAM] [more detailed description - SAM is more tied into workflow management than the Fermi Data catalog]
@@ -38,16 +83,11 @@ any data processing metadata will have to be explicitly added.
 \end{description}
 
 
-\subsubsection{File Catalogs and Federated Storage/XRootD}
-One interesting evolution is the use of XRootD and Federated Storage. A traditional file catalog will contain the 
-location of the data files. With XRootD the notion of location is outsourced to the XRootD director. 
-[awb: more details ....]
-
 
 \subsection{Data distribution}
 
 \subsubsection{Data Skimmers}
-A Data Catalog can be combined with a workflow engine to produce skims. These can be either user skims or collaboration 
+A Data Catalog can be combined with a workflow engine to produce data skims. These can be either user skims or collaboration 
 wide skims. 
 
 \begin{description}
@@ -55,16 +95,11 @@ wide skims.
 can be chained together with for example the Fermi workflow engine ('pipeline') to easily produce user defined skims 
 i.e. the user selects cuts and what logical data sets to use and the relevant file locations are automatically 
 forwarded to the processing pipeline that produce the requested output files and make them available for download 
-by the user. 
-
-\item[Pointer skims] (Needed?) Instead of producing new deep copies of skimmed files one can instead make a list 
-containing 
-pointers to events in the original data files. This was, for example, done by the BaBar pointer skims. While it has 
-certain advantages, like minimizing duplication of data, it has possible I/O and latency issues. In addition, it's not 
-clear how this works with the Federated Storage model.
+by the user. The drastic reduction in data volume makes this an attractive solution for many experiments since the skimmed files 
+may be stored and analyzed locally, in some cases even on a laptop.
 \end{description}
 
-\subsubsection{Authentication/Authorization} This is a potential touchy subject ....  
+\subsubsection{Authentication/Authorization} 
 
 
 \subsubsection{Hot Datasets}
@@ -74,17 +109,18 @@ naturally onto different storage technology. For example, in a three-tiered syst
 warm datasets are stored on fast disks and cold datasets are stored on slow disks or tape. XRootD makes the 
 management of such a system easier as it can be configured to automatically retrieve datasets from tape in case they 
 don't exist on disk. Note that such a system is dynamic i.e. today's hot dataset is tomorrow's cold one so datasets will 
-need to be automatically migrated from one storage layer to the following one based on access patterns. [add some details about the ATLAS/CMS systems for caching and purging] 
+need to be automatically migrated from one storage layer to the following one based on access patterns. [add some details 
+about the ATLAS/CMS systems for caching and purging] 
 
 
 
-\subsubsection{What Works, What Doesn't}
+\subsection{What Works, What Doesn't}
 [Needs to be expanded] One danger with DM systems is that they become monolithic - especially over time - as more 
 and more functionality is added and there is a desire to make the overall system easier to use (automating more 
 and more functions). Maybe somebody has some experience with how LHC experiments have tried to make things modular?
 
 
-\subsubsection{Common Elements vs Experiment Specific Ones}
+\subsection{Common Elements vs Experiment Specific Ones}
 
 
 
