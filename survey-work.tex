@@ -36,7 +36,7 @@ nuclear and high-energy physics.
 
 \textbf{Cloud Computing} is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
 In addition, Cloud Computing is characterized by widespread adoption of \textit{virtualization} - which is also used in the traditional Grid environment but at a smaller scale.
-At the time of writing, Cloud prominently figures in the context of commercial services available on the network, whereby computing resources can be ``rented'' for a fee in the form of a Virtual Machine allocated
+At the time of writing, ``Cloud'' prominently figures in the context of commercial services available on the network, whereby computing resources can be ``rented'' for a fee in the form of a Virtual Machine allocated
 to the user, or a  number of nodes in the Cloud can be dynamically assigned to perform a neccesary computational task - often as a transient, ephemeral resource. Such dynamic, on-demand characteristic
 of the Cloud led to it being described as an ``elastic'' resource (cf. ``Amazon Elastic Compute Cloud'' - the EC2).
 
@@ -226,17 +226,12 @@ While this ``lean client'' provides less benefits than more complex ``pilots'', 
 
 
 \subsubsection{Monitoring}
-The ability of the user or operator of a WMS to gain immediate and efficient access to information describing the status of jobs, tasks and operations performed on the data
+The ability of the user or operator of a WMS to gain immediate and efficient access to information describing the status of jobs, tasks (i.e. collections of jobs) and operations performed on the data
 is an essential feature of a good Workload Management System~\cite{pandamon_chep10}. For operators and administrators, it provides crucial debugging and troubleshooting
 capabilities. For the users and production managers, it allows better diagnostics of application-level issues and performance, and helps to better plan the user's workflow
 ~\cite{pandamon_isgc14}.
 
-
-%In this section, we will need to refer to the concept of a \textbf{task}, and since this word is overloaded, we have to introduce a proper definition.
-%A few examples of WMS incorporate a concept of the task in the sense of a collection or grouping of jobs either created from the same template (and based on same executable)
-%and differentiated only by some input parameters or units of input data, or grouped together based on their interdependence and purpose (this is not a universal definition and it
-%does clash with ``tasks'' used in the batch system context but we'll stick with with in this chapter since it's widely used). The task in this case is a rudimentary case of workflow management tool.
-%All three domains involved in the present discussion (Workflow, Workload, Data) benefit from monitoring capability.
+Of course, all three domains involved in the present discussion (Workflow, Workload, Data) benefit from monitoring capability.
 
 \subsubsection{The Back-end Database}
 The power of a successful WMS comes in part from its ability to effectively manage state transitions of the many objects present
@@ -247,8 +242,9 @@ of data for many kinds of monitoring.
 
 In seeking shared and reusable solutions, we would like to point out that it is highly desirable to avoid coupling of the WMS application code to a particular
 type or flavor of the database system, e.g. Oracle vs MySQL etc. Such dependency may lead to difficulties in deployment due to available
-expertise and maintenance policies at the target organization and in some cases even cost (cf. Oracle). Solutions such as an ORM layer
-should be utilized to make possible utilization of a variety of database products as the back-end for the Workload Management System,
+expertise and maintenance policies at the target organization and in some cases even licensing costs (cf. Oracle). Solutions such as an ORM layer
+or other methods of database abstraction
+should be utilized to make possible utilization of a variety of  products as the back-end DB solution for the Workload Management System,
 without the need to rewrite any significant amount of its code. This is all the more important in light of the widening application of noSQL
 technologies in industry and research, since the possibilities for future migration to a new type of DB must remain open.
 
@@ -261,7 +257,8 @@ and effective monitoring tools have been deployed at scale~\cite{perfsonar_chep1
 widely used as a crucial factor in managing the workload distribution in HEP domain in ``near time''. In this approach, network perforymance information
 is aggregated from a few sources, analyzed and used in determine a more optimal placement of jobs relative to the data~\cite{panda_chep13}.
 
-% A complementary strategy is application of ``Intelligent Networks'', whereby 
+A complementary strategy is application of ``Intelligent Networks'', whereby optimized data conduits of specified badwidth are created using
+appropriate software, and utilized for optimized data delivery to the location where the computation is to take place according to the WMS logic.
 
 
 
