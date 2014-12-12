@@ -15,16 +15,36 @@ in much detail. Likewise, for the most part network-specific issues fall outside
 
 
 \subsection{Moving Data}
+\subsubsection{Modes of Data Transfer and Access}
 In any distributed environment (and most HEP and IF experiments are prime examples of that) the data is typically stored at multiple locations,
 for a variety of reasons, and over its lifetime undergoes a series of transmissions over networks, replications and/or deletions, with attendant bookkeeping
 in appropriate catalogs. Data networks utilized in research can span \textit{hundreds} of Grid sites across multiple continents.
 
-We observe a few different and distinct modes of access to data utilized in HEP. Consider the following:
+In HEP, we observe a few different and distinct modes of moving and accessing data. Consider the following:
 
 \begin{description}
-\item[Managed Bulk Transfer]
+\item[Bulk Transfer] In this conceptually simple case, data transport from point A to point B is automated and augmented
+with redundancy and verification mechanism so as to minimize chances of data loss. Examples of this can be found in SPADE
+(data transfer system used in Daya Bay) and components of SAM at FNAL.
 
- 
+\item[Managed Replication] In many cases the strategy consists on creating replicas of certain segments of the data (datasets, blocks, etc)
+on participating Grid sites. Such distribution is done according to a previously developed policy which may be based on storage capacities of 
+the sites, specific processing plans, resource quota and any number of other factors. Good examples of this type of systems are found in
+ATLAS (\textit{Rucio)} and CMS (\textit{PhEDEx}), among other experiments~\cite{rucio_chep13,phedex_chep09}.
+
+\item[``Data in the Grid'' (or Cloud)] In addition to accessing the data which is local to the processing element, such as a Workder Node
+on the Grid, it is possible to access data that it physically remote, provided there exists enough bandwidth between the storage
+facility or device, and the processing element. This can be as simple as using \textit{http} to pull data from a remote location before
+executing the payload job, or as advanced as utilizing \textit{xrootd}~\cite{xrootd,xrootd_web} over WAN to federate storage resources and locate and
+deliver files transparently in a ``just-in-time'' manner.
+
+\end{description}
+
+
+ Choosing the right approaches and technologies in this case is obviously a two-tiered process -- first, one needs to identify the most
+ relevant use cases and match them to categories such as outlined above (e.g. replication vs network data on demand). Second, within
+ the chosen scenario, proper solutions must be identified (and hopefully reused rather than reimplemented).
+   
 % The bulk raw data need to be transfered from where they are taken to the main storage site (which sometimes is also the 
 %main processing site). Sometimes this may be on the same location (LHC, Tier 0 at CERN), other times the data may be transfered over large 
 %distances and even between continents (Daya Bay). These tools can be file transfer utilities or additional tools layered on top of such utilities. 
@@ -35,6 +55,14 @@ We observe a few different and distinct modes of access to data utilized in HEP.
 %\item SPADE 
 %\end{itemize}
 
+
+
+
+
+\subsubsection{Data Network Topologies}
+\fixme{Build a logic bridge here. Monarc etc.)}
+
+\begin{description}
 \item[Tiers] For smaller experiments there will only be one processing site and it is co-located at the main storage site. For larger experiments 
 a tiered system is prefered as no single site has enough capacity. Tier 0 will be the main site, usually storing all the raw data. Tier 1 sites will 
 usually be large sites that can contain reconstructed data. Tier 2 sites will then be sites with smaller capacity, but still enough to contain 
