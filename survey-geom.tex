@@ -31,7 +31,7 @@ by the placement of volumes into other volumes up to a top level
 ``world'' volume.  It is typical to describe this as a daughter volume
 being placed into a mother volume.  The placement is performed by
 providing a transformation (translation plus rotation) between
-conventional coordinate systems centered on each.  A volume may have
+conventional coordinate systems centered on each volume.  A volume may have
 an associated solid shape of some given dimensions and consist of some
 material with bulk and surface properties.  With no such association
 the volume is considered an ``assembly'', merely aggregating other
@@ -81,47 +81,51 @@ followed by GEANT3).  There is no facilities provided for the actual
 authoring of the geometry description and that is left to the
 application developer.
 
-Addressing this failing is a main goal of GGD.  This system provides a
-layered design.  At the top is a simple text-based configuration
-system which is what is expected to be exposed to the end user.  This
-drives a layer of Python modules which interpret the configuration
-into a set of general in-memory, transient objects.  These objects are
-follow a strict CSG schema compatible in concept with Geant4's.  This
-schema includes specifying an objects allowed quantities and provides
+Addressing this need for an authoring system is a main goal of GGD.
+This system provides a layered design.  At the top is a simple
+text-based configuration system which is what is expected to be
+exposed to the end user.  This drives a layer of Python builder
+modules which interpret the configuration into a set of general
+in-memory, transient objects.  These objects all follow a strict CSG
+schema which is conceptually compatible with that of Geant4.  This
+schema includes specifying an object's allowed quantities and provides
 a system of units not tied to any particular ``client'' system.  A
-final layer exports these objects into some other representation,
-typically by writing a file.  Access to both the set of general
-geometry object and any export-specific representation is available in
-order to implement validation checks.  Thus, in GGD the source of
-geometry information for any ``world'' is the Python module and the
+final layer exports these objects into other representations for
+consumption by other applications, typically by writing a file.
+Access to both the set of general geometry objects and any
+export-specific representation is available for access in order to
+implement validation checks.  Thus, in GGD the source of geometry
+information for any ``world'' is the Python builder modules and the
 end-user configuration files.
 
 \subsection{Problems with CAD}
 
 It is not unusual for an experiment at some point to consider
 integrating CAD to their geometry information management system.  CAD
-provides far better authoring and visualization methods that most HEP
+provides far better authoring and visualization methods than most HEP
 geometry software.  It is typical that a CAD model for an experiment's
 detectors or beamline must be produced for engineering purposes and it
 is natural to want to leverage that information.  However, there are
 several major drawbacks to this approach.
 
 CAD models sufficient for engineering purposes typically contain
-excessive levels of information.  Applied to a tracking simulation
-this leads to an explosion in the number of objects that must be
-queried on each step of the particle's trajectory.  It leads to large
-memory and CPU requirements with minimal or incremental improvements.
+excessive levels of information for HEP offline software purposes.
+Applied to a tracking simulation this leads to an explosion in the
+number of objects that must be queried on each step of the particle's
+trajectory.  It leads to large memory and CPU requirements with
+minimal or incremental improvements in the quality of the simulation
+or reconstruction results.
 
 Use of CAD usually requires expensive, proprietary software with
-significant effort required to use.  This limits which individuals can
+significant expertise required to use.  This limits which individuals can
 effectively work on the geometry and tends to lock in the success of
-the experiment to on vendors offering.  It is typical for the geometry
+the experiment to one vendor's offering.  It is typical for the geometry
 description to require modification over a significant portion of the
 experiment's lifetime and these limitations are not acceptable.
 
 Finally, the use of a CSG model is uncommon in CAD.  Instead a
 surface-oriented description is used.  For its use in Geant4, a CSG
-model is required.  Converting from one to the other is very
+model is required.  Converting from surfaces to CSG is very
 challenging particularly if the CAD user has not attempted to follow
 the CSG model in effect, if not in deed.
 
@@ -129,7 +133,7 @@ There is, however, potential in using CAD with HEP geometries.  This
 is being explored in GGD in the production of OpenInventor files which
 can be loaded into FreeCAD, a Free Software CAD application.  While
 FreeCAD can currently view an OpenInventor CSG representation it can
-not be used to produce them.  FreeCAD is extensible to new
+not be used to produce them.  However, FreeCAD is extensible to new
 representation types.  With effort, it may be extended to produce and
 operate on a suite of novel CSG objects which follow a schema
 similarly to that required by Geant4.
