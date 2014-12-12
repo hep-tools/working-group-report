@@ -156,7 +156,43 @@ IceTray is the software framework used by the IceCube experiment and also ported
 
  \fixme{I can't find a reference for the requirements that is public.}
 
-\subsection{What works, what doesn't}
+\subsection{Opportunity for improvement}
+
+Some best practices are identified:
+
+\begin{description}
+\item[open community] Make source-code repositories, bug tickets and
+  mailing lists (user and developer) available for anonymous reading
+  and lower the barrier for accepting contributions from the community.
+
+\item[modularity] Separate the framework code into modular units with
+  clear interfaces that minimize recompilation.  The system should
+  work when optional modules are omitted.
+
+\item[documentation] Produce descriptions of the concepts, design and
+  implementation of the framework and guides on installation,
+  extension and use of the framework.
+\end{description}
+
+\noindent Some specific actions that would benefit the community are:
+
+\begin{itemize}
+\item Move the modules providing for general purpose geometry
+  (DetDesc), data model (GaudiObjDesc) and Geant4 interface (GiGa)
+  packages out of LHCb repositories and in to Gaudi.
+\item Produce updated, general documentation on the design, use and extension of Gaudi.
+\item Develop a registry of general-use extensions to Gaudi that have
+  been developed by experiments and work to provide them in a manner
+  independent from experiment software.
+\end{itemize}
+
+\fixme{Add others.}
+
+
+\subsubsection{Editing notes}
+
+
+\fixme{This is not a real section and will be deleted}
 
 	ROOT browsable data files\\
 	module implementation of reconstruction producers through standardized entry points and hooks\\
@@ -173,17 +209,6 @@ the framework.  Even with this, compile-time dependencies can balloon
 build times and frameworks should best implement the base classes with
 pure-virtual interface classes such that changes to one part of the
 code base do not require a full rebuild/relink.
-
-\subsection{Examples}
-\subsection{Opportunity for improvement}
-
-\fixme{t.b.d.}
-
-
-\subsubsection{Editing notes}
-
-
-\fixme{This is not a real section and will be deleted}
 
 \begin{itemize}
 \item types of software frameworks
