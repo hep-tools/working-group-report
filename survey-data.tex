@@ -4,24 +4,36 @@
 \fixme{(authors: Anders, Brian, Maxim, Mike, Simon)}
 
 \subsection{Definition}
-Data Management is any content neutral interaction with the data and includes Data Storage/Archival, Access, 
-Distribution and Curation. It includes technical solutions, procedures and policies and deals with the full life 
-cycle of the data. 
+In general, \textbf{Data Management} is any \textit{content neutral} interaction with the data, i.e. it is the \textit{data flow}
+component of the larger domain of  \textbf{Worklflow Management} (see \ref{workflow_workload}). It addresses issues of data storage
+and archival, mechanisms of data access and distribution, and  curation -- over the full life cycle of the data. In order to remain within
+the scope of this document and keep  proper focus on topics most relevant for the ``Working Group on Libraries and Tools'', we will
+concentrate our attention on issues related to data distribution, metadata and catalogs, and won't cover issues of mass storage
+in much detail. Likewise, for the most part network-specific issues fall outside of our purview.
+
+% It includes technical solutions, procedures and policies and deals with the full life cycle of the data. 
 
 
-\subsection{Data Movement}
-Data in a modern HEP experiment will move around quite a lot. Here are some of the main elements:
+\subsection{Moving Data}
+In any distributed environment (and most HEP and IF experiments are prime examples of that) the data is typically stored at multiple locations,
+for a variety of reasons, and over its lifetime undergoes a series of transmissions over networks, replications and/or deletions, with attendant bookkeeping
+in appropriate catalogs. Data networks utilized in research can span \textit{hundreds} of Grid sites across multiple continents.
+
+We observe a few different and distinct modes of access to data utilized in HEP. Consider the following:
 
 \begin{description}
-\item[Bulk Raw Data Transfer] The bulk raw data need to be transfered from where they are taken to the main storage site (which sometimes is also the 
-main processing site). Sometimes this may be on the same location (LHC, Tier 0 at CERN), other times the data may be transfered over large 
-distances and even between continents (Daya Bay). These tools can be file transfer utilities or additional tools layered on top of such utilities. 
-Some of these tools are:  
-\begin{itemize}
-\item bbcp 
-\item gridFTP
-\item SPADE 
-\end{itemize}
+\item[Managed Bulk Transfer]
+
+ 
+% The bulk raw data need to be transfered from where they are taken to the main storage site (which sometimes is also the 
+%main processing site). Sometimes this may be on the same location (LHC, Tier 0 at CERN), other times the data may be transfered over large 
+%distances and even between continents (Daya Bay). These tools can be file transfer utilities or additional tools layered on top of such utilities. 
+%Some of these tools are:  
+%\begin{itemize}
+%\item bbcp
+%\item gridFTP
+%\item SPADE 
+%\end{itemize}
 
 \item[Tiers] For smaller experiments there will only be one processing site and it is co-located at the main storage site. For larger experiments 
 a tiered system is prefered as no single site has enough capacity. Tier 0 will be the main site, usually storing all the raw data. Tier 1 sites will 

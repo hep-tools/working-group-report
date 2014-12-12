@@ -121,7 +121,7 @@ of more conventional resources in order to deliver a considerable amount of comp
 \end{quote}
 
 In practice, the term \textit{HTC} does cover most cases of Grid Computing where remote resources are managed for the benefit of the end user and are often made available on prioritized and/or
-opportunistic basis (e.g. the so-capped ``spare cycles'', utilizing temporary drops in resource utilization on a particular site to deploy additional workload thus increasing the overall system
+opportunistic basis (e.g. the so-capped ``spare cycles'' or ``backfilling'', utilizing temporary drops in resource utilization on certain sites to deploy additional workload thus increasing the overall system
 throughput). A majority of the computational tasks of the LHC experiments were completed using standard off-the-shelf equipment rather than supercomputers. It is important to note, however,
 that modern Workload Management Systems can be adapted to deliver payload to HPC systems such as Leadership Class Facilities in the US, and such efforts are currently under way~\cite{panda_chep13}.
 
@@ -144,11 +144,11 @@ to those systems which are more immediately relevant to HEP and related fields t
 
 \subsubsection{HTCondor and glideinWMS}
 \label{htcondor}
-HTCondor~\cite{htcondor} is one of the best known and  important set of Grid and High-Throughput Computing (HTC) tools. It provides an array of functionality, such as
-as a batch system solution for a computing cluster, remote submission to Grid sites (via Condor-G) and automated transfer (stage-in and stage-out) of data.
-In the past decade, HTCondor was augmented with a  Workload Management System layer, known as \textit{glideinWMS}~\cite{glideinwms}. The latter abstracts remote resources (Worker Nodes)
-residing on the Grid and effectively creates a local (in terms of the interface) resource pool accessible by the user.
-This is highly beneficial to the users already having familiarity with HTCondor since it shortens the learning curve.
+HTCondor~\cite{htcondor} is one of the best known and  important set of Grid and High-Throughput Computing (HTC) systems. It provides an array of functionality, such as
+as a batch system solution for a computing cluster, remote submission to Grid sites (via its \textit{Condor-G} extension) and automated transfer (stage-in and stage-out) of data.
+In the past decade, HTCondor was augmented with a  Workload Management System layer, known as \textit{glideinWMS}~\cite{glideinwms}. The latter abstracts remote
+resources (Worker Nodes) residing on the Grid and effectively creates a local (in terms of the interface) resource pool accessible by the user.
+Putting these resources behind the standard HTCondor interface with its set of utilities is highly beneficial to the users already having familiarity with HTCondor since it geatly shortens the learning curve.
 On the other hand, deployment of this system is not always trivial and typically requires a central service to be operated with the desired degree of service level (the so-called ``glidein factory'').
 
 HTCondor has other notable features. One of the most basic parts of its functionality is the ability to transfer data consumed and/or produced by the payload job according to certain rules set by the user. This works well
