@@ -1,6 +1,6 @@
 This is the HEP FCE Working Group on Library and Tools report document source.  
 
-The document is currently in draft form with an expected completion Dec 2104.
+The document is currently in draft form with an expected completion Dec 2014.
 
 The document is authored in LaTeX.  To build it to PDF by hand:
 
