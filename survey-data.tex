@@ -116,9 +116,9 @@ Data Catalog is independent of any workflow management system, any data processi
 
 \item[SAM] [more detailed description - SAM is more tied into workflow management than the Fermi Data catalog]
 
-\item[ATLAS] ....
+\item[ATLAS] ....?
 
-\item[CMS] ....
+\item[CMS] ....?
 
 \end{description}
 
@@ -136,10 +136,12 @@ can be chained together with for example the Fermi workflow engine ('pipeline') 
 i.e. the user selects cuts and what logical data sets to use and the relevant file locations are automatically 
 forwarded to the processing pipeline that produce the requested output files and make them available for download 
 by the user. The drastic reduction in data volume makes this an attractive solution for many experiments since the skimmed files 
-may be stored and analyzed locally, in some cases even on a laptop.
+may be stored and analyzed locally, in some cases even on a laptop. By making this very easy to use and entirely user driven, this 
+helps minimizing the load on data handling experts in the collaboration.    
 \end{description}
 
 \subsubsection{Authentication/Authorization} 
+.....
 
 
 \subsubsection{Hot Datasets}
@@ -149,15 +151,30 @@ naturally onto different storage technology. For example, in a three-tiered syst
 warm datasets are stored on fast disks and cold datasets are stored on slow disks or tape. XRootD makes the 
 management of such a system easier as it can be configured to automatically retrieve datasets from tape in case they 
 don't exist on disk. Note that such a system is dynamic i.e. today's hot dataset is tomorrow's cold one so datasets will 
-need to be automatically migrated from one storage layer to the following one based on access patterns. [add some details 
-about the ATLAS/CMS systems for caching and purging] 
+need to be automatically migrated from one storage layer to the following one based on access patterns. 
 
 
 
-\subsection{What Works, What Doesn't}
-[Needs to be expanded] One danger with DM systems is that they become monolithic - especially over time - as more 
-and more functionality is added and there is a desire to make the overall system easier to use (automating more 
-and more functions). Maybe somebody has some experience with how LHC experiments have tried to make things modular?
+
+\subsection{Opportunities for improvement}
+One problem with Data Management systems is that they often tend to become monolithic as more and more functionality is 
+added (organically). While this may make it easier to operate in the short term, it makes it more difficult to maintain over 
+the long term. In particular, it makes it difficult to react to technical developments and update parts of the system. It's 
+therefore critical to make the system as modular as possible and avoid tight couplings to either specific technologies or 
+to other parts of the ecosystem, in particular the coupling to the Workload Management System. Modularity should therefore be 
+part of the core design. This would also make reuse easier to achieve. 
+\par Smaller experiments have different problems. Most small experiments have or will enter the PB era and can no onger use a manual 
+data management system built on an army of grad students. They need modern data management tools. However, they have needer the 
+expertise to adapt LHC scale tools for their use, neither the technical manpower to operate them. Simplifying and downscaling existing 
+large scale tools to minimize necessary technical expertise and manpower to operate them, even at the price of decreasing functionality, 
+may therefore be a good option. 
+\par A second option is to take existing medium-scale data handling tools and repackage them for more general use. The problem is, 
+however, somewhat similar to what is described above. Often these systems have become monolithic and significant work may be 
+necessary to make them modular. This is difficult achieve within the limited resources available and would need dedicated support.
+
+
+
+
 
 
 \subsection{Common Elements vs Experiment Specific Ones}
