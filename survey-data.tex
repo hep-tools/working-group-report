@@ -5,7 +5,7 @@
 
 \subsection{Definition}
 In general, \textbf{Data Management} is any \textit{content neutral} interaction with the data, i.e. it is the \textit{data flow}
-component of the larger domain of  \textbf{Worklflow Management} (see \ref{workflow_workload}). It addresses issues of data storage
+component of the larger domain of  \textbf{Workflow Management} (see \ref{workflow_workload}). It addresses issues of data storage
 and archival, mechanisms of data access and distribution, and  curation -- over the full life cycle of the data. In order to remain within
 the scope of this document and keep  proper focus on topics most relevant for the ``Working Group on Libraries and Tools'', we will
 concentrate our attention on issues related to data distribution, metadata and catalogs, and won't cover issues of mass storage
@@ -32,11 +32,11 @@ on participating Grid sites. Such distribution is done according to a previously
 the sites, specific processing plans, resource quota and any number of other factors. Good examples of this type of systems are found in
 ATLAS (\textit{Rucio)} and CMS (\textit{PhEDEx}), among other experiments~\cite{rucio_chep13,phedex_chep09}.
 
-\item[``Data in the Grid'' (or Cloud)] In addition to accessing the data which is local to the processing element, such as a Workder Node
+\item[``Data in the Grid'' (or Cloud)] In addition to accessing the data which is local to the processing element, such as a Worker Node
 on the Grid, it is possible to access data that it physically remote, provided there exists enough bandwidth between the storage
 facility or device, and the processing element. This can be as simple as using \textit{http} to pull data from a remote location before
-executing the payload job, or as advanced as utilizing \textit{xrootd}~\cite{xrootd,xrootd_web} over WAN to federate storage resources and locate and
-deliver files transparently in a ``just-in-time'' manner.
+executing the payload job, or as advanced as utilizing \textit{XRootD}~\cite{xrootd,xrootd_web} over WAN to federate storage resources and locate and
+deliver files transparently in a ``just-in-time'' manner (ATLAS FAX and CMS AAA).
 
 \end{description}
 
@@ -59,7 +59,7 @@ deliver files transparently in a ``just-in-time'' manner.
 
 
 
-\subsubsection{Data Network Topologies}
+\subsubsection{From Co-location to Federated Storage}
 \fixme{Build a logic bridge here. Monarc etc.)}
 
 \begin{description}
@@ -77,11 +77,11 @@ behind the scenes (SSD, fast/slow disks, tape). One interesting development is t
 Federated Storage.
 
 \item[Federated Storage] XRootD redirectors can be put into a system of mutiple layers. A user request for a file goes first to the top 
-redirector and can then cascade down until it reaches a machines that has the file. This way one can build up a federated storage model i.e. 
+redirector and can then cascade down until it reaches a node that has the file. This way one can build up a federated storage model i.e. 
 'World federation' containing 'US' and 'Europe' and 'XXX' federations, and where 'US' again can have multiple layers. A user requesting a file 
 will in this model not care where the file is geographically located i.e. all the data will be available all the time everywhere. Underlying this 
 model is the fact that today's networks have enough bandwidth to shuffle all this data around. 
-Note that the original LHC computing model was the opposite of this i.e. processing was moved to where the data were stored.
+Note that the original LHC computing model was the opposite of this i.e. processing and data were co-located.
 \end{description}
 
 
@@ -99,7 +99,7 @@ Federated Storage Model.
 
 
 
-\subsection{Data catalogs And Logical Data Sets}
+\subsection{Data Catalogs And Logical Data Sets}
 A data catalog combines a file catalog i.e. information about where the data files are stored, with additional metadata.
 This enables the construction of logical (virtual) data sets like 'WIMPcandidatesLoose' and makes it possible for users to 
 make a selection of a subset of the available data.
@@ -116,9 +116,9 @@ Data Catalog is independent of any workflow management system, any data processi
 
 \item[SAM] [more detailed description - SAM is more tied into workflow management than the Fermi Data catalog]
 
-\item[ATLAS] ....
+\item[ATLAS] ....?
 
-\item[CMS] ....
+\item[CMS] ....?
 
 \end{description}
 
@@ -128,7 +128,7 @@ Data Catalog is independent of any workflow management system, any data processi
 
 \subsubsection{Data Skimmers}
 A Data Catalog can be combined with a workflow engine to produce data skims. These can be either user skims or collaboration 
-wide skims. 
+wide skims. One example of such a system is the Fermi data skimmer.
 
 \begin{description}
 \item[Fermi data skimmer] Even though the Fermi Data Catalog is independent of any workflow management system, it 
@@ -136,10 +136,12 @@ can be chained together with for example the Fermi workflow engine ('pipeline') 
 i.e. the user selects cuts and what logical data sets to use and the relevant file locations are automatically 
 forwarded to the processing pipeline that produce the requested output files and make them available for download 
 by the user. The drastic reduction in data volume makes this an attractive solution for many experiments since the skimmed files 
-may be stored and analyzed locally, in some cases even on a laptop.
+may be stored and analyzed locally, in some cases even on a laptop. By making this very easy to use and entirely user driven, this 
+helps minimizing the load on data handling experts in the collaboration.    
 \end{description}
 
 \subsubsection{Authentication/Authorization} 
+.....
 
 
 \subsubsection{Hot Datasets}
@@ -149,15 +151,31 @@ naturally onto different storage technology. For example, in a three-tiered syst
 warm datasets are stored on fast disks and cold datasets are stored on slow disks or tape. XRootD makes the 
 management of such a system easier as it can be configured to automatically retrieve datasets from tape in case they 
 don't exist on disk. Note that such a system is dynamic i.e. today's hot dataset is tomorrow's cold one so datasets will 
-need to be automatically migrated from one storage layer to the following one based on access patterns. [add some details 
-about the ATLAS/CMS systems for caching and purging] 
+need to be automatically migrated from one storage layer to the following one based on access patterns. 
 
 
 
-\subsection{What Works, What Doesn't}
-[Needs to be expanded] One danger with DM systems is that they become monolithic - especially over time - as more 
-and more functionality is added and there is a desire to make the overall system easier to use (automating more 
-and more functions). Maybe somebody has some experience with how LHC experiments have tried to make things modular?
+
+\subsection{Opportunities For Improvement}
+One problem with Data Management systems is that they often tend to become monolithic as more and more functionality is 
+added (organically). While this may make it easier to operate in the short term, it makes it more difficult to maintain over 
+the long term. In particular, it makes it difficult to react to technical developments and update parts of the system. It's 
+therefore critical to make the system as modular as possible and avoid tight couplings to either specific technologies or 
+to other parts of the ecosystem, in particular the coupling to the Workload Management System. Modularity should therefore be 
+part of the core design. This would also make reuse easier to achieve. 
+\par Smaller experiments have different problems. Most small experiments have or will enter the PB era and can no onger use a manual 
+data management system built on an army of grad students. They need modern data management tools. However, they have needer the 
+expertise to adapt LHC scale tools for their use, neither the technical manpower to operate them. Simplifying and downscaling existing 
+large scale tools to minimize necessary technical expertise and manpower to operate them, even at the price of decreasing functionality, 
+may therefore be a good option. 
+\par A second option is to take existing medium-scale data handling tools and repackage them for more general use. The problem is, 
+however, somewhat similar to what is described above. Often these systems have become monolithic, have strong couplings to certain 
+technologies and significant work may be 
+necessary to make them modular. This can be difficult to achieve within the limited resources available and will need dedicated support.
+
+
+
+
 
 
 \subsection{Common Elements vs Experiment Specific Ones}
