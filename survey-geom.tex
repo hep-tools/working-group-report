@@ -70,7 +70,7 @@ their own solutions is often seen as the least effort compared to
 adopting others.  This of course leads to an ever larger tower.  Some
 common ground can be had by converting between different
 representations.  This is the approach taken by the Virtual Geometry
-Model (VGM) and the General Geometry Description (GGD).
+Model (VGM)\cite{vgm} and the General Geometry Description (GGD)\cite{gdd}.
 
 VGM provides a suite of libraries that allow for applications to be
 developed which populate one system of geometry objects (eg, Geant4 or
@@ -141,65 +141,25 @@ similarly to that required by Geant4.
 
 \subsection{Opportunity for improvement}
 
-\fixme{t.b.d.}
+The ``tower of babel'' situation should be addressed by putting effort
+in to following areas:
 
-\subsubsection{Editing notes}
+\begin{itemize}
+\item Form a small working group from geometry system experts to
+  develop a formal data schema to describe the CSG objects that make
+  up a general geometry system.  This schema should be independent
+  from any specific implementation but be consistent with major
+  existing applications (specifically Geant4 and ROOT).  The schema
+  should be presented in a generic format but made available in a form
+  that can be directly consumed (eg, JSON or XML) by software.
+\item A general, transient data model for use in major programming
+  languages (at least C++ and Python) should be developed which
+  follows this schema.  Independent and modular libraries that can
+  convert between this data model and existing ones (GDML, ROOT)
+  should be developed.  One possibility is to further develop VGM in
+  this direction.
+\item Develop a general purpose geometry authoring system that can
+  produce objects in this transient data model.
+\end{itemize}
 
-\fixme{This is not a real section and will be deleted}
-
-
-See
-\url{https://github.com/brettviren/gegede/blob/master/doc/others.org}
-for notes on a survey of some players in this problem space (CAD,
-LCDD, Unified Solids and GeGeDe as described in other docs in that
-directory).  Components of this problem space:
-
-\begin{description}
-\item[Authoring] of geometry descriptions
-  \begin{itemize}
-  \item Sole source authoring, provide single point of definitive description
-  \item Simple configuration language for end-users to tweak knobs
-  \item Powerful language for expert developers to describe geometry
-  \item General programming language vs. DSL (eg, direct authoring of GDML/AGDD or other XML)
-  \item Describe both ideal (algorithmic) geometry and one with as-built or alignment offsets from the ideal.
-  \item Allow for multiple developers to work together on different parts
-  \item Be level in prerequisites (no massive training, no large expense, no proprietary applications)
-  \end{itemize}
-\item[Version and provenance] of geometries
-  \begin{itemize}
-  \item Allow for evolving and competing versions to exist
-  \item Indelibly ``mark'' a version such that no later modifications can be added
-  \item Track version through its use by the experiment software
-  \end{itemize}
-\item[File representation and conversion] from the description
-  \begin{itemize}
-  \item Must support the ``big names'' (Geant4 and ROOT and ???)
-  \item Support for other consumers (AGDD/GraXML, OpenInventor, ???)
-  \item Sole source means no input requirements
-  \end{itemize}
-\item[Visualizing] of the geometry
-  \begin{itemize}
-  \item ``Drill down'' by removing outer volumes to see inner ones
-  \item Zoom, pan, rotate
-  \item Visualize obvious overlaps, misplacements
-  \item Produce PR quality pictures, raytrace
-  \item Event visualization has overlap but not considered in scope (?)
-  \end{itemize}
-\item[Validating] the geometry
-  \begin{itemize}
-  \item Detailed overlap detection and reporting in a way that eases fixing
-  \item Correctness (how?)
-  \end{itemize}
-\item[Applying] the geometry 
-  \begin{itemize}
-  \item Performance in Geant4 and ROOT (Unified Solids effort)
-  \item Optimizing tracking algorithms
-  \item Feedback from tracking to find optimization in the geometry organization 
-  \end{itemize}
-\item[Others] 
-  \begin{itemize}
-  \item LCDD
-  \item 
-  \end{itemize}
-\end{description}
 

@@ -56,7 +56,7 @@ timing, etc).
 
 \subsection{Gaudi}
 
-The Gaudi event processing framework provides a comprehensive set of
+The Gaudi event processing framework\cite{gaudi_lhcb,gaudi_atlas} provides a comprehensive set of
 features and is extensible enough that it is suitable for a wide
 variety of experiments.  It was conceived by LHCb and adopted by ATLAS
 and these two experiments still drive its development.  It has been
@@ -152,9 +152,7 @@ One of the challenges faced by the art framework has been the portability of the
 
 \subsection{IceTray}
 
-IceTray is the software framework used by the IceCube experiment and also ported to SeaTray for the Antares experiment. The framework is similar to other previously described frameworks in that it takes advantage of modular design for development and processing. Processing within the framework has both analysis modules and services similar to those described for Gaudi, CMSSW, and art. The IceTray framework and modules are written in the C++ language. The data structure for IceTray is designated a ``frame" and contains information about geometry, calibration, detector status, and physics events. Unlike other frameworks described, IceTray allows for multiple frames to be active in a module at the same time. This was implemented due to the nature of the IceCube detector and the need to delay processing an ``event" until information from more than the current frame is analyzed. This is accomplished through the use of a uniquely designed I/O mechanism utilizing Inboxes and Outboxes for modules. A module can have any number of Inboxes and Outboxes. The development of IceTray was done within the IceCube experiment based upon a specific set of requirements in 2003.
-
- \fixme{I can't find a reference for the requirements that is public.}
+IceTray\cite{icetray} is the software framework used by the IceCube experiment and also ported to SeaTray for the Antares experiment. The framework is similar to other previously described frameworks in that it takes advantage of modular design for development and processing. Processing within the framework has both analysis modules and services similar to those described for Gaudi, CMSSW, and art. The IceTray framework and modules are written in the C++ language. The data structure for IceTray is designated a ``frame" and contains information about geometry, calibration, detector status, and physics events. Unlike other frameworks described, IceTray allows for multiple frames to be active in a module at the same time. This was implemented due to the nature of the IceCube detector and the need to delay processing an ``event" until information from more than the current frame is analyzed. This is accomplished through the use of a uniquely designed I/O mechanism utilizing Inboxes and Outboxes for modules. A module can have any number of Inboxes and Outboxes. The development of IceTray was done within the IceCube experiment based upon a specific set of requirements in 2003.
 
 \subsection{Opportunity for improvement}
 
