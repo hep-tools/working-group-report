@@ -7,16 +7,16 @@
 In general, \textbf{Data Management} is any \textit{content neutral} interaction with the data, i.e. it is the \textit{data flow}
 component of the larger domain of  \textbf{Workflow Management} (see \ref{workflow_workload}). It addresses issues of data storage
 and archival, mechanisms of data access and distribution, and  curation -- over the full life cycle of the data. In order to remain within
-the scope of this document and keep  proper focus on topics most relevant for the ``Working Group on Libraries and Tools'', we will
-concentrate our attention on issues related to data distribution, metadata and catalogs, and won't cover issues of mass storage
-in much detail. Likewise, for the most part network-specific issues fall outside of our purview.
+the scope of this document we will
+concentrate on issues related to data distribution, metadata and catalogs, and won't cover issues of mass storage
+in much detail (which will be covered by the \textit{Systems} working group). Likewise, for the most part network-specific issues fall outside of our purview.
 
 % It includes technical solutions, procedures and policies and deals with the full life cycle of the data. 
 
 
 \subsection{Moving Data}
 \subsubsection{Modes of Data Transfer and Access}
-In any distributed environment (and most HEP and IF experiments are prime examples of that) the data is typically stored at multiple locations,
+In any distributed environment (and most HEP and IF experiments are prime examples of that) the data are typically stored at multiple locations,
 for a variety of reasons, and over its lifetime undergoes a series of transmissions over networks, replications and/or deletions, with attendant bookkeeping
 in appropriate catalogs. Data networks utilized in research can span \textit{hundreds} of Grid sites across multiple continents.
 
@@ -25,12 +25,12 @@ Consider the following:
 
 \begin{description}
 \item[Bulk Transfer] In this conceptually simple case, data transport from point A to point B is automated and augmented
-with redundancy and verification mechanism so as to minimize chances of data loss. Such implementaion may be needed,
-for example, to transport ``precious'' data from the detector to the point of permanent storage.
+with redundancy and verification mechanism so as to minimize chances of data loss. Such implementation may be needed,
+for example, to transport data from the detector to the point of permanent storage.
 Examples of this can be found in SPADE (data transfer system used in Daya Bay) and components of SAM at FNAL.
 
 \item[Managed Replication] In many cases the data management strategy involves creating replicas of certain segments of the data (datasets, blocks, etc)
-on participating Grid sites. Such distribution is done according to a previously developed policy which may be based on storage capacities of 
+in participating Grid sites. Such distribution is done according to a previously developed policy which may be based on storage capacities of 
 the sites, specific processing plans (cf. the concept of \textit{subscription}), resource quota and any number of other factors. Good examples of this type of systems are found in
 ATLAS (\textit{Rucio)} and CMS (\textit{PhEDEx}), among other experiments~\cite{rucio_chep13,phedex_chep09}.
 
@@ -38,12 +38,12 @@ ATLAS (\textit{Rucio)} and CMS (\textit{PhEDEx}), among other experiments~\cite{
 on the Grid, it is possible to access data that it physically remote, provided there exists enough bandwidth between the storage
 facility or device, and the processing element. This can be as simple as using \textit{http} to pull data from a remote location before
 executing the payload job, or as advanced as utilizing \textit{XRootD}~\cite{xrootd,xrootd_web} over WAN to federate storage resources and locate and
-deliver files transparently in a ``just-in-time'' manner (ATLAS FAX and CMS AAA).
+deliver files transparently in a ``just-in-time'' manner.
 
 \end{description}
 
 
- Choosing the right approaches and technologies in this case is obviously a two-tiered process -- first, one needs to identify the most
+Choosing the right approaches and technologies in this case is obviously a two-tiered process. First, one needs to identify the most
  relevant use cases and match them to categories such as outlined above (e.g. replication vs network data on demand). Second, within
  the chosen scenario, proper solutions must be identified (and hopefully reused rather than reimplemented).
    
@@ -56,9 +56,9 @@ At the heart of  MONARC  is a manifestly hierarchical organization of computing 
 data flow, storage and distribution policies defined based on characteristics and goals of participating sites. The sites
 are classed into ``Tiers'' according to the scale of their respective resources and planned functionality, with ``Tier-0'' denomination
 reserved for central facilities at CERN, ``Tier-1'' corresponding to major regional centers while ``Tier-2'' describes
-sites of smaller scale, to be confugured and used mainly for analysis of the data (they are also used
-to handle a large fraction of Monte Carlo simulations workload). Smaller installation and what is termed ``non-pledged resources'' 
-belong to Tier-3 in this scheme, implying a more \textit{ad hoc} approach to data distribution and handling of computational
+sites of smaller scale, to be configured and used mainly for analysis of the data (they are also used
+to handle a large fraction of the Monte Carlo simulations workload). Smaller installations and what is termed ``non-pledged resources'' 
+belong to Tier-3 in this scheme, implying a more \textit{ad hoc} approach to data distribution and handling of the computational
 workload on these sites. The topology of the data flow among the
 Tiers can be described as somehat similar to a Directed Acyclic Graph (DAG), where data undergoes processing steps 
 and is distributed from Tier-0 to a number of Tier-1 facilities, and then on to Tier-2 sites -- but Tiers of the same rank
@@ -80,8 +80,8 @@ This architecture depends on coordinated operation of two major components:
 	
 \end{itemize}
 
-While there were a variety of factors which motivated this architecture, considerations of overall efficiency given
-limits of storage capacity andl network throughput were the primary drivers in the MONARC model. In particular,
+While there were a variety of factors which motivated this architecture, considerations of overall efficiency, given
+limits of storage capacity and network throughput, were the primary drivers in the MONARC model. In particular,
 reconstruction, reprocessing and some initial stages of data reduction are typically done at the sites with
 ample  storage capacity so as to avoid moving large amount of data over the network. As such, it can be argued 
 that the MONARC architecture was ultimately influenced by certain assumptions about bandwidth, performance 
@@ -132,43 +132,15 @@ individual users greater exibility in how and where they run their workflows by 
 available for access. Potential issues with bandwidth can be solved through optimization and prioritization''\cite{xrootd_snowmass}.
 
 
-\subsubsection{From Co-location to Federated Storage}
-
-%\fixme{Build a logic bridge here. Monarc etc.)}
-%
-
-\begin{description}
-
-%\item[Tiers] For smaller experiments there will only be one processing site and it is co-located at the main storage site. For larger experiments 
-%a tiered system is prefered as no single site has enough capacity. Tier 0 will be the main site, usually storing all the raw data. Tier 1 sites will 
-%usually be large sites that can contain reconstructed data. Tier 2 sites will then be sites with smaller capacity, but still enough to contain 
-%analysis data (or at least a subset of this). Note that processing can be decoupled from the (storage) sites if it uses grid computing. Also note 
-%that data sets may be moved around by a WMS like PanDA, for example, to where the processing is.  
-
-\item[File Access Protocols] Once files have been transfered and processed, they will eventually be accessed by the users (with the help of 
-Data Catalogs, see below). File access protocols are not to be confused with file transfer tools which is moving a file from A to B. 
-A well known example, XRootD, is at the lowest level a protocol for opening and reading (writing) a file across the network. Multiple XRootDs can 
-be put together, and via the simple functionality to redirect and reconnect, can be used to shield the client from the details of the storage 
-behind the scenes (SSD, fast/slow disks, tape). One interesting development is to also shield the geographical location of the file from the user i.e. 
-Federated Storage.
-
-\item[Federated Storage] XRootD redirectors can be put into a system of mutiple layers. A user request for a file goes first to the top 
-redirector and can then cascade down until it reaches a node that has the file. This way one can build up a federated storage model i.e. 
-'World federation' containing 'US' and 'Europe' and 'XXX' federations, and where 'US' again can have multiple layers. A user requesting a file 
-will in this model not care where the file is geographically located i.e. all the data will be available all the time everywhere. Underlying this 
-model is the fact that today's networks have enough bandwidth to shuffle all this data around. 
-Note that the original LHC computing model was the opposite of this i.e. processing and data were co-located.
-\end{description}
-
 
 \subsection{Metadata}
-To be able to manage the data it has to be described. Metadata is therefore a necessary part of data management. The 
+To be able to manage the data it has to be described. Metadata, data derived from the data,  is therefore a necessary part of data management. The 
 list of possible metadata is long. Some key ones are:
 
 \begin{itemize}
 \item Data Provenance i.e. when and where it was taken, which raw data were used if the data are processed etc.
 \item Data processing description i.e. processing status including calibrations, code versions etc.
-\item Data location i.e. where the files are located (especially since data may be moved around). Note that the meaning of this changes in a 
+\item Data location i.e. where the files are located - especially since data may be moved around. Note that the meaning of this changes in a 
 Federated Storage Model. 
 \item Data description i.e. analysis summary information.
 \end{itemize}
