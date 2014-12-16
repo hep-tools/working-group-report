@@ -132,9 +132,8 @@ individual users greater exibility in how and where they run their workflows by 
 available for access. Potential issues with bandwidth can be solved through optimization and prioritization''\cite{xrootd_snowmass}.
 
 
-
 \subsection{Metadata}
-To be able to manage the data it has to be described. Metadata, data derived from the data,  is therefore a necessary part of data management. The 
+To be able to manage the data it has to be described. Metadata, data derived from the data, is therefore a necessary part of data management. The 
 list of possible metadata is long. Some key ones are:
 
 \begin{itemize}
@@ -150,7 +149,7 @@ Federated Storage Model.
 \subsection{Data Catalogs And Logical Data Sets}
 A data catalog combines a file catalog i.e. information about where the data files are stored, with additional metadata.
 This enables the construction of logical (virtual) data sets like 'WIMPcandidatesLoose' and makes it possible for users to 
-make a selection of a subset of the available data.
+make a selection of a subset of the available data. 
 
 \begin{description}
 \item[Fermi Data Catalog] One way to do this is to register all the metadata when you register the file. A slightly
@@ -162,44 +161,23 @@ metadata included in the file and file headers.  Note that since the Fermi
 Data Catalog is independent of any workflow management system, any data processing metadata will have to be explicitly added. 
 
 
-\item[SAM] [more detailed description - SAM is more tied into workflow management than the Fermi Data catalog]
 
-\item[ATLAS] ....?
+\item[SAM] .... [SAM is more tied into workflow management than the Fermi Data catalog]. Please add something.
 
-\item[CMS] ....?
+\item[ATLAS] .... Please add something.
+
+\item[CMS] .... Please add something.
 
 \end{description}
 
+\subsection{Small and Medium Scale Experiments}
+Small and medium scale experiments will have more limited needs than described in the previous sections. Data will often be stored in a single or 
+just a few geographical locations ('host laboratories'). Data processing is less distributed. However, most experiments today have data volumes large 
+enough that they need a real data management system and not rely on a purely manually driven system (files in unix directories and wiki pages). 
+And in fact, we often find many of the same elements, i.e. extensive metadata, data catalogs, XRootD, also used by smaller 
+experiments. The main difference with respect to the LHC scale is the very limited technical expertise and manpower available to develop, adapt and 
+operate these tools.
 
-
-\subsection{Data distribution}
-
-\subsubsection{Data Skimmers}
-A Data Catalog can be combined with a workflow engine to produce data skims. These can be either user skims or collaboration 
-wide skims. One example of such a system is the Fermi data skimmer.
-
-\begin{description}
-\item[Fermi data skimmer] Even though the Fermi Data Catalog is independent of any workflow management system, it 
-can be chained together with for example the Fermi workflow engine ('pipeline') to easily produce user defined skims 
-i.e. the user selects cuts and what logical data sets to use and the relevant file locations are automatically 
-forwarded to the processing pipeline that produce the requested output files and make them available for download 
-by the user. The drastic reduction in data volume makes this an attractive solution for many experiments since the skimmed files 
-may be stored and analyzed locally, in some cases even on a laptop. By making this very easy to use and entirely user driven, this 
-helps minimizing the load on data handling experts in the collaboration.    
-\end{description}
-
-\subsubsection{Authentication/Authorization} 
-.....
-
-
-\subsubsection{Hot Datasets}
-All data are not created equal. There will inevitably be hot data sets (Higgs skims for example) accessed often and by 
-many. There will also be colder data sets rarely accessed at all. The temperature of the different datasets maps  
-naturally onto different storage technology. For example, in a three-tiered system the hot datasets are stored on SSD, 
-warm datasets are stored on fast disks and cold datasets are stored on slow disks or tape. XRootD makes the 
-management of such a system easier as it can be configured to automatically retrieve datasets from tape in case they 
-don't exist on disk. Note that such a system is dynamic i.e. today's hot dataset is tomorrow's cold one so datasets will 
-need to be automatically migrated from one storage layer to the following one based on access patterns. 
 
 
 
