@@ -14,4 +14,8 @@
 \item Layout a datamodel schema up front
 \item Design for unit testing of Application software modules outside of framework
 \item Design broad-enough namespace rules (unique filenames, versions of code and data files) up front
+\item Understand the scale of the experiment and choose a set of tools that
+are neither to complex not to limiting for your scale.  Very large experiments will need more layers (i.e. extra data transport daemons that move large amounts of data for local access) than small experiments (i.e. everyone can grab all the files via https from a central store)
+\item Understand the metadata scope in advance: Will you be enforcing unique filename rules throughout your system?  When events are reprocessed, are they properly tagged with new version tags?  Can developement event processings be easily
+purged or live in a distinct name space from operations event processings?
 \end{itemize}
