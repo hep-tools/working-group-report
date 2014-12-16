@@ -17,7 +17,7 @@
 	vary widely across the range of possible experiments, as will
 	requirements for access (read and write) to different databases.  
 	We focus here on the possibility of each experiment presenting
-	to its collaboration a 'Conditions Database' interface, which
+	to its collaboration a `Conditions Database' interface, which
 	provides a common (primarily read) access interface to universal
 	information that is widely needed by the collaboration.
 
@@ -52,6 +52,43 @@ Every HEP experiment has some form of ``conditions database''. The purpose of su
 
 In implementing a conditions database, an experiment is providing a mechanism by which to associate an event to a set of conditions without having to save a complete copy of those conditions with every event. A secondary feature is that the event-to-conditions association can normally be configured to select a particular version of the conditions as knowledge about the conditions can change over time as they are better understood.
 
-\subsection{What works, what doesn't}
+\subsection{Basic Concepts}
+
+It turns out that the basic concepts of a conditions database do not vary between experiments. They all have the same issues to solve. Questions of scale, distribution and so forth can depend on the size and complexity of the data model used for quantities within the database, but these aspect are secondary and are addressed by the implementation. The resulting software for experiment differ more in the choices of technologies used rather than any conceptual foundation.
+
+\subsubsection{Data Model}
+
+The Data Model of a conditions database defines how information is grouped in atomic elements in that data base and how those atomic elements are structure so that clients can recover the necessary quantity. This is the most experiment specific concept as it is directly related to the object model used in the analysis and simulation codes. However the division of condition quantities into the atomic elements is normally based on two criteria.
+
+\begin{itemize}
+\item The period over which a quantity varies, for example geometry may be updated once a year, while a detectors calibration may be measured once a week.
+
+\item The logical cohesiveness of the quantities, for example the calibrations for one detector will be separate from those of another detector even if they are updated at the same frequency.
+\end{itemize}
+
+
+\subsubsection{Interval of Validity}
+
+The standard way of matching a conditions element to an event is by using a timestamp related to the event's acquisition. Given this time the conditions database is searched for the instance of the element that was valid at that time. (What to do when multiple instances are valid for a given time is dealt with by versioning, see section~\ref{conditions-versioning}.). This therefore requires each entry in the conditions database to have an interval of validity stating the beginning and end times, with respect to the events timestamp, for which it should be considered as the value for its quantity.
+
+As analysis often proceed sequential with respect to events, most implementations of condition database improve their efficiency by caching the `current' instance of a quantity once it has been read from the database until a request is made for a time outside its interval of validity. At this point the instance appropriate to the new time will be read in, along with its interval of validity. 
+
+
+\subsubsection{Versioning}
+\label{conditions-versioning}
+
+During the lifetime of an experiment a database will accumulate more than one instance of a conditions element that are valid for a given time. There two most obvious causes of this are the following.
+
+\begin{itemize}
+\item A conditions element is valid from a given time to the end-of-time in order to make sure there is always a valid instance of that element. At a later time during the experiment a new value for the element is measured and this is now entered into the database with its interval of validity starting later than the original instance but, as it in now the most appropriate from there on out, its validity runs until the end-of-time as well.
+
+\item A conditions element may consist of a value derived from various measurements. In principle this can be considered a `cached' result of the derivation however it is treated as a first class element in the conditions database. At some point later, a better way of deriving the value is developed and this new value is placed in the database with the same interval of validity as the orignal one.
+\end{itemize}
+
+In both cases there need to be a mechanism for arbitrating which instances are used. This arbitration is managed by assigning versions to each instance. The choice of which version to used depends on the purpose of job that is being executed. If the purpose of the job is to use the `best' values then the `latest' version is used, but if the purpose of the job is to recreate the results of a previous job or to provide a know execution environment then it must be possible to define a specific version to be used by a jobs.
+
+In order for the above versioning to work there must be some monotonic ordering of the versions. Typically this is done by the `insertion' date which is the logical date when the version was added to the database. It should be noted here that this date does not always reflect the actual date the version was inserted as that may not create the correct ordering of versions.
+
+
 \subsection{Examples}
 \subsection{Opportunity for improvement}
