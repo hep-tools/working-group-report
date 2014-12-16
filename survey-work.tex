@@ -3,6 +3,7 @@
 \fixme{(authors: Maxim, Anders, Simon)}
 
 \subsection{The Challenge of the Three Domains}
+\label{3domains}
 In the past three decades, technological revolution in industry has enabled and was paralleled by the growing complexity in the field of scientific computing, where 
 more and more sophisicated methods of data processing and analysis were constantly introduced, oftentimes at a dramatically increased scale.
 Processing power and storage were becoming increasingly decentralized, leading to the need to manage these distributed resources in an optimal manner.
@@ -27,23 +28,46 @@ relationships among these domains and in doing so form the basis for possible HE
 \subsection{Description}
 
 \subsubsection{Grid and Cloud Computing}
-According to a common definition, \textbf{Grid Computing} is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional characteristics added to this including decentralized
-administration and management and adherence to open standards. It was formulated as a concept in early 1990s, and motivated by the fact that computational tasks handled by large research projects reached
-the limits of scalability of most individual computing sites. On the other hand, due to variations in demand, some resources were underutilized at times. There is therefore a benefit in implementing a federation of
-computing resources, whereby large spikes in demand can be handled by federated sites, while ``backfilling'' the available capacity with lower priority tasks submitted by a larger community of users.
-Technologies developed in the framework of Grid Computing (such as a few reliable and popular types of \textit{Grid Middleware}) became a major enabling factor for many scientific collaborations including
-nuclear and high-energy physics.
+\label{cloud}
+According to a common definition, \textbf{Grid Computing} is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional
+characteristics added to this including decentralized administration and management and adherence to open standards. It was formulated as a concept in early 1990s,
+and motivated by the fact that computational tasks handled by large research projects reached the limits of scalability of most individual computing sites.
+On the other hand, due to variations in demand, some resources were underutilized at times. There is therefore a benefit in implementing a federation of computing
+resources, whereby large spikes in demand can be handled by federated sites, while ``backfilling'' the available capacity with lower priority tasks submitted by a
+larger community of users. Technologies developed in the framework of Grid Computing (such as a few reliable and popular types of \textit{Grid Middleware})
+became a major enabling factor for many scientific collaborations including nuclear and high-energy physics.
 
-\textbf{Cloud Computing} is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data storage abstraction, connectivity and transparency of access.
-In addition, Cloud Computing is characterized by widespread adoption of \textit{virtualization} - which is also used in the traditional Grid environment but at a smaller scale.
-At the time of writing, ``Cloud'' prominently figures in the context of commercial services available on the Internet, whereby computing resources can be ``rented'' for a fee in the form of a Virtual Machine allocated
-to the user, or a  number of nodes in the Cloud can be dynamically assigned to perform a neccesary computational task - often as a transient, ephemeral resource. Such dynamic, on-demand characteristic
-of the Cloud led to it being described as an ``elastic'' resource (cf. ``Amazon Elastic Compute Cloud'' - the EC2).
+\textbf{Cloud Computing} is essentially an evolution of the Grid Computing concept, with implied higher degree of computing resources and data
+storage abstraction, connectivity and transparency of access. In addition, Cloud Computing is characterized by widespread adoption of \textit{virtualization} - which is
+also used in the traditional Grid environment but on a somewhat smaller scale. At the time of writing, ``Cloud'' prominently figures in the context of commercial services available on
+the Internet, whereby computing resources can be ``rented'' for a fee in the form of a Virtual Machine allocated to the user, or a  number of nodes in the Cloud can
+be dynamically assigned to perform a neccesary computational task - often as a transient, ephemeral resource. Such dynamic, on-demand characteristic of the
+Cloud led to it being described as an ``elastic'' resource. This attribute is prominently featured in the name of the ``Amazon Elastic Compute Cloud'' -- ``the EC2''.
+This is an example of a \textit{public} Cloud, available to most entities in the open marketplace. Some organizations choose to deploy Cloud technology on the
+computing resources directly owned and controlled by them, which is referred to as \textit{private} Cloud.
 
-Regardless of the obvious differentiation of Cloud computing (due to its characteristics as \textit{a utility computing platform} and pervasive reliance on virtualization), many of its fundamental concepts
-and challenges are common with its predesessor, Grid Computing. In fact, the boundary is blurred even further by existing efforts to enhance
-Grid middleware with tools based on virtualization and Cloud API which essentially extend ``traditional'' Grid resources with on-demand, elastic Cloud capability~\cite{star_acat11},
-leading to what is essentially a hybrid system. The two are often seen as ``complementary technologies that will coexist at different levels of resource abstraction'' \cite{atlas_cloud_chep13}.
+Regardless of the obvious differentiation of Cloud computing (due to its characteristics as \textit{a utility computing platform} and pervasive reliance on virtualization),
+many of its fundamental concepts and challenges are common with its predesessor, Grid Computing. In fact, the boundary is blurred even further by existing efforts to
+enhance Grid middleware with tools based on virtualization and Cloud API which essentially extend ``traditional'' Grid resources with on-demand, elastic Cloud
+capability~\cite{star_acat11}, leading to what is essentially a hybrid system. The two are often seen as ``complementary technologies that will coexist at
+different levels of resource abstraction'' \cite{atlas_cloud_chep13}.
+
+In recent years, there are a few open-source, community developed and supported Cloud Computing platforms that reached maturity, such as OpenStack~\cite{openstack}.
+It includes a comprehensive set of components such as ``Compute'', ``Networking'', ``Storage'' and others and is designed to run on standard commodity hardware.
+It is deployed at scale by large organizations and serves as foundation for commercial Cloud services such as HP Helion~\cite{helion}. This technology allows pooling
+of resources of both public and private Clouds, resulting in the so-called \textit{Hybrid Cloud}, which technology aims to achieve best characteristics of both private
+and public clouds.
+
+There are no conceptual or architectural barriers for running HEP-type workflows in the Cloud, however there are caveats such as
+\begin{itemize}
+
+\item Careful cost analysis needs to be performed before each decision to deploy on the Cloud, as it is not universally cheaper than
+resources already deployed at research centers such as National Labs (at the same time the Cloud an efficient way to handle peak demand
+for the computing power due to its elasticity).
+
+\item Available bandwidth for staging in/staging our data in the Cloud (and again, it's cost) need to be quantified and gauged against the project requirements.
+
+\end{itemize}
 
  
 
@@ -151,9 +175,10 @@ resources (Worker Nodes) residing on the Grid and effectively creates a local (i
 Putting these resources behind the standard HTCondor interface with its set of utilities is highly beneficial to the users already having familiarity with HTCondor since it geatly shortens the learning curve.
 On the other hand, deployment of this system is not always trivial and typically requires a central service to be operated with the desired degree of service level (the so-called ``glidein factory'').
 
-HTCondor has other notable features. One of the most basic parts of its functionality is the ability to transfer data consumed and/or produced by the payload job according to certain rules set by the user. This works well
-when used in local cluster situations and is somewhat less reliable when utilized at scale in the context of Grid environment. One of HTCondor components, \textit{DAGMan}, is a meta-scheduler
-which uses DAGs (see~\ref{workflow_workload}) to manage workflows~\cite{dagman}.
+HTCondor has other notable features. One of the most basic parts of its functionality is the ability to transfer data consumed and/or produced by the payload job according to
+certain rules set by the user. This works well when used in local cluster situations and is somewhat less reliable when utilized at scale in the context of Grid environment.
+One of HTCondor components, \textit{DAGMan}, is a meta-scheduler which uses DAGs (see~\ref{workflow_workload}) to manage workflows~\cite{dagman}. In recent years,
+HTCondor was augmented  with Cloud-based methodologies and protocols (cf.~\ref{cloud}).
 
 \subsubsection{Workload Management for LHC Experiments}
 This is the list of systems (with a few references to bibliography) utilized by the major LHC experiments - note that in each, we identify components representing layers or subdomains such as Workload Management etc:
@@ -264,45 +289,84 @@ according to the WMS logic.
 
 % \fixme{Outline (TBD -mxp-)}
 
-\subsubsection{Reusability}
+\subsubsection{Focus Areas}
+\label{wms_focus}
 Technical characteristics of Workload Management Systems currently used in HEP and related fields are regarded
-as sufficient to cover a wider range of applications and existing examples support that (cf. LSST and AMS utilizing PanDA~\cite{pandamon_isgc14}).
-Therefore, we need to focus on reusability, ease of deployment and maintenance, and efficient interfaces. These are our recommendations in this area:
+as sufficient (including scalability) to cover a wider range of applications and existing examples support that
+(cf. LSST and AMS utilizing PanDA~\cite{pandamon_isgc14}). Therefore, the focus needs to be not on entirely new solutions,
+but characterization of the existing systems in terms of reusability, ease of deployment and maintenance, and efficient interfaces.
+We further itemize this as follows:
 
 \begin{itemize}
 
-\item \textbf{Modularity}. Interface of a Workload Management System to the Data Management System needs to be designed in a way that
-excludes tight coupling of one to another. This will allow deployment of an efficient WMS in environments where a pre-existing data management  system
-is in place, or where installation of a particular data management system puts too much strain on local resources. For example, replicating an instance
-of a system like Rucio which is currently used in ATLAS would be prohibitively expensive for a smaller research organization.
+\item \textbf{Modularity} - addressing the issue of the ``Three Domains''~(\ref{3domains}):
+\begin{itemize}
+\item \textbf{WMS \& Data}: interface of a Workload Management System to the Data Management System needs to be designed in a way that
+excludes tight coupling of one to another. This will allow deployment of an optimally scaled and efficient WMS in environments where a pre-existing
+data management  system is in place, or where installation of a particular data management system puts too much strain on local resources. For example,
+replicating an instance of a high-performance and scalable system like Rucio which is currently used in ATLAS would be prohibitively expensive for
+a smaller research organization.
 
-\item \textbf{Pilots}. The technique of deploying Pilot Jobs to worker nodes on the Grid proved very successful and it has the potential to provide needed
-flexibility in adapting WMS to the needs of organization looking to benefit from Workload Management. Use of pilot-based systems should be encouraged.
+\item \textbf{Workflow Management}: the concept of scientific workflow management is an old one, but recently it's coming to the fore due to
+increased complexity of data transformations in many fields of research, both in HEP and in other disciplines. We recommend investigation of both existing
+and new solutions in this area, and design of proper interfaces between Workflow Management systems and underlying Workload Management systems.
 
-\item \textbf{Flexible Monitoring}. The requirements of experiments and other projects will vary. We recommend seeking flexible and configurable solutions
+\end{itemize}
+
+\item \textbf{Pilots}: the technique of deploying Pilot Jobs to worker nodes on the Grid adds robustness, flexibility and adaptability to the system.
+It proved very successful at extreme scale and the use of this technique should be encouraged.
+
+\item \textbf{Monitoring}:
+\begin{itemize}
+\item \textbf{Value}: A comprehensive and easy-to-use monitoring system has a large impact on the overall productivity of personnel operating a Workload Management System.
+This area deserves proper investment of effort.
+
+\item \textbf{Flexibility}: the requirements of experiments and other projects will vary, hence the need for flexible and configurable solutions
 for the Monitoring System utilized in Workload Management and Data Management.
 
-\item \textbf{Back-end Database}. Ideally, there should be no coupling between the WMS application code and features of the specific database system
-utilized as its back-end. Such dependecies mut be abstracted out using techniques suchas ORM etc.
-
 \end{itemize}
 
-\subsubsection{Productivity}
+\item \textbf{Back-end Database}: ideally, there should be no coupling between the WMS application code and features of the specific database system
+utilized as its back-end -- this will hamper reusability. Such dependecies could be factored out and abstracted using techniques such as ORM etc.
 
-\begin{itemize}
-
-\item \textbf{Monitoring}. A comprehensive and easy-to-use monitoring system has a large impact on the overall productivity of personnel operating a Workload Management System. This area deserves proper
-investment of effort.
-
-\item \textbf{Workflow Management}. The concept of scientific workflow management is an old one, but recently it's coming to the forefront due to increased complexity
-of data transformations in many fields of research, both in HEP and in other disciplines. We recommend investigation of both existing and new solutions in this area,
-and design of proper interfaces between Workflow Management systems and underlying Workload Management systems.
-
-\item \textbf{Networks}. There are significant efficiencies to be obtained by utilizing network performance data in the workload management process. Likewise,
+\item \textbf{Networks}: there are significant efficiencies to be obtained by utilizing network performance data in the workload management process. Likewise,
 intelligent and configurable networks can provide optimal bandwidth for workflow execution.
 
--
+\item \textbf{Cloud}: Workload Management Systems deployed in this decade and beyond must be capable of efficiently operating in both Grid and Cloud environment,
+and in hybrid environments as well.
 
 \end{itemize}
 
+\subsubsection{Summary of Recommendations}
+We recommend that future activities of an organization such as FCE would include an assessment of major existing Workload Management Systems
+using criteria outlined in~\ref{wms_focus}, such as
+
+\begin{itemize}
+\item modularity, which would ideally allow to avoid deployment of a monolithic solution and would instead allow to
+utilize Proper platform and technologies as needed, in the Data Management, Workload Management and Workflow Management domains.
+\item Flexibility and functionality of monitoring.
+\item Reduced or eliminated dependency on the type of the database system utilized as back-end.
+\item Transparency and ease of utilization of the Cloud resources.
+\end{itemize}
+This assessment will be useful in a few complementary ways:
+\begin{itemize}
+\item It will serve as a ``roadmap'' which will help organizations looking to adopt a system for processing their workflows in the Grid and Cloud environment,
+to make technology choices and avoid duplication of effort.
+
+\item It will help identify areas where additional effort is needed to improve the existing systems in terms of reusability and ease of maintenance.
+
+\item It will summarize best practices and experience to drive the development of the next generation of distributed computing systems.
+
+\item It may help facilitate the developement of interopability layer in the existing WMS, which would allow future deployment to mix and match components
+from existing solutions in an optimal manner.
+\end{itemize}
+
+Further, this assessment should also contain a survey of existing ``external'' (i.e. open source and community-based) components that can be utilized
+in existing and future systems,  with proper interface design. The goal of this part of the exercise it to identify cases where software reuse may help
+to reduce development and maintenance costs. For example, there are existing systems for flexible workflow management which have not been
+extensively evaluated for use in HEP and related fields.
+
+It must be reconginzed that due to complexity of the systems being considered, the development of this assessment document will not be a trivial
+task and will require appropriate allocation of effort. However, due to sheer scale of deployment of modern WMS, and considerable cost of resources
+required for their operation, in terms of both hardware and human capital, such undertaking will be well justified.
 
