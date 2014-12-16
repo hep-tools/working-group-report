@@ -20,16 +20,18 @@ In any distributed environment (and most HEP and IF experiments are prime exampl
 for a variety of reasons, and over its lifetime undergoes a series of transmissions over networks, replications and/or deletions, with attendant bookkeeping
 in appropriate catalogs. Data networks utilized in research can span \textit{hundreds} of Grid sites across multiple continents.
 
-In HEP, we observe a few different and distinct modes of moving and accessing data. Consider the following:
+In HEP, we observe a few different and distinct modes of moving and accessing data (which, however, can be used in a complementary fashion).
+Consider the following:
 
 \begin{description}
 \item[Bulk Transfer] In this conceptually simple case, data transport from point A to point B is automated and augmented
-with redundancy and verification mechanism so as to minimize chances of data loss. Examples of this can be found in SPADE
-(data transfer system used in Daya Bay) and components of SAM at FNAL.
+with redundancy and verification mechanism so as to minimize chances of data loss. Such implementaion may be needed,
+for example, to transport ``precious'' data from the detector to the point of permanent storage.
+Examples of this can be found in SPADE (data transfer system used in Daya Bay) and components of SAM at FNAL.
 
-\item[Managed Replication] In many cases the strategy consists on creating replicas of certain segments of the data (datasets, blocks, etc)
+\item[Managed Replication] In many cases the data management strategy involves creating replicas of certain segments of the data (datasets, blocks, etc)
 on participating Grid sites. Such distribution is done according to a previously developed policy which may be based on storage capacities of 
-the sites, specific processing plans, resource quota and any number of other factors. Good examples of this type of systems are found in
+the sites, specific processing plans (cf. the concept of \textit{subscription}), resource quota and any number of other factors. Good examples of this type of systems are found in
 ATLAS (\textit{Rucio)} and CMS (\textit{PhEDEx}), among other experiments~\cite{rucio_chep13,phedex_chep09}.
 
 \item[``Data in the Grid'' (or Cloud)] In addition to accessing the data which is local to the processing element, such as a Worker Node
@@ -45,29 +47,103 @@ deliver files transparently in a ``just-in-time'' manner (ATLAS FAX and CMS AAA)
  relevant use cases and match them to categories such as outlined above (e.g. replication vs network data on demand). Second, within
  the chosen scenario, proper solutions must be identified (and hopefully reused rather than reimplemented).
    
-% The bulk raw data need to be transfered from where they are taken to the main storage site (which sometimes is also the 
-%main processing site). Sometimes this may be on the same location (LHC, Tier 0 at CERN), other times the data may be transfered over large 
-%distances and even between continents (Daya Bay). These tools can be file transfer utilities or additional tools layered on top of such utilities. 
-%Some of these tools are:  
-%\begin{itemize}
-%\item bbcp
-%\item gridFTP
-%\item SPADE 
-%\end{itemize}
 
+\subsubsection{From MONARC to a Flat Universe}
+The \textbf{MONARC} architecture is a useful case study, in part because it was used in the LHC Run 1 data processing campaign,
+and also because it motivated the evolution of approaches to data management which is currently under way.
+It stands for \textit{Models of Networked Analysis at Regional Centers} \cite{monarc}.
+At the heart of  MONARC  is a manifestly hierarchical organization of computing centers in terms of
+data flow, storage and distribution policies defined based on characteristics and goals of participating sites. The sites
+are classed into ``Tiers'' according to the scale of their respective resources and planned functionality, with ``Tier-0'' denomination
+reserved for central facilities at CERN, ``Tier-1'' corresponding to major regional centers while ``Tier-2'' describes
+sites of smaller scale, to be confugured and used mainly for analysis of the data (they are also used
+to handle a large fraction of Monte Carlo simulations workload). Smaller installation and what is termed ``non-pledged resources'' 
+belong to Tier-3 in this scheme, implying a more \textit{ad hoc} approach to data distribution and handling of computational
+workload on these sites. The topology of the data flow among the
+Tiers can be described as somehat similar to a Directed Acyclic Graph (DAG), where data undergoes processing steps 
+and is distributed from Tier-0 to a number of Tier-1 facilities, and then on to Tier-2 sites -- but Tiers of the same rank
+do not share data on ``p2p'' basis.
+This architecture depends on coordinated operation of two major components:
+\begin{itemize}
+	\item The Data Management System, that includes databases necessary to maintain records of the data parameters and location,
+	and which is equipped with automated tools to move data between 
+	computing centers according to chosen data processing and analysis strategies and algorithms. 
+	An important component of the data handling is a subsystem for managing \textit{Metadata}, i.e. information
+	derived from the actual data which is used to locate specific data segments for processing based on 
+	certain selection criteria.
+	
+	\item The Workload Management System (WMS) -- see Section~\ref{wms} -- which distributes computational payload in accordance  
+	with optimal resource availability and various applicable policies. It typically also takes
+	into account data locality in order to minimize network traffic and expedite execution. A mature 
+	and robust WMS also contains an efficient and user-friendly monitoring capabilities, which allows 
+	its operators to monitor and troubleshoot workflows executed on the Grid.
+	
+\end{itemize}
 
+While there were a variety of factors which motivated this architecture, considerations of overall efficiency given
+limits of storage capacity andl network throughput were the primary drivers in the MONARC model. In particular,
+reconstruction, reprocessing and some initial stages of data reduction are typically done at the sites with
+ample  storage capacity so as to avoid moving large amount of data over the network. As such, it can be argued 
+that the MONARC architecture was ultimately influenced by certain assumptions about bandwidth, performance 
+and reliability of networks which some authors now call ``pessimistic'' \cite [p.~105]{lhc_model_update}.
 
+At the time when LHC computing was becoming mature, great progress was made in improving
+characteristics of the networks serving the LHC projects. New generation of networks has lower
+latencies, lower cost per unit of bandwidth and higher capacity. This applies to both local and wide 
+area networks  \cite[p.104]{lhc_model_update}. This development opens new and significant possibilities 
+which were not available until relatively recently; as stated in \cite{lhc_model_update},
+
+\begin{quote}
+The performance of the network has allowed a more flexible model in terms of data access:
+	
+	\begin{itemize}
+		\item Removal of the strict hierarchy of data moving down the tiers, and allowing a
+		more peer--peer data access policy (a site can obtain data from more or less any 
+		other site);
+		
+		\item The introduction of the ability to have remote access to data, either in obtaining
+		missing files needed by a job from over the WAN, or in some cases actually
+		streaming data remotely to a job.
+		
+	\end{itemize}
+\end{quote}
+
+In practice, this new model results in a structure which is more ``flat'' and less hierarchical \cite{lhc_model_update}, \cite{courier_update} -- and indeed
+resembles the ``p2p'' architecture.
+
+In principle, this updated architecture does not necessarily require new networking and data transmission 
+technologies when compared to MONARC, as it mainly represents a different logic and policies for 
+distribution of, and access to data across multiple Grid sites. Still, there are a number of differing 
+protocols and systems which are more conducive to implementing this approach than others, for a variety of reasons:
+
+\begin{itemize}
+	\item Reliance on proven, widely available and low-maintenance tools to actuate data transfer (e.g. utilizing HTTP/WebDAV).
+	\item Automation of data discovery in the distributed storage.
+	\item Transparent and automated "pull" of required data to local storage.
+\end{itemize}
+
+One outstanding example of leveraging the improved networking technology is \textit{XRootD}
+\cite{xrootd}, \cite{xrootd_web} -- a system which facilitates \textit{federation} of widely 
+distributed resources~\cite{xrootd_fed,xrootd_snowmass}. While its use in HEP is widespread, two large-scale applications deserve a special mention: 
+it is employed  in the form of CMS's ``Any Data, Anytime, Anywhere'' (AAA)
+project and ATLAS's ``Federating ATLAS storage systems using Xrootd" (FAX) project, both of which rely
+on XRootD as their underlying technology. ``These systems are already giving experiments and
+individual users greater exibility in how and where they run their workflows by making data more globally
+available for access. Potential issues with bandwidth can be solved through optimization and prioritization''\cite{xrootd_snowmass}.
 
 
 \subsubsection{From Co-location to Federated Storage}
-\fixme{Build a logic bridge here. Monarc etc.)}
+
+%\fixme{Build a logic bridge here. Monarc etc.)}
+%
 
 \begin{description}
-\item[Tiers] For smaller experiments there will only be one processing site and it is co-located at the main storage site. For larger experiments 
-a tiered system is prefered as no single site has enough capacity. Tier 0 will be the main site, usually storing all the raw data. Tier 1 sites will 
-usually be large sites that can contain reconstructed data. Tier 2 sites will then be sites with smaller capacity, but still enough to contain 
-analysis data (or at least a subset of this). Note that processing can be decoupled from the (storage) sites if it uses grid computing. Also note 
-that data sets may be moved around by a WMS like PanDA, for example, to where the processing is.  
+
+%\item[Tiers] For smaller experiments there will only be one processing site and it is co-located at the main storage site. For larger experiments 
+%a tiered system is prefered as no single site has enough capacity. Tier 0 will be the main site, usually storing all the raw data. Tier 1 sites will 
+%usually be large sites that can contain reconstructed data. Tier 2 sites will then be sites with smaller capacity, but still enough to contain 
+%analysis data (or at least a subset of this). Note that processing can be decoupled from the (storage) sites if it uses grid computing. Also note 
+%that data sets may be moved around by a WMS like PanDA, for example, to where the processing is.  
 
 \item[File Access Protocols] Once files have been transfered and processed, they will eventually be accessed by the users (with the help of 
 Data Catalogs, see below). File access protocols are not to be confused with file transfer tools which is moving a file from A to B. 
