@@ -162,11 +162,29 @@ Data Catalog is independent of any workflow management system, any data processi
 
 
 
-\item[SAM] .... [SAM is more tied into workflow management than the Fermi Data catalog]. Please add something.
+\item[SAM] (Sequential Access Model) is a data handling system
+  developed at Fermilab.  It is designed to track locations of files
+  and other file metadata.  A small portion of this metadata schema is
+  reserved for SAM use and experiments may extend it in order to store
+  their quantities associated with any given file.  SAM allows for the
+  defining of a \textit{dataset} as a query on this file metadata.
+  These datasets are then short hand which can then be expanded to
+  provide input data to for experiment processes.  Beyond this role as
+  a file catalog SAM has additional functionality.  It can manage the
+  storage of files and it can serve an extended roll as a workflow
+  management system.  It does this through a concept called
+  \textit{projects} which are managed processes that may deliver files
+  to SAM for storage management.  The installation footprint required
+  for SAM to be used at a participating site depends on the
+  functionality required.  Lightweight access to catalog functionality
+  is provided via the SAM Web Services component through a REST web
+  interface which includes a Python client module.  Full features,
+  including file management, requires a SAM \textit{station}
+  installation and these exist at a small number of locations.
 
-\item[ATLAS] .... Please add something.
+\item[ATLAS] \fixme{Please add something.}
 
-\item[CMS] .... Please add something.
+\item[CMS] \fixme{Please add something.}
 
 \end{description}
 
