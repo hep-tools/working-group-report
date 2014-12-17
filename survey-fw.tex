@@ -172,67 +172,32 @@ Some best practices are identified:
   extension and use of the framework.
 \end{description}
 
-\noindent Some specific actions that would benefit the community are:
+\noindent The community should work towards making one event
+processing framework which is general purpose enough to service
+multiple experiments existing at different scales.  This framework
+should be ultimately developed by a core team with representation from
+multiple, major stake-holder experiments and with an open
+user/developer community that spans other experiments.  Steps to reach
+this goal may include:
 
 \begin{itemize}
-\item Move the modules providing for general purpose geometry
-  (DetDesc), data model (GaudiObjDesc) and Geant4 interface (GiGa)
-  packages out of LHCb repositories and in to Gaudi.
-\item Produce updated, general documentation on the design, use and extension of Gaudi.
-\item Develop a registry of general-use extensions to Gaudi that have
-  been developed by experiments and work to provide them in a manner
-  independent from experiment software.
+\item Form an expert working group to identify requirements and
+  features needed by such a general use event processing framework.
+  Much of this exist in internal and published notes and needs to be
+  pulled together and made comprehensive.
+\item The working group should evaluate existing frameworks with
+  significant user base against these requirements and determine what
+  deficiencies exist and the amount of effort required to correct
+  them.
+\item The working group should recommend one framework, existing or
+  novel, to develop as a widely-used, community-supported project.
+\item The working group should conclude by gauging interest in the
+  community, survey experiments to determine what involvement and use
+  can be expected and determine a list of candidates for the next
+  step.
+\item Assemble a core team to provide this development and support
+  (something similar to the ROOT model).  Direct support, which is
+  independent from specific experiment funding, for some significant
+  portion of this effort is recommended.
 \end{itemize}
 
-\fixme{Add others.}
-
-
-\subsubsection{Editing notes}
-
-
-\fixme{This is not a real section and will be deleted}
-
-	ROOT browsable data files\\
-	module implementation of reconstruction producers through standardized entry points and hooks\\
-	Event Data Model including strict provenance information requirements\\
-	flexible I/O based upon metadata\\
-	portability of both code and build mechanism\\
-	
-	Particularly in C++ based frameworks,
-these modules are implemented by inheriting from a framework-provided
-base class. In order to avoid hard-linking which modules to use at
-compile time they are best put into shared libraries which can be
-loaded at run time as driven by a user configuration layer provided by
-the framework.  Even with this, compile-time dependencies can balloon
-build times and frameworks should best implement the base classes with
-pure-virtual interface classes such that changes to one part of the
-code base do not require a full rebuild/relink.
-
-\begin{itemize}
-\item types of software frameworks
-\item focus on event data processing FW:
-  \begin{itemize}
-  \item provides a ``main'' program
-  \item determines execution model
-  \item provides hooks/entries for user/programmers to supply
-    \begin{itemize}
-    \item start/end of run/subrun/file
-    \item once-per-event entry
-    \end{itemize}
-  \item end-user job configuration and scripting
-  \item provides functionality to manage compile- and run-time complexity, (Interface classes, shared library autoload/plugin)
-  \item provides software development and release management support
-  \end{itemize}
-\end{itemize}
-Some frameworks
-\begin{itemize}
-\item Gaudi
-\item RAT
-\item IceTray
-\item CMSSW
-\item Art
-\end{itemize}
-Comparisons:
-\begin{itemize}
-\item for Daya Bay \url{https://wiki.bnl.gov/dusel/index.php/Software_Framework_Comparison}
-\end{itemize}
