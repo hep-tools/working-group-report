@@ -137,13 +137,17 @@ available for access. Potential issues with bandwidth can be solved through opti
 
 
 \subsection{Metadata, Data Catalogs and Levels of Data Aggregation}
-To be able to locate, navigate and manage the data it has to be described. Metadata (data derived from the data) is therefore a necessary
-part of data management. The  list of possible metadata is long. Some key ones are:
+To be able to locate, navigate and manage the data it has to be \textit{described}, or characterized. Metadata (data derived from the data) is
+therefore a necessary part of data management. The  list of possible types of metadata is long. Some key ones are:
 
 \begin{itemize}
 \item Data Provenance: for raw data, this may include information on when and where it was taken. For processed data,
-it may specify which raw data were used. For many kinds of data, it is important to track information about calibrations used,
-releases of software and its configuration details in each production step etc.
+it may specify which raw data were used. For many kinds of data, it is important to track information about calibrations used, etc.
+
+
+\item Parentage and Production Information: one must keep track of software releases and its configuration details in each production step,
+be able to trace a piece of data to its origin (e.g. where it was produced, by which Task ID etc), etc.
+
 % seems to not be aligned with the subsequent definition
 %\item Data location i.e. where the files are located - especially since data may be moved around.
 %Note that the meaning of this changes in a Federated Storage Model. 
@@ -151,7 +155,6 @@ releases of software and its configuration details in each production step etc.
 \item Physics: this may include analysis summary information or a specific feature characterizing a segment of data, e.g. type of events selected, from which trigger stream data was derived, detector configuration.
 \item Physical information: this might include the file size, check sum, file name, location, format, etc.
 \end{itemize}
-
 Generally speaking, a data catalog combines a file catalog i.e. information about where the data files are stored,
 with additional metadata that may contain a number of attributes (physics, provenance etc). This enables the construction of logical (virtual)
 data sets like 'WIMPcandidatesLoose' and makes it possible for users to select a subset of the available data, and/or ``discover'' the presence and locality of data which
@@ -195,7 +198,8 @@ workflow management system, any data processing metadata will have to be explici
 \item[ATLAS:] Distributed Data Management in ATLAS (often termed \textit{DDM}) has always been one of its focus areas, in part due to sheer volume of
 data being stored, shared and distributed worldwide (on multi-petabyte scale), and to importance of optimal data placement to ensure efficiency
 and high throughput of processing~\cite{atlas_ddm_chep12}. Just like with other major components of its systems, ATLAS has evolved its
-data management infrastructure over the years. The systems currently utilized is Rucio~\cite{rucio_chep13}. We shall briefly consider salient features of its design.
+data management infrastructure over the years. The systems currently utilized is Rucio~\cite{rucio_chep13}. We shall briefly consider basic
+concepts and entities in this system pertaining to this section.
 
 The atomic unit of data in ATLAS is file. Above that, there are levels of data aggregations, such as:
 \begin{itemize}
@@ -241,23 +245,37 @@ networking equipment and to deploy a complex middleware stack.
 
 
 \subsection{Opportunities For Improvement}
+\subsubsection{Modularity}
 One problem with Data Management systems is that they often tend to become monolithic as more and more functionality is 
-added (organically). While this may make it easier to operate in the short term, it makes it more difficult to maintain over 
+added (organically) -- see Sec.~\ref{3domains}. While this may make it easier to operate in the short term, it makes it more difficult to maintain over 
 the long term. In particular, it makes it difficult to react to technical developments and update parts of the system. It's 
 therefore critical to make the system as modular as possible and avoid tight couplings to either specific technologies or 
 to other parts of the ecosystem, in particular the coupling to the Workload Management System. Modularity should therefore be 
-part of the core design and specifically separating the Metadata Catalogs from Data Movement tools. This would also make reuse easier to achieve.
-\par Smaller experiments have different problems. Most small experiments have or will enter the PB era and can no longer use a manual 
-data management system built on an army of grad students. They need modern data management tools. However, they have neither the 
+part of the core design and specifically separating the Metadata Catalogs from Data Movement tools, with carefully designed
+object models and APIs. This would also make reuse easier to achieve.
+
+\subsubsection{Smaller Projects}
+Smaller experiments have different problems. Most small experiments have or will enter the PB era and can no longer use a manual 
+data management system built and operated by an army of grad students. They need modern data management tools. However, they have neither the 
 expertise to adapt LHC scale tools for their use, neither the technical manpower to operate them. Simplifying and downscaling existing 
 large scale tools to minimize necessary technical expertise and manpower to operate them, even at the price of decreasing functionality, 
-may therefore be a good option. 
-\par A second option is to take existing medium-scale data handling tools and repackage them for more general use. The problem is, 
+may therefore be a good option.
+
+A second option is to take existing medium-scale data handling tools and repackage them for more general use. The problem is, 
 however, somewhat similar to what is described above. Often these systems have become monolithic, have strong couplings to certain 
-technologies and significant work may be 
-necessary to make them modular. This can be difficult to achieve within the limited resources available and will need dedicated support.
-\par Last, the success of Federated Storage built on XRootD shows the importance of good building blocks and how they can be arranged into 
-larger successful systems. The migration of SAM away from an Oracle database on the backend is an example of migration away from a limiting building block.
+technologies and significant work may be necessary to make them modular. This can be difficult to achieve within the limited resources
+available and will need dedicated support.
+
+Finally, a few recent Cloud solutions became available (and are already used by small to medium size project), such as Globus~\cite{globus},
+Google Drive and Dropbox, among others. They do provide a lot of necessary functionality for data distribution and sharing, and perhaps
+provide an optimal solution at this scale, when combined with a flexible and reusable Metadata system (see notes on modularity above).
+
+\subsubsection{Federation}
+Last, the success of Federated Storage built on XRootD shows the importance of good building blocks and how they can be arranged into 
+larger successful systems.
+
+% -mxp- I don't see how this ties into anything else, plus scalability of Postgres was not ascertained for this application
+% The migration of SAM away from an Oracle database on the backend is an example of migration away from a limiting building block.
 
 
 %\subsection{Common Elements vs Experiment Specific Ones}
