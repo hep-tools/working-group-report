@@ -28,7 +28,7 @@ Consider the following:
 \item[Bulk Transfer] In this conceptually simple case, data transport from point A to point B is automated and augmented
 with redundancy and verification mechanism so as to minimize chances of data loss. Such implementation may be needed,
 for example, to transport ``precious'' data from the detector to the point of permanent storage.
-Examples of this can be found in SPADE (data transfer system used in Daya Bay) and components of SAM at FNAL.
+Examples of this can be found in SPADE (data transfer system used in Daya Bay) and components of SAM~\cite{SAM} and File Transfer Service at FNAL.
 Similar functionality (as a part of a wider set) is implemented in \textit{Globus Online} middleware kit~\cite{globus}.
 
 \item[Managed Replication] In many cases the data management strategy involves creating replicas of certain segments of the data (datasets, blocks, etc)
@@ -65,7 +65,7 @@ sites of smaller scale, to be configured and used mainly for analysis of the dat
 to handle a large fraction of the Monte Carlo simulations workload). Smaller installations and what is termed ``non-pledged resources'' 
 belong to Tier-3 in this scheme, implying a more \textit{ad hoc} approach to data distribution and handling of the computational
 workload on these sites. The topology of the data flow among the
-Tiers can be described as somehat similar to a Directed Acyclic Graph (DAG), where data undergoes processing steps 
+Tiers can be described as somewhat similar to a Directed Acyclic Graph (DAG), where data undergoes processing steps 
 and is distributed from Tier-0 to a number of Tier-1 facilities, and then on to Tier-2 sites -- but Tiers of the same rank
 do not share data on ``p2p'' basis.
 This architecture depends on coordinated operation of two major components:
@@ -133,12 +133,12 @@ distributed resources~\cite{xrootd_fed,xrootd_snowmass}. While its use in HEP is
 it is employed  in the form of CMS's ``Any Data, Anytime, Anywhere'' (AAA)
 project and ATLAS's ``Federating ATLAS storage systems using Xrootd" (FAX) project, both of which rely
 on XRootD as their underlying technology. ``These systems are already giving experiments and
-individual users greater exibility in how and where they run their workflows by making data more globally
+individual users greater flexibility in how and where they run their workflows by making data more globally
 available for access. Potential issues with bandwidth can be solved through optimization and prioritization''\cite{xrootd_snowmass}.
 
 
 \subsection{Metadata, Data Catalogs and Levels of Data Aggregation}
-To be able locate, navigate and manage the data it has to be described. Metadata (data derived from the data) is therefore a necessary
+To be able to locate, navigate and manage the data it has to be described. Metadata (data derived from the data) is therefore a necessary
 part of data management. The  list of possible metadata is long. Some key ones are:
 
 \begin{itemize}
@@ -149,18 +149,19 @@ releases of software and its configuration details in each production step etc.
 %\item Data location i.e. where the files are located - especially since data may be moved around.
 %Note that the meaning of this changes in a Federated Storage Model. 
 
-\item Physics: this may include analysis summary information or a specific feature characterizing a segment of data, e.g. type of events selected.
+\item Physics: this may include analysis summary information or a specific feature characterizing a segment of data, e.g. type of events selected, from which trigger stream data was derived, detector configuration.
+\item Physical information: this might include the file size, check sum, file name, location, format, etc.
 \end{itemize}
 
 Generally speaking, a data catalog combines a file catalog i.e. information about where the data files are stored,
 with additional metadata that may contain a number of attributes (physics, provenance etc). This enables the construction of logical (virtual)
 data sets like 'WIMPcandidatesLoose' and makes it possible for users to select a subset of the available data, and/or ``discover'' the presence and locality of data which
 is of interest to the user.
-Grouping of data into datasets and even larger aggrgation units helps handle complexity of processing which involved a very large number of induvudual files.
+Grouping of data into datasets and even larger aggregation units helps handle complexity of processing which involved a very large number of induvudual files.
 Here are some examples:
 
 \begin{description}
-\item[Fermi Data Catalog:] Metaadata can be created when a file is registered in the database. A slightly
+\item[Fermi Data Catalog:] Metadata can be created when a file is registered in the database. A slightly
 different approach was chosen by the Fermi Space Telescope Data Catalog. In addition to the initial metadata, it had a
 data crawler that would go through all registered files and extract metadata like number of events etc. The advantage is
 that the set of metadata then can be easily expanded after the fact - you just let loose the crawler with the list
@@ -178,10 +179,13 @@ workflow management system, any data processing metadata will have to be explici
   These datasets are then short hand which can then be expanded to
   provide input data to for experiment processes.  Beyond this role as
   a file catalog SAM has additional functionality.  It can manage the
-  storage of files and it can serve an extended roll as a workflow
+  storage of files and it can serve an extended roll as part of a workflow
   management system.  It does this through a concept called
   \textit{projects} which are managed processes that may deliver files
-  to SAM for storage management.  The installation footprint required
+  to SAM for storage management and deliver files from storage elements
+  to managed processes. SAM maintains state information for files in
+  active projects to determine which files have been processed, which process
+  analyzed each file, and files consumed by failed processes. The installation footprint required
   for SAM to be used at a participating site depends on the
   functionality required.  Lightweight access to catalog functionality
   is provided via the SAM Web Services component through a REST web
@@ -196,7 +200,7 @@ data management infrastructure over the years. The systems currently utilized is
 
 The atomic unit of data in ATLAS is file. Above that, there are levels of data aggregations, such as:
 \begin{itemize}
-\item \textit{dataset} Datasets are the operational unit of replication for DDM – they may be transferred to grid sites, whereas single files
+\item \textit{dataset} Datasets are the operational unit of replication for DDM, i.e., they may be transferred to grid sites, whereas single files
 may not. Datasets in DDM may contain files that are in other datasets, i.e., datasets may overlap.
 \item \textit{container} Container is a collection of datasets. Containers are not units of replication, but allow
 large blocks of data, which could not be replicated to single site, to be described in the system.
@@ -211,7 +215,7 @@ There are a few categories of metadata in Rucio:
 \end{itemize}
 
 \item[CMS:] CMS also employs the concept of a dataset. Metadata resides in, and is being handled by the ``The Data Bookkeeping Service'' (DBS).
-This service maintains information regarding the provenance, parentage, physics atributes and other type of metadata necessary for efficient processing.
+This service maintains information regarding the provenance, parentage, physics attributes and other type of metadata necessary for efficient processing.
 The Data Aggregation Service (DAS)  is another critical component of the CMS Data Management System. It ``provides the ability to query CMS data-services via
 a uniform query language without worrying about security policies and differences in underlying data representations''~\cite{phedex_chep13}.
 
@@ -222,7 +226,7 @@ Small and medium scale research programs often have smaller needs compared to th
 be economical or feasible to deploy and operate same kind of middleware on the scale described in previous sections.
 Data is often be stored in a single or just a few geographical locations ('host laboratories'), and
 data processing itself is less distributed. However, many experiments today have data (or will have data) characterized by volumes
-and complexity large enough to create a demand a real data management system instead of resorting to manual mode (files in unix directories and wiki pages). 
+and complexity large enough to create and demand a real data management system instead of resorting to manual mode (files in unix directories and wiki pages). 
 In fact, we already find that some of the same elements, i.e. extensive metadata, data catalogs, XRootD, are also used by some smaller 
 experiments. The main challenge here is the very limited technical expertise and manpower available to develop, adapt and 
 operate this sort of tools.
@@ -243,9 +247,9 @@ added (organically). While this may make it easier to operate in the short term,
 the long term. In particular, it makes it difficult to react to technical developments and update parts of the system. It's 
 therefore critical to make the system as modular as possible and avoid tight couplings to either specific technologies or 
 to other parts of the ecosystem, in particular the coupling to the Workload Management System. Modularity should therefore be 
-part of the core design. This would also make reuse easier to achieve. 
-\par Smaller experiments have different problems. Most small experiments have or will enter the PB era and can no onger use a manual 
-data management system built on an army of grad students. They need modern data management tools. However, they have needer the 
+part of the core design and specifically separating the Metadata Catalogs from Data Movement tools. This would also make reuse easier to achieve.
+\par Smaller experiments have different problems. Most small experiments have or will enter the PB era and can no longer use a manual 
+data management system built on an army of grad students. They need modern data management tools. However, they have neither the 
 expertise to adapt LHC scale tools for their use, neither the technical manpower to operate them. Simplifying and downscaling existing 
 large scale tools to minimize necessary technical expertise and manpower to operate them, even at the price of decreasing functionality, 
 may therefore be a good option. 
@@ -254,11 +258,7 @@ however, somewhat similar to what is described above. Often these systems have b
 technologies and significant work may be 
 necessary to make them modular. This can be difficult to achieve within the limited resources available and will need dedicated support.
 \par Last, the success of Federated Storage built on XRootD shows the importance of good building blocks and how they can be arranged into 
-larger successful systems.
-
-
-
-
+larger successful systems. The migration of SAM away from an Oracle database on the backend is an example of migration away from a limiting building block.
 
 %\subsection{Common Elements vs Experiment Specific Ones}
 
