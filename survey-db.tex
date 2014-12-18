@@ -47,7 +47,23 @@ In both cases there need to be a mechanism for arbitrating which instances are u
 In order for the above versioning to work there must be some monotonic ordering of the versions. Typically this is done by the `insertion' date which is the logical date when the version was added to the database. It should be noted here that this date does not always reflect the actual date the version was inserted as that may not create the correct ordering of versions.
 
 
-% \subsection{Examples}
+\subsection{Examples}
+
+The following is the subset of the implementations of a conditions database pattern already done by HEP experiments.
+
+\subsubsection{DBI, Minos}
+
+This is a C++ binding that is decoupled for its surrounding framework, a feature that allowed it be adopted by the Dayabay Experiment for use in its Gaudi customization. It has a very thin data model with a conditions item being a single row in an appropriate SQL table.
+
+\subsubsection{IOVSvc, Atlas}
+
+The Atlas Interval of Validity Service, IOVSvc, is tightly bound to its Athena framework (their customization of the Gaudi framework). It acts by registering a proxy that will be filled by the service rather than direct calls to the service. It all has a feature where a callback can be registered that is invoked by the service whenever the currently value conditions item is no longer valid.
+
+\subsubsection{CDB, BaBar}
+
+The BaBar conditions database is notable in that during its lifetime it went through a migration for an ObjectivityDB back end to on using RootDB. This means that it can be used as an example of migrating conditions database implementations as suggested in the next section.
+
+
 \subsection{Opportunity for improvement}
 
 Given that the challenge of a condition database, to match data to an events timestamp, is universal and not specified to any style of experiment, and given that numerous solutions to this challenge exist, there is little point in creating new ones. The obvious opportunities for improvement are ones that make the existing solutions available for use by other experiment in order to avoid replication (again). To this end the following approaches are recommended:
