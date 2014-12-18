@@ -16,6 +16,7 @@ in much detail (which will be covered by the \textit{Systems} working group). Li
 
 \subsection{Moving Data}
 \subsubsection{Modes of Data Transfer and Access}
+\label{data_xfer}
 In any distributed environment (and most HEP and IF experiments are prime examples of that) the data are typically stored at multiple locations,
 for a variety of reasons, and over its lifetime undergoes a series of transmissions over networks, replications and/or deletions, with attendant bookkeeping
 in appropriate catalogs. Data networks utilized in research can span \textit{hundreds} of Grid sites across multiple continents.
@@ -26,19 +27,23 @@ Consider the following:
 \begin{description}
 \item[Bulk Transfer] In this conceptually simple case, data transport from point A to point B is automated and augmented
 with redundancy and verification mechanism so as to minimize chances of data loss. Such implementation may be needed,
-for example, to transport data from the detector to the point of permanent storage.
+for example, to transport ``precious'' data from the detector to the point of permanent storage.
 Examples of this can be found in SPADE (data transfer system used in Daya Bay) and components of SAM at FNAL.
+Similar functionality (as a part of a wider set) is implemented in \textit{Globus Online} middleware kit~\cite{globus}.
 
 \item[Managed Replication] In many cases the data management strategy involves creating replicas of certain segments of the data (datasets, blocks, etc)
 in participating Grid sites. Such distribution is done according to a previously developed policy which may be based on storage capacities of 
 the sites, specific processing plans (cf. the concept of \textit{subscription}), resource quota and any number of other factors. Good examples of this type of systems are found in
 ATLAS (\textit{Rucio)} and CMS (\textit{PhEDEx}), among other experiments~\cite{rucio_chep13,phedex_chep09}.
 
-\item[``Data in the Grid'' (or Cloud)] In addition to accessing the data which is local to the processing element, such as a Worker Node
-on the Grid, it is possible to access data that it physically remote, provided there exists enough bandwidth between the storage
-facility or device, and the processing element. This can be as simple as using \textit{http} to pull data from a remote location before
-executing the payload job, or as advanced as utilizing \textit{XRootD}~\cite{xrootd,xrootd_web} over WAN to federate storage resources and locate and
-deliver files transparently in a ``just-in-time'' manner.
+\item[``Data in the Grid'' (or Cloud)] In addition to processing data which is local to the processing element (i.e. local storage), such as a Worker Node
+on the Grid, it is possible to access data over the network, provided there exists enough bandwidth between the remote storage
+facility or device, and the processing element. There are many ways to achieve that. Examples:
+\begin{itemize}
+\item using \textit{http} to pull data from a remote location before executing the payload job. This can involve private data servers or public cloud facilities.
+\item utilizing \textit{XRootD}~\cite{xrootd,xrootd_web} over WAN to federate storage resources and locate and deliver files transparently in a ``just-in-time'' manner.
+\item sharing data using middleware like Globus~\cite{globus}.
+\end{itemize}
 
 \end{description}
 
@@ -132,37 +137,39 @@ individual users greater exibility in how and where they run their workflows by 
 available for access. Potential issues with bandwidth can be solved through optimization and prioritization''\cite{xrootd_snowmass}.
 
 
-\subsection{Metadata}
-To be able to manage the data it has to be described. Metadata, data derived from the data, is therefore a necessary part of data management. The 
-list of possible metadata is long. Some key ones are:
+\subsection{Metadata, Data Catalogs and Levels of Data Aggregation}
+To be able locate, navigate and manage the data it has to be described. Metadata (data derived from the data) is therefore a necessary
+part of data management. The  list of possible metadata is long. Some key ones are:
 
 \begin{itemize}
-\item Data Provenance i.e. when and where it was taken, which raw data were used if the data are processed etc.
-\item Data processing description i.e. processing status including calibrations, code versions etc.
-\item Data location i.e. where the files are located - especially since data may be moved around. Note that the meaning of this changes in a 
-Federated Storage Model. 
-\item Data description i.e. analysis summary information.
+\item Data Provenance: for raw data, this may include information on when and where it was taken. For processed data,
+it may specify which raw data were used. For many kinds of data, it is important to track information about calibrations used,
+releases of software and its configuration details in each production step etc.
+% seems to not be aligned with the subsequent definition
+%\item Data location i.e. where the files are located - especially since data may be moved around.
+%Note that the meaning of this changes in a Federated Storage Model. 
+
+\item Physics: this may include analysis summary information or a specific feature characterizing a segment of data, e.g. type of events selected.
 \end{itemize}
 
-
-
-\subsection{Data Catalogs And Logical Data Sets}
-A data catalog combines a file catalog i.e. information about where the data files are stored, with additional metadata.
-This enables the construction of logical (virtual) data sets like 'WIMPcandidatesLoose' and makes it possible for users to 
-make a selection of a subset of the available data. 
+Generally speaking, a data catalog combines a file catalog i.e. information about where the data files are stored,
+with additional metadata that may contain a number of attributes (physics, provenance etc). This enables the construction of logical (virtual)
+data sets like 'WIMPcandidatesLoose' and makes it possible for users to select a subset of the available data, and/or ``discover'' the presence and locality of data which
+is of interest to the user.
+Grouping of data into datasets and even larger aggrgation units helps handle complexity of processing which involved a very large number of induvudual files.
+Here are some examples:
 
 \begin{description}
-\item[Fermi Data Catalog] One way to do this is to register all the metadata when you register the file. A slightly
+\item[Fermi Data Catalog:] Metaadata can be created when a file is registered in the database. A slightly
 different approach was chosen by the Fermi Space Telescope Data Catalog. In addition to the initial metadata, it had a
 data crawler that would go through all registered files and extract metadata like number of events etc. The advantage is
 that the set of metadata then can be easily expanded after the fact - you just let loose the crawler with the list
 of new quantities to extract which then is just added to the existing list of metadata). Obviously this only works for 
-metadata included in the file and file headers.  Note that since the Fermi 
-Data Catalog is independent of any workflow management system, any data processing metadata will have to be explicitly added. 
+metadata included in the file and file headers.  Note that since the Fermi Data Catalog is independent of any
+workflow management system, any data processing metadata will have to be explicitly added. 
 
 
-
-\item[SAM] (Sequential Access Model) is a data handling system
+\item[SAM:] (Sequential Access Model) is a data handling system
   developed at Fermilab.  It is designed to track locations of files
   and other file metadata.  A small portion of this metadata schema is
   reserved for SAM use and experiments may extend it in order to store
@@ -182,19 +189,49 @@ Data Catalog is independent of any workflow management system, any data processi
   including file management, requires a SAM \textit{station}
   installation and these exist at a small number of locations.
 
-\item[ATLAS] \fixme{Please add something.}
+\item[ATLAS:] Distributed Data Management in ATLAS (often termed \textit{DDM}) has always been one of its focus areas, in part due to sheer volume of
+data being stored, shared and distributed worldwide (on multi-petabyte scale), and to importance of optimal data placement to ensure efficiency
+and high throughput of processing~\cite{atlas_ddm_chep12}. Just like with other major components of its systems, ATLAS has evolved its
+data management infrastructure over the years. The systems currently utilized is Rucio~\cite{rucio_chep13}. We shall briefly consider salient features of its design.
 
-\item[CMS] \fixme{Please add something.}
+The atomic unit of data in ATLAS is file. Above that, there are levels of data aggregations, such as:
+\begin{itemize}
+\item \textit{dataset} Datasets are the operational unit of replication for DDM – they may be transferred to grid sites, whereas single files
+may not. Datasets in DDM may contain files that are in other datasets, i.e., datasets may overlap.
+\item \textit{container} Container is a collection of datasets. Containers are not units of replication, but allow
+large blocks of data, which could not be replicated to single site, to be described in the system.
+\end{itemize}
+
+There are a few categories of metadata in Rucio:
+\begin{itemize}
+\item  System-defined attributes (e.g. size, checksum etc)
+\item Physics attributes (such as number of events)
+\item Production attributes (parentage)
+\item Data management attributes
+\end{itemize}
+
+\item[CMS:] CMS also employs the concept of a dataset. Metadata resides in, and is being handled by the ``The Data Bookkeeping Service'' (DBS).
+This service maintains information regarding the provenance, parentage, physics atributes and other type of metadata necessary for efficient processing.
+The Data Aggregation Service (DAS)  is another critical component of the CMS Data Management System. It ``provides the ability to query CMS data-services via
+a uniform query language without worrying about security policies and differences in underlying data representations''~\cite{phedex_chep13}.
 
 \end{description}
 
 \subsection{Small and Medium Scale Experiments}
-Small and medium scale experiments will have more limited needs than described in the previous sections. Data will often be stored in a single or 
-just a few geographical locations ('host laboratories'). Data processing is less distributed. However, most experiments today have data volumes large 
-enough that they need a real data management system and not rely on a purely manually driven system (files in unix directories and wiki pages). 
-And in fact, we often find many of the same elements, i.e. extensive metadata, data catalogs, XRootD, also used by smaller 
-experiments. The main difference with respect to the LHC scale is the very limited technical expertise and manpower available to develop, adapt and 
-operate these tools.
+Small and medium scale research programs often have smaller needs compared to the LHC or other large experiments. In these cases, it won't
+be economical or feasible to deploy and operate same kind of middleware on the scale described in previous sections.
+Data is often be stored in a single or just a few geographical locations ('host laboratories'), and
+data processing itself is less distributed. However, many experiments today have data (or will have data) characterized by volumes
+and complexity large enough to create a demand a real data management system instead of resorting to manual mode (files in unix directories and wiki pages). 
+In fact, we already find that some of the same elements, i.e. extensive metadata, data catalogs, XRootD, are also used by some smaller 
+experiments. The main challenge here is the very limited technical expertise and manpower available to develop, adapt and 
+operate this sort of tools.
+
+With Cloud technology recently becoming more affordable, available and transparent for use in a variety of applications, smaller
+scale collaborations are making use of services such as Globus~\cite{globus} to perform automated managed data transfers (cf.~\ref{data_xfer}),
+implement data sharing and realize the ``Data in the Cloud'' approach. For small and mid-scale projects, platforms like \textit{Google Drive}
+and \textit{Dropbox} offer attractive possibilities to share and store data at a reasonable cost, without having to own much of storage and
+networking equipment and to deploy a complex middleware stack.
 
 
 
