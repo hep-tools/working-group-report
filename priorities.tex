@@ -1,21 +1,58 @@
 \section{Prioritized Recommendations}
 
-\fixme{(authors: anders, brett, all)}
+\subsection{Cross-Experiment Effort}
 
-\textit{Editing notes:}
-\begin{itemize}
-\item Give a prioritized list of activities that will best help address the identified problems in the previous section. 
-\item Give endorsement of HEP Software Foundation (?)
-\item This section should then largely be a summary of the recommendations that are part of each survey area.
-\end{itemize}
-\subsection{General Recommendations}
-\begin{itemize}
-\item Perform an initial survey of the current state of the art for software tools and systems at the beginning of a new experiment.
-\item Layout a datamodel schema up front
-\item Design for unit testing of Application software modules outside of framework
-\item Design broad-enough namespace rules (unique filenames, versions of code and data files) up front
-\item Understand the scale of the experiment and choose a set of tools that
-are neither to complex not to limiting for your scale.  Very large experiments will need more layers (i.e. extra data transport daemons that move large amounts of data for local access) than small experiments (i.e. everyone can grab all the files via https from a central store)
-\item Understand the metadata scope in advance: Will you be enforcing unique filename rules throughout your system?  When events are reprocessed, are they properly tagged with new version tags?  Can developement event processings be easily
-purged or live in a distinct name space from operations event processings?
-\end{itemize}
+This section presents priority recommendations that the working group
+gives to the HEP-FCE with an understanding that they are of interest
+to funding entities.
+
+\begin{enumerate}
+\item The goals of the HEP Software Foundation\cite{hsfweb} (HSF) are
+  largely overlapping with HEP-FCE.  The two groups can be mutually
+  beneficial.  HSF is forming a general, grassroots organization while
+  HEP-FCE potentially can fund specifically targeted efforts.  HSF can
+  be a source of requirements, working groups, review panels, project
+  proposals and expertise all of which HEP-FCE can beneficially
+  leverage to carry out its goals.  It is recommended that HEP-FCE
+  continue to participate in HSF formation activities and look into
+  how the two groups might partner on specific actions.
+
+\item Various detailed ``opportunities'' listed in the following
+  survey sections call out the need for further work to be carried out
+  in some detail by technical working groups. These are needed to
+  better understand the nature of a specific problem shared across
+  many experiments, formulate requirements for and in some cases
+  design and implement solutions.  The HEP-FCE should organize such
+  working groups from suitable expertise from the HEP software community.
+
+\end{enumerate}
+
+
+\subsection{Effort by Experiments}
+
+Throughout the following survey sections, a number of best practices
+and pitfalls relevant to the development and use of software libraries
+and tools by individual experiments were identified.
+
+\begin{enumerate}
+
+\item New experiments should not underestimate the importance of
+  software to their success.  It should be treated as a major
+  subsystem at least on part with other important aspects such as
+  detector design, DAQ/electronics, civil construction, etc.
+
+\item Experiments should understand the pitfalls listed in
+  section~\ref{subsec:pitfalls}).  New ones should implement ways to
+  avoid them and existing ones should reflect on if they apply and
+  develop ways to address them.  Likewise the best practices listed in
+  section~\ref{subsec:bestpractices}) should be considered.  New
+  experiments should attempt to follow them and if practical and
+  beneficial, existing experiments should seek to make changes to
+  implement them.
+
+\item New and existing experiments should join the effort to organize
+  and otherwise supply representative members to the HEP Software
+  Foundation.
+
+\end{enumerate}
+

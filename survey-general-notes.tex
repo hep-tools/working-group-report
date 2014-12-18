@@ -1,0 +1,63 @@
+
+\subsubsection{Editing notes}
+
+\fixme{This is not a real section and will be deleted}
+
+\begin{itemize}
+\item Give our understanding of the situation with libs/tools in HEP:
+  \begin{itemize}
+  \item General purpose libraries (I/O, statistical analysis, linear algebra)
+  \item Data management and transfer tools
+  \item Code management utilities
+  \item High Throughput Computing (HTC) tools and services
+  \item Graphics packages
+  \item Documentation tools
+  \item Build/release/scripting/testing tools
+  \end{itemize}
+\item describe overlap between libs/tools and the applications and systems groups
+  \begin{itemize}
+  \item attempt made to keep covered topics distinct from other two HEP-FCE groups
+  \item work\textbf{flow} vs work\textbf{load} mgt
+  \item geant4/ROOT as application or as lib/tool
+  \end{itemize}
+\item describe how libraries and tools tend to be reinvented for each major experiment 
+\item describe the effort to adopt libs/tools from other experiments (Daya Bay: DBI from MINOS, SPADE from IceCube, Gaudi/GiGa/DetDesc from LHCb)
+\item library-level parochialism (some possible topics):
+  \begin{itemize}
+  \item no time/effort/expertise to step back from immediate problem to look at bigger picture design (post-doc reads Geant4 manual, hacks up an application based on one of the examples and then stuff just starts to organically grow)
+  \item single, monolithic geant4 application becomes center of analysis for whole experiment, everyone piles on
+  \item inject ``just a few lines of code here'' instead of refactor
+  \item configuration through code modification and recompilation
+  \item cut-and-paste source code sharing instead of modules in shared libraries
+  \item linkage of implementation code in shared libraries instead of proper pure-Interface libraries (C++)
+  \item framework tendrils work their way throughout all code
+  \item no framework (or even with a framework) leads to data-file-as-module-interface (I/O inefficient, scales poorly to large processing or complex workflows)
+  \item heavy framework enforcing execution model (eg, I want to be
+    able to test my code via interactive \texttt{ipython} prompt
+    \textbf{and} have it run from a framework ``algorithm/module'')
+  \end{itemize}
+\item Social/psychological - maybe belongs in its own ``area of opportunity''?
+  \begin{itemize}
+\item collaborations lack support/time, or feel like the do, to write or adopt general purpose libs/tools and then support them going forward.
+\item the community as a whole lacks common communication tools, rather individual projects/experiments all have their own way of doing things, or not at all.  Some tools are counter productive (eg, choosing web fora over email lists for conversations)
+\item Communities that attempt to establish are often not responsive enough to users to maintain themselves.  Strive for a community healthy enough to have developers supporting experts, experts supporting users and users supporting newbies.
+\item reward desired behavior: be gracious with bug reports, welcome and record feature requests from users and sometimes even satisfy them, thank and credit community members who contribute, do this in a non-BS, non-PR way (no auto email replies!)
+\item Expertise in writing good, general-purpose libs/tools does not always imply expertise in promoting/advertising the software.  Need ways to uncover hidden diamonds.
+\item An experiment's software is no better than the best software expert involved.
+\item Loudest is not always best.
+\item Large software decisions are often made without critical opposition, without a decision making policy in place, or ignored if one exists, and without full information readily available to form an objective selection.
+\item Politics and familiarity often trump rationality and quality in selecting software or software strategies.
+\item Prototypes become too loved to be replaced.
+\item Proper software design and experience is looked down on as a hindrance by those who work closer to the Physics.
+\item Software developers often design to the lowest user instead of expecting the users to be able to lift themselves up to the higher design.
+\item Many decisions are made based on what may happen not what is likely to happen.
+  \end{itemize}
+
+\item Intro to remaining specific problems:
+\begin{itemize}
+\item the specific areas of opportunity identified as important where improvement (cross-cutting) has potential to help many.
+\item First two have a relatively large phase space with many sub components, second two are somewhat smaller in scope.
+\end{itemize}
+
+\end{itemize}
+\textit{(end of notes)  }
