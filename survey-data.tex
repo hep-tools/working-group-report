@@ -4,9 +4,9 @@
 % \fixme{(authors: Anders, Brian, Maxim, Mike, Simon)}
 
 \subsection{Definition}
-In general, \textbf{Data Management} is any \textit{content neutral} interaction with the data, i.e. it is the \textit{data flow}
+In general, \textbf{Data Management} is any \textit{content neutral} interaction with the data, e.g. it is the \textit{data flow}
 component of the larger domain of  \textbf{Workflow Management} (see \ref{workflow_workload}). It addresses issues of data storage
-and archival, mechanisms of data access and distribution, and  curation -- over the full life cycle of the data. In order to remain within
+and archival, mechanisms of data access and distribution and  curation -- over the full life cycle of the data. In order to remain within
 the scope of this document we will
 concentrate on issues related to data distribution, metadata and catalogs, and won't cover issues of mass storage
 in much detail (which will be covered by the \textit{Systems} working group). Likewise, for the most part network-specific issues fall outside of our purview.
@@ -17,8 +17,8 @@ in much detail (which will be covered by the \textit{Systems} working group). Li
 \subsection{Moving Data}
 \subsubsection{Modes of Data Transfer and Access}
 \label{data_xfer}
-In any distributed environment (and most HEP and IF experiments are prime examples of that) the data are typically stored at multiple locations,
-for a variety of reasons, and over its lifetime undergoes a series of transmissions over networks, replications and/or deletions, with attendant bookkeeping
+In any distributed environment (and most HEP experiments are prime examples of that) the data are typically stored at multiple locations,
+for a variety of reasons, and over their lifetime undergo a series of transmissions over networks, replications and/or deletions, with attendant bookkeeping
 in appropriate catalogs. Data networks utilized in research can span \textit{hundreds} of Grid sites across multiple continents.
 
 In HEP, we observe a few different and distinct modes of moving and accessing data (which, however, can be used in a complementary fashion).
@@ -41,7 +41,7 @@ on the Grid, it is possible to access data over the network, provided there exis
 facility or device, and the processing element. There are many ways to achieve that. Examples:
 \begin{itemize}
 \item using \textit{http} to pull data from a remote location before executing the payload job. This can involve private data servers or public cloud facilities.
-\item utilizing \textit{XRootD}~\cite{xrootd,xrootd_web} over WAN to federate storage resources and locate and deliver files transparently in a ``just-in-time'' manner.
+\item utilizing \xrootd~\cite{xrootd,xrootd_web} over WAN to federate storage resources and locate and deliver files transparently in a ``just-in-time'' manner.
 \item sharing data using middleware like Globus~\cite{globus}.
 \end{itemize}
 
@@ -65,7 +65,7 @@ sites of smaller scale, to be configured and used mainly for analysis of the dat
 to handle a large fraction of the Monte Carlo simulations workload). Smaller installations and what is termed ``non-pledged resources'' 
 belong to Tier-3 in this scheme, implying a more \textit{ad hoc} approach to data distribution and handling of the computational
 workload on these sites. The topology of the data flow among the
-Tiers can be described as somehat similar to a Directed Acyclic Graph (DAG), where data undergoes processing steps 
+Tiers can be described as oriented tree graph, where data undergoes processing steps 
 and is distributed from Tier-0 to a number of Tier-1 facilities, and then on to Tier-2 sites -- but Tiers of the same rank
 do not share data on ``p2p'' basis.
 This architecture depends on coordinated operation of two major components:
@@ -127,12 +127,11 @@ protocols and systems which are more conducive to implementing this approach tha
 	\item Transparent and automated "pull" of required data to local storage.
 \end{itemize}
 
-One outstanding example of leveraging the improved networking technology is \textit{XRootD}
-\cite{xrootd}, \cite{xrootd_web} -- a system which facilitates \textit{federation} of widely 
+One outstanding example of leveraging the improved networking technology is \xrootd -- a system which facilitates \textit{federation} of widely 
 distributed resources~\cite{xrootd_fed,xrootd_snowmass}. While its use in HEP is widespread, two large-scale applications deserve a special mention: 
 it is employed  in the form of CMS's ``Any Data, Anytime, Anywhere'' (AAA)
-project and ATLAS's ``Federating ATLAS storage systems using Xrootd" (FAX) project, both of which rely
-on XRootD as their underlying technology. ``These systems are already giving experiments and
+project and ATLAS's ``Federating ATLAS storage systems using \xrootd" (FAX) project, both of which rely
+on \xrootd as their underlying technology. ``These systems are already giving experiments and
 individual users greater exibility in how and where they run their workflows by making data more globally
 available for access. Potential issues with bandwidth can be solved through optimization and prioritization''\cite{xrootd_snowmass}.
 
@@ -223,7 +222,7 @@ be economical or feasible to deploy and operate same kind of middleware on the s
 Data is often be stored in a single or just a few geographical locations ('host laboratories'), and
 data processing itself is less distributed. However, many experiments today have data (or will have data) characterized by volumes
 and complexity large enough to create a demand a real data management system instead of resorting to manual mode (files in unix directories and wiki pages). 
-In fact, we already find that some of the same elements, i.e. extensive metadata, data catalogs, XRootD, are also used by some smaller 
+In fact, we already find that some of the same elements, i.e. extensive metadata, data catalogs, \xrootd, are also used by some smaller 
 experiments. The main challenge here is the very limited technical expertise and manpower available to develop, adapt and 
 operate this sort of tools.
 
@@ -253,7 +252,7 @@ may therefore be a good option.
 however, somewhat similar to what is described above. Often these systems have become monolithic, have strong couplings to certain 
 technologies and significant work may be 
 necessary to make them modular. This can be difficult to achieve within the limited resources available and will need dedicated support.
-\par Last, the success of Federated Storage built on XRootD shows the importance of good building blocks and how they can be arranged into 
+\par Last, the success of Federated Storage built on \xrootd shows the importance of good building blocks and how they can be arranged into 
 larger successful systems.
 
 

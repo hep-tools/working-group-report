@@ -108,9 +108,9 @@ It is understood that there is now a
 movement to provide a CMake based build system.  This may alleviate
 this particular hurdle for future adopters as CMake is widely used both inside and outside HEP projects.
 
-Finally, although Gaudi is full featured and flexible it did not come
-with all needed framework-level functionality and, in its core, fails
-to provide some generally useful modules.  In particular, Daya Bay
+Finally, although Gaudi is full-featured and flexible it did not come
+with all needed framework-level functionality and, in its core, does
+not provide some generally useful modules that do exist in experiment code repositories.  In particular, Daya Bay
 adopted three Gaudi extensions from LHCb's code base.  These are
 actually very general purpose but due to historical reasons were not
 provided separately.  These were GaudiObjDesc (data model definition),
@@ -119,24 +119,21 @@ extensions developed by other experiments were rejected and in-house
 implementations were developed.  In particular, the extension that
 provided for file I/O was considered too much effort to adopt.  The
 in-house implementation was simple, adequate but its performance was
-somewhat lacking.  
+somewhat lacking.
 
-One aspect of the default Gaudi implementation that had to be modified for use by Daya
-Bay was the event processing model.  Unlike collider
+One aspect of the default Gaudi implementation that had to be modified
+for use by Daya Bay was the event processing model.  Unlike collider
 experiments, Daya Bay necessarily had to deal with a non-sequential,
-linear event stream.  Multiple detectors at multiple sites produced
-data in time order but not synchronously.  Simulation and processing
-did not preserve the same ``event'' multiplicity.  Multiple sources of 
-events (many independent backgrounds in addition to signal) must be
-properly mixed in time and at multiple stages in the processing chain.  
-Finally, of the strongest background rejection
-criteria to select inverse beta decay events 
-from anti-neutrino interactions in the detector
-is to require a delayed coincidence in time between a prompt positron
-interaction in the scintilator followed by later activity from the
-absorption of a neutron.  The flexibility of Gaudi allowed Daya Bay to
-extend its very event processing model to add the support necessary
-for these features.
+non-linear event stream.  Multiple detectors at multiple sites
+produced data in time order but not synchronously.  Simulation and
+processing did not preserve the same ``event'' multiplicity.  Multiple
+sources of events (many independent backgrounds in addition to signal)
+must be properly mixed in time and at multiple stages in the
+processing chain.  Finally, delayed coincidence in time within one
+detector stream and between those of different detectors had to be
+formed.  The flexibility of Gaudi allowed Daya Bay to extend its very
+event processing model to add the support necessary for these
+features.
 
 \subsection{CMSSW and art}
 
@@ -156,16 +153,17 @@ IceTray\cite{icetray} is the software framework used by the IceCube experiment a
 
 \subsection{Opportunity for improvement}
 
-Some best practices are identified:
+Some best practices relevant to event processing frameworks are identified:
 
 \begin{description}
 \item[open community] Make source-code repositories, bug tickets and
   mailing lists (user and developer) available for anonymous reading
   and lower the barrier for accepting contributions from the community.
 
-\item[modularity] Separate the framework code into modular units with
-  clear interfaces that minimize recompilation.  The system should
-  work when optional modules are omitted.
+\item[modularity] Separate the framework code into modular compilation
+  units with clear interfaces which minimize recompilation.  The
+  system should work when optional modules are omitted and allow
+  different modules to be linked at run-time.
 
 \item[documentation] Produce descriptions of the concepts, design and
   implementation of the framework and guides on installation,
@@ -193,7 +191,7 @@ this goal may include:
   novel, to develop as a widely-used, community-supported project.
 \item The working group should conclude by gauging interest in the
   community, survey experiments to determine what involvement and use
-  can be expected and determine a list of candidates for the next
+  can be expected and determine a list of candidate developers for the next
   step.
 \item Assemble a core team to provide this development and support
   (something similar to the ROOT model).  Direct support, which is
