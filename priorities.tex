@@ -28,11 +28,9 @@ to funding entities.
 \item Packages or frameworks (or significant subsets) which have proven 
 popular (used by more than one experiment) and useful should be considered for
 cross-experiment support, especially in terms of providing support for
-easy adopability (setup and install by other experiments, on other 
+easy adoptability (setup and install by other experiments, on other 
 O/S platforms) and documentation (detailed guides and non-experiment
 specific manuals).
-
-documentation
 
 \end{enumerate}
 
@@ -70,11 +68,13 @@ those that are easily adopable by new experiments, are well-documented,
 have dynamically configuable (possibly scriptable) configuration 
 parameter sets and are modular and efficient (allow C++ like modules 
 for low level 
-operations combined with scripting layer like python for flexible 
+operations combined with a scripting layer like python for flexible 
 higher level control.
 
 \item Aspects of successful Software Development tools include:
-those that follow licence-free availablity and free-software distribution models, those that include code repositories, build systems that work on a variety of platforms with a small number of clearly defined base element dependencies 
+those that follow licence-free availablity and free-software distribution models, 
+those that include code repositories, build systems that work on a variety of platforms 
+with a small number of clearly defined base element dependencies 
 (i.e. C compiler, compression library, specific version of python), release 
 configuration systems with versioning that understand a variety of 
 platforms; those that support automatic continuous integration and 
@@ -82,9 +82,12 @@ regression testing; those that have open documentation updating and
 bug-reporting and tracking.
 
 \item Aspects of successful Data Management tools include:
-those that are content neutral; those that are properly layered depending on the scale (small or large) of the experiment; those that properly and 
-completely integrate metadata including provenance information;  those that
-can be developed locally and grown organically.
+those that are inherently modular and avoid tight couplings to either 
+specific technologies or to other parts of the computing ecosystem, in 
+particular to the Workload Management System and the Metadata Catalogs;  
+those that, while being complex and originallly developed for large scale operations 
+at for example the LHC, may be simplified and downscaled for use by smaller experiments 
+with minimal manpower and technical expertise. 
 
 \item Aspects of successful Workflow and Workload Management tools include:
 those that understand the distinction between and support flexible, efficient 
