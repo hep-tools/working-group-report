@@ -1,50 +1,7 @@
 \section{Conditions Databases}
 
-\fixme{(authors: Brian, Peter)}
+% \fixme{(authors: Brian, Peter)}
 
-\subsubsection{Editing notes}
-
-
-\fixme{This is not a real section and will be deleted}
-
-
-\begin{itemize}
-\item Tech arguments, make some collection of unbiased facts to judge suitability (is it possible?)
-
-	Essentially all experiments will use one or more databases to
-	store their data (or pointers to the data), as well as provenance 
-	information and metadata.  The requirements for these databases will
-	vary widely across the range of possible experiments, as will
-	requirements for access (read and write) to different databases.  
-	We focus here on the possibility of each experiment presenting
-	to its collaboration a `Conditions Database' interface, which
-	provides a common (primarily read) access interface to universal
-	information that is widely needed by the collaboration.
-
-	Examples of this information might be:
-	\begin{itemize}
-	\item database table list, DB schema
-	\item event catalog parameter description, schema
-	\item high level experiment run catalog
-	\item high level experiment event catalog
-	\item high level data processing runs catalog
-	\end{itemize}
-
-	One can imaging that query access to such common information be
-	available in a uniform fashion to facilitate, for instance,
-	automated lookup of DB schema.  
-
-\item Focus on conditions database as one particularly cross-experiment component and make this clear to avoid confusion.
-  \begin{itemize}
-  \item MINOS's ``DBI'' adopted by other neutrino experiments
-  \item BaBar/Atlas/LHCb's similar
-  \item DB schema, fixed parts + experiment-specific parts
-  \end{itemize}
-\item Note that configuration DB (eg. for configuring the experiment DAQ) may be too experiment-specific to provide one solution
-  \begin{itemize}
-  \item however, system to sink+emit alarms/messages from disparate providers to disparate consumers would be generally useful (``XMLBlaster'' is one example toolkit)
-  \end{itemize}
-\end{itemize}
 
 \subsection{Description}
 
@@ -90,5 +47,7 @@ In both cases there need to be a mechanism for arbitrating which instances are u
 In order for the above versioning to work there must be some monotonic ordering of the versions. Typically this is done by the `insertion' date which is the logical date when the version was added to the database. It should be noted here that this date does not always reflect the actual date the version was inserted as that may not create the correct ordering of versions.
 
 
-\subsection{Examples}
+%\subsection{Examples}
 \subsection{Opportunity for improvement}
+
+\fixme{Need this!}
