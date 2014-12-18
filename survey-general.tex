@@ -202,8 +202,22 @@ include the following:
   large scale design decisions such as potential event processing
   software frameworks.  
 
-\item[namespaces] Design broad-enough namespace rules (unique filenames, versions of code and data files).\\
-\fixme{Needs more explanation}
+\item[namespaces] Design broad-enough namespace rules (unique filenames, 
+versions of code and data files) to encompass the entire development, 
+operations and legacy aspects of the experiment, which may span decades 
+in time and have worldwide distributed data stores.  Filenames, or, in larger
+experiments, the meta-system which supports file access and movement, 
+should have unique identifiers not just for given events or runs 
+at a single location, but even if a file is moved and mixed 
+with similar files remotely located (i.e. filename provenance should 
+not rely upon directory path for uniqueness).  One should be able 
+to distinguish development versions of files from production versions.  
+If the same dataset is processed multiple times, the filenames or 
+other metadata or provenance indicators should be available which 
+uniquely track the processing version.  The same goes for code:  
+software versions must be tracked clearly and comprehensively across the 
+distributed experiment environment (i.e. across multiple 
+institutions, experiment phases and local instances of repositories).
 
 \item[scale] Understand the scale of complexity of the software, its
   development/developers.  Determine if an event processing framework
