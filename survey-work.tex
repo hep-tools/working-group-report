@@ -50,7 +50,11 @@ Regardless of the obvious differentiation of Cloud computing (due to its charact
 many of its fundamental concepts and challenges are common with its predesessor, Grid Computing. In fact, the boundary is blurred even further by existing efforts to
 enhance Grid middleware with tools based on virtualization and Cloud API which essentially extend ``traditional'' Grid resources with on-demand, elastic Cloud
 capability~\cite{star_acat11}, leading to what is essentially a hybrid system. The two are often seen as ``complementary technologies that will coexist at
-different levels of resource abstraction'' \cite{atlas_cloud_chep13}.
+different levels of resource abstraction'' \cite{atlas_cloud_chep13}. Moreover,
+\begin{quote}
+\textit{In parallel, many existing grid sites have begun internal evaluations of cloud technologies (such as Open Nebula or OpenStack) to reorganize the internal management of their computing resources.}
+(See \cite{atlas_cloud_chep12})
+\end{quote}
 
 In recent years, there are a few open-source, community developed and supported Cloud Computing platforms that reached maturity, such as OpenStack~\cite{openstack}.
 It includes a comprehensive set of components such as ``Compute'', ``Networking'', ``Storage'' and others and is designed to run on standard commodity hardware.
@@ -58,23 +62,15 @@ It is deployed at scale by large organizations and serves as foundation for comm
 of resources of both public and private Clouds, resulting in the so-called \textit{Hybrid Cloud}, which technology aims to achieve best characteristics of both private
 and public clouds.
 
-There are no conceptual or architectural barriers for running HEP-type workflows in the Cloud, however there are caveats such as
+There are no conceptual or architectural barriers for running HEP-type workflows in the Cloud, and in fact efforts are well under way to implement this
+approach~\cite{atlas_cloud_chep12}. However, there are caveats such as
 \begin{itemize}
-
-\item Careful cost analysis needs to be performed before each decision to deploy on the Cloud, as it is not universally cheaper than
+\item Careful overall cost analysis needs to be performed before each decision to deploy on the Cloud, as it is not universally cheaper than
 resources already deployed at research centers such as National Labs (at the same time the Cloud an efficient way to handle peak demand
 for the computing power due to its elasticity).
-
-\item Available bandwidth for staging in/staging our data in the Cloud (and again, it's cost) need to be quantified and gauged against the project requirements.
-
+\item Available bandwidth for staging in/staging our data in the Cloud (and again, its cost) need to be quantified and gauged against the project requirements.
+\item Cloud storage cost may be an issue for experiments handling massive amounts of data~\cite[p.~11]{atlas_cloud_chep12}
 \end{itemize}
-
- 
-
-
-%
-% There is also the need for seemless lightweight unit testing, regression testing and module development on small local systems outside of large grid or cloud environments.\\
-% -mxp- Brian - good point but it obfuscates the simple statement re: cloud. I just wanted this t obe minimalistic - we will definitely put this statement in the document, just in a different loication.
 
 \subsubsection{From the Grid to Workload Management}
 \label{from_grid_to_workload}
@@ -325,7 +321,8 @@ and new solutions in this area, and design of proper interfaces between Workflow
 \end{itemize}
 
 \item \textbf{Pilots}: the technique of deploying Pilot Jobs to worker nodes on the Grid adds robustness, flexibility and adaptability to the system.
-It proved very successful at extreme scale and the use of this technique should be encouraged.
+It proved very successful at extreme scale and the use of this technique should be encouraged. Creating application-agnostic templates of pilot code
+which can be reused by different experiment at scales smaller than LHC could be a cost-effective way to leverage this technique.
 
 \item \textbf{Monitoring}:
 \begin{itemize}
@@ -349,9 +346,9 @@ and in hybrid environments as well.
 \end{itemize}
 
 \subsubsection{Summary of Recommendations}
+\subsubsection*{WMS Inventory}
 We recommend that future activities of an organization such as FCE would include an assessment of major existing Workload Management Systems
 using criteria outlined in~\ref{wms_focus}, such as
-
 \begin{itemize}
 \item modularity, which would ideally allow to avoid deployment of a monolithic solution and would instead allow to
 utilize Proper platform and technologies as needed, in the Data Management, Workload Management and Workflow Management domains.
@@ -363,15 +360,12 @@ This assessment will be useful in a few complementary ways:
 \begin{itemize}
 \item It will serve as a ``roadmap'' which will help organizations looking to adopt a system for processing their workflows in the Grid and Cloud environment,
 to make technology choices and avoid duplication of effort.
-
-\item It will help identify areas where additional effort is needed to improve the existing systems in terms of reusability and ease of maintenance.
-
+\item It will help identify areas where additional effort is needed to improve the existing systems in terms of reusability and ease of maintenance (e.g.
+implementing more modular design).
 \item It will summarize best practices and experience to drive the development of the next generation of distributed computing systems.
-
 \item It may help facilitate the developement of interopability layer in the existing WMS, which would allow future deployment to mix and match components
 from existing solutions in an optimal manner.
 \end{itemize}
-
 Further, this assessment should also contain a survey of existing ``external'' (i.e. open source and community-based) components that can be utilized
 in existing and future systems,  with proper interface design. The goal of this part of the exercise it to identify cases where software reuse may help
 to reduce development and maintenance costs. For example, there are existing systems for flexible workflow management which have not been
@@ -380,4 +374,12 @@ extensively evaluated for use in HEP and related fields.
 It must be reconginzed that due to complexity of the systems being considered, the development of this assessment document will not be a trivial
 task and will require appropriate allocation of effort. However, due to sheer scale of deployment of modern WMS, and considerable cost of resources
 required for their operation, in terms of both hardware and human capital, such undertaking will be well justified.
+
+\subsubsection*{Cloud Computing}
+HEP experiments are entering the era of Cloud Computing. We recommend continuation of effort aimed at investigating and putting in practice
+methods and tools to run scientific workflows on the grid. Careful cost/benefit analysis must be performed for relevant use cases.
+
+In addition to extending existing WMS to the Cloud, we must work in the opposite direction, i.e. to maintain efforts to evaluate components of frameworks such as OpenStack~\cite{openstack} for possible ``internal'' use in HEP systems.
+
+
 
