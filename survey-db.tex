@@ -1,6 +1,6 @@
 \section{Conditions Databases}
 
-% \fixme{(authors: Brian, Peter)}
+% \fixme{(authors: Simon, Brian, Peter)}
 
 
 \subsection{Description}
@@ -47,7 +47,17 @@ In both cases there need to be a mechanism for arbitrating which instances are u
 In order for the above versioning to work there must be some monotonic ordering of the versions. Typically this is done by the `insertion' date which is the logical date when the version was added to the database. It should be noted here that this date does not always reflect the actual date the version was inserted as that may not create the correct ordering of versions.
 
 
-%\subsection{Examples}
+% \subsection{Examples}
 \subsection{Opportunity for improvement}
 
-\fixme{Need this!}
+Given that the challenge of a condition database, to match data to an events timestamp, is universal and not specified to any style of experiment, and given that numerous solutions to this challenge exist, there is little point in creating new ones. The obvious opportunities for improvement are ones that make the existing solutions available for use by other experiment in order to avoid replication (again). To this end the following approaches are recommended:
+
+\begin{itemize}
+\item A detail survey of the interface of existing solutions should be made. The result of this survey should the definition of a ``standard'' API for conditions databases that is decoupled for any particular framework. This standard would be a superset of the features found in existing implementations so that all features of a given implementation can be accessed via this API. Suitable language bindings, such as C++ and python, so be provided as part of the standard.
+
+\item Given the standard API and language bindings provided by the previous item, maintainers of conditions database implementations should first be encouraged, where possible, to develop the necessary code to provide the API as part of their implementation. They should then be encouraged to extent their own implementation to cover as much of the API as it is possible for their technology to support.
+
+\item On the `consumer' side of the API, existing framework maintainers should be encouraged to adapt their framework so that is can use the standard API to resolved conditions database access. For frameworks and conditions databases that are tightly couples, such as the Gaudi framework and its IOVsrc, this item, in concert with the previous one, will enable the conditions database to be decoupled for the analysis code.
+
+\item In the longer term, given the standard conditions database API, the development of a Software-as-a-Service for conditions databases, for example use a RESTful interface, should be encouraged. This would allow the provisioning of conditions databases to be moved completely out of the physicist's realm and into that of computing support with is more suited to maintain that type of software.
+\end{itemize}
