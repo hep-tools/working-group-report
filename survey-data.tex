@@ -4,7 +4,7 @@
 % \fixme{(authors: Anders, Brian, Maxim, Mike, Simon)}
 
 \subsection{Definition}
-In general, \textbf{Data Management} is any \textit{content neutral} interaction with the data, e.g. it is the \textit{data flow}
+\textbf{Data Management} is any \textit{content neutral} interaction with the data, e.g. it is the \textit{data flow}
 component of the larger domain of  \textbf{Workflow Management} (see \ref{workflow_workload}). It addresses issues of data storage
 and archival, mechanisms of data access and distribution and  curation -- over the full life cycle of the data. In order to remain within
 the scope of this document we will
@@ -29,16 +29,16 @@ Consider the following:
 with redundancy and verification mechanism so as to minimize chances of data loss. Such implementation may be needed,
 for example, to transport ``precious'' data from the detector to the point of permanent storage.
 Examples of this can be found in SPADE (data transfer system used in Daya Bay) and components of SAM~\cite{SAM} and File Transfer Service at FNAL.
-Similar functionality (as a part of a wider set) is implemented in \textit{Globus Online} middleware kit~\cite{globus}.
+Similar functionality (as a part of a wider set) is implemented in the \textit{Globus Online} middleware kit~\cite{globus}.
 
 \item[Managed Replication] In many cases the data management strategy involves creating replicas of certain segments of the data (datasets, blocks, etc)
-in participating Grid sites. Such distribution is done according to a previously developed policy which may be based on storage capacities of 
+at participating Grid sites. Such distribution is done according to a previously developed policy which may be based on storage capacities of 
 the sites, specific processing plans (cf. the concept of \textit{subscription}), resource quota and any number of other factors. Good examples of this type of systems are found in
 ATLAS (\textit{Rucio)} and CMS (\textit{PhEDEx}), among other experiments~\cite{rucio_chep13,phedex_chep09}.
 
 \item[``Data in the Grid'' (or Cloud)] In addition to processing data which is local to the processing element (i.e. local storage), such as a Worker Node
 on the Grid, it is possible to access data over the network, provided there exists enough bandwidth between the remote storage
-facility or device, and the processing element. There are many ways to achieve that. Examples:
+facility or device, and the processing element. There are many ways to achieve this. Examples:
 \begin{itemize}
 \item using \textit{http} to pull data from a remote location before executing the payload job. This can involve private data servers or public cloud facilities.
 \item utilizing \xrootd~\cite{xrootd,xrootd_web} over WAN to federate storage resources and locate and deliver files transparently in a ``just-in-time'' manner.
@@ -48,7 +48,7 @@ facility or device, and the processing element. There are many ways to achieve t
 \end{description}
 
 
-Choosing the right approaches and technologies in this case is obviously a two-tiered process. First, one needs to identify the most
+Choosing the right approaches and technologies is a two-tiered process. First, one needs to identify the most
  relevant use cases and match them to categories such as outlined above (e.g. replication vs network data on demand). Second, within
  the chosen scenario, proper solutions must be identified (and hopefully reused rather than reimplemented).
    
@@ -59,7 +59,7 @@ and also because it motivated the evolution of approaches to data management whi
 It stands for \textit{Models of Networked Analysis at Regional Centers} \cite{monarc}.
 At the heart of  MONARC  is a manifestly hierarchical organization of computing centers in terms of
 data flow, storage and distribution policies defined based on characteristics and goals of participating sites. The sites
-are classed into ``Tiers'' according to the scale of their respective resources and planned functionality, with ``Tier-0'' denomination
+are classified into ``Tiers'' according to the scale of their respective resources and planned functionality, with ``Tier-0'' denomination
 reserved for central facilities at CERN, ``Tier-1'' corresponding to major regional centers while ``Tier-2'' describes
 sites of smaller scale, to be configured and used mainly for analysis of the data (they are also used
 to handle a large fraction of the Monte Carlo simulations workload). Smaller installations and what is termed ``non-pledged resources'' 
@@ -80,7 +80,7 @@ This architecture depends on coordinated operation of two major components:
 	\item The Workload Management System (WMS) -- see Section~\ref{wms} -- which distributes computational payload in accordance  
 	with optimal resource availability and various applicable policies. It typically also takes
 	into account data locality in order to minimize network traffic and expedite execution. A mature 
-	and robust WMS also contains an efficient and user-friendly monitoring capabilities, which allows 
+	and robust WMS also contains efficient and user-friendly monitoring capabilities, which allows 
 	its operators to monitor and troubleshoot workflows executed on the Grid.
 	
 \end{itemize}
@@ -103,7 +103,7 @@ The performance of the network has allowed a more flexible model in terms of dat
 	
 	\begin{itemize}
 		\item Removal of the strict hierarchy of data moving down the tiers, and allowing a
-		more peer--peer data access policy (a site can obtain data from more or less any 
+		more peer-2-peer data access policy (a site can obtain data from more or less any 
 		other site);
 		
 		\item The introduction of the ability to have remote access to data, either in obtaining
@@ -127,7 +127,7 @@ protocols and systems which are more conducive to implementing this approach tha
 	\item Transparent and automated "pull" of required data to local storage.
 \end{itemize}
 
-One outstanding example of leveraging the improved networking technology is \xrootd -- a system which facilitates \textit{federation} of widely 
+One outstanding example of leveraging the improved networking technology is XRootD - a system which facilitates \textit{federation} of widely 
 distributed resources~\cite{xrootd_fed,xrootd_snowmass}. While its use in HEP is widespread, two large-scale applications deserve a special mention: 
 it is employed  in the form of CMS's ``Any Data, Anytime, Anywhere'' (AAA)
 project and ATLAS's ``Federating ATLAS storage systems using Xrootd" (FAX) project, both of which rely
@@ -164,7 +164,7 @@ Here are some examples:
 
 \begin{description}
 \item[Fermi Data Catalog:] Metadata can be created when a file is registered in the database. A slightly
-different approach was chosen by the Fermi Space Telescope Data Catalog. In addition to the initial metadata, it had a
+different approach was chosen by the Fermi Space Telescope Data Catalog. In addition to the initial metadata, it has a
 data crawler that would go through all registered files and extract metadata like number of events etc. The advantage is
 that the set of metadata then can be easily expanded after the fact - you just let loose the crawler with the list
 of new quantities to extract which then is just added to the existing list of metadata). Obviously this only works for 
@@ -196,7 +196,7 @@ workflow management system, any data processing metadata will have to be explici
   installation and these exist at a small number of locations.
 
 \item[ATLAS:] Distributed Data Management in ATLAS (often termed \textit{DDM}) has always been one of its focus areas, in part due to sheer volume of
-data being stored, shared and distributed worldwide (on multi-petabyte scale), and to importance of optimal data placement to ensure efficiency
+data being stored, shared and distributed worldwide (on multi-petabyte scale), and to the importance of optimal data placement to ensure efficiency
 and high throughput of processing~\cite{atlas_ddm_chep12}. Just like with other major components of its systems, ATLAS has evolved its
 data management infrastructure over the years. The systems currently utilized is Rucio~\cite{rucio_chep13}. We shall briefly consider basic
 concepts and entities in this system pertaining to this section.
