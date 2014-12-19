@@ -30,7 +30,7 @@ relationships among these domains and in doing so form the basis for possible HE
 \subsubsection{Grid and Cloud Computing}
 \label{cloud}
 According to a common definition, \textbf{Grid Computing} is the collection of computer resources from multiple locations to reach a common goal. Oftentimes additional
-characteristics added to this including decentralized administration and management and adherence to open standards. It was formulated as a concept in early 1990s,
+characteristics added to this include decentralized administration and management and adherence to open standards. It was formulated as a concept in early 1990s,
 and motivated by the fact that computational tasks handled by large research projects reached the limits of scalability of most individual computing sites.
 On the other hand, due to variations in demand, some resources were underutilized at times. There is therefore a benefit in implementing a federation of computing
 resources, whereby large spikes in demand can be handled by federated sites, while ``backfilling'' the available capacity with lower priority tasks submitted by a
@@ -59,15 +59,16 @@ different levels of resource abstraction'' \cite{atlas_cloud_chep13}. Moreover,
 In recent years, there are a few open-source, community developed and supported Cloud Computing platforms that reached maturity, such as OpenStack~\cite{openstack}.
 It includes a comprehensive set of components such as ``Compute'', ``Networking'', ``Storage'' and others and is designed to run on standard commodity hardware.
 It is deployed at scale by large organizations and serves as foundation for commercial Cloud services such as HP Helion~\cite{helion}. This technology allows pooling
-of resources of both public and private Clouds, resulting in the so-called \textit{Hybrid Cloud}, which technology aims to achieve best characteristics of both private
+of resources of both public and private Clouds, resulting in the so-called \textit{Hybrid Cloud}, where technology aims to achieve the best characteristics of both private
 and public clouds.
 
-There are no conceptual or architectural barriers for running HEP-type workflows in the Cloud, and in fact efforts are well under way to implement this
+There are no conceptual or architectural barriers for running HEP-type workflows in the Cloud, and in fact, efforts are well under way to implement this
 approach~\cite{atlas_cloud_chep12}. However, there are caveats such as
 \begin{itemize}
 \item Careful overall cost analysis needs to be performed before each decision to deploy on the Cloud, as it is not universally cheaper than
-resources already deployed at research centers such as National Labs (at the same time the Cloud an efficient way to handle peak demand
-for the computing power due to its elasticity).
+resources already deployed at research centers such as National Laboratories. At the same time, the Cloud is an efficient way to handle peak demand
+for the computing power due to its elasticity. It should also be noted that some national supercomputing centers have made part of their 
+capacity available for more general high throughput use and may be an cost effective alternative.
 \item Available bandwidth for staging in/staging our data in the Cloud (and again, its cost) need to be quantified and gauged against the project requirements.
 \item Cloud storage cost may be an issue for experiments handling massive amounts of data~\cite[p.~11]{atlas_cloud_chep12}
 \end{itemize}
@@ -84,7 +85,7 @@ It was therefore inevitable that soon after the advent of reliable Grid middlewa
 Thus, one of the principal functions of a Workload Management System can be described as ``brokerage'', in the sense that it matches resource requests to the actual distributed resources
 on multiple sites. This matching process can include a variety of factors such as access rules for users and groups, priorities set in the system, or even data locality - which is in fact an important and interesting part of this process~\cite{panda_chep10}.
 
-In practice, despite differing approaches and features, most existing WMS appear to share certain primary goals, and provide solutions to achieve these (to a varying degree). Examples:
+In practice, despite differing approaches and features, most existing WMS appear to share certain primary goals, and provide solutions to achieve these (to a varying degree). Some examples are:
 
 \begin{itemize}
 
@@ -108,9 +109,9 @@ A \textit{scientific workflow} system is a specialized case of a \textbf{workflo
 in order to achieve an overall goal ~\cite{grid_workflow_taxonomy,grid_workflow_fit,pegasus}. In the context of this document, this process involves execution on distributed resources. Since the process is
 typically largely (or completely) automated, it is often described as ``orchestration'' of execution of multiple interdependent tasks. Workflow systems are sometimes described using the concepts of a \textit{control flow},
 which refers to the logic of execution, and \textit{data flow}, which concerns itself with the logic and rules of transmitting data. There are various patterns identified in both control and data flow~\cite{workflow_patterns}.
-Complete discussion of this subject is beyond the scope of this document.
+A complete discussion of this subject is beyond the scope of this document.
 
-A simple and rather typical example of a workflow is often found in Monte Carlo studies performed in High Energy Physics and related fields, where there is a chain of processing steps similar to the pattern below:
+A simple and rather typical example of a workflow is often found in Monte Carlo simulation studies performed in High Energy Physics and related fields, where there is a chain of processing steps similar to the pattern below:
 \\
 \\
 \textit{Event  Generation $\Longrightarrow$ Simulation $\Longrightarrow$ Digitization $\Longrightarrow$ Reconstruction}
@@ -165,7 +166,7 @@ to those systems which are more immediately relevant to HEP and related fields t
 \subsubsection{HTCondor and glideinWMS}
 \label{htcondor}
 HTCondor~\cite{htcondor} is one of the best known and  important set of Grid and High-Throughput Computing (HTC) systems. It provides an array of functionality, such as
-as a batch system solution for a computing cluster, remote submission to Grid sites (via its \textit{Condor-G} extension) and automated transfer (stage-in and stage-out) of data.
+a batch system solution for a computing cluster, remote submission to Grid sites (via its \textit{Condor-G} extension) and automated transfer (stage-in and stage-out) of data.
 In the past decade, HTCondor was augmented with a  Workload Management System layer, known as \textit{glideinWMS}~\cite{glideinwms}. The latter abstracts remote
 resources (Worker Nodes) residing on the Grid and effectively creates a local (in terms of the interface) resource pool accessible by the user.
 Putting these resources behind the standard HTCondor interface with its set of utilities is highly beneficial to the users already having familiarity with HTCondor since it geatly shortens the learning curve.
@@ -203,7 +204,7 @@ it is clearly of interest to smaller scale projects with more modes I/O requirem
 \subsubsection{European Middleware Initiative}
 The European Middleware Initiative~\cite{emi} is a concortium of Grid services providers (such as ARC, dCache, gLite, and UNICORE).
 It plays an important role in the the Worldwide LHC Computing Grid (WLCG). The \textit{gLite}~\cite{glite_chep09} middleware toolkit was used by LHC experiments as one of methods
-to achive resource federation on the European Grids. 
+to achieve resource federation on the European Grids. 
 
 
 \subsubsection{Fermi Space Telescope Workflow Engine}
@@ -233,7 +234,7 @@ the central server, whereas in DIRAC this process takes place on the Worker Node
 
 With proper design,\textbf{ late binding} brings about the following benefits:
 \begin{itemize}
-\item The part of the overall resource pool that exhibit problems prior to actual job dispatch is excluded from the matching process by design.
+\item The part of the overall resource pool that exhibit problems prior to the actual job dispatch is excluded from the matching process by design.
 This eliminates a very large fraction of potential failures that the user would otherwise have to deal with and account for, since the resource pool
 exposed to the user (or for an automated client performing job submission) is effectively validated.
 
@@ -253,7 +254,7 @@ communications with the server, downloading the payload applications, logging an
 
 In HTCondor and GlideinWMS (see~\ref{htcondor}) there is no concept of a sophisticated pilot job or core client, but there is a \textit{glidein} agent, which is deployed on Grid resources
 and which is a wrapper for the HTCondor daemon process (\textit{startd}). Once the latter is initiated
-on the remote worker node it then the joins the HTCondor pool. At this point, matching of jobs submitted by the user to HTCondor \textit{slots} becomes possible \cite{glideinwms}.
+on the remote worker node it then joins the HTCondor pool. At this point, matching of jobs submitted by the user to HTCondor \textit{slots} becomes possible \cite{glideinwms}.
 While this ``lean client'' provides less benefits than more complex ``pilots'', it also belongs to the class of late-binding workload management systems, although at a simpler level.
 
 
@@ -268,7 +269,7 @@ Of course, all three domains involved in the present discussion (Workflow, Workl
 \subsubsection{The Back-end Database}
 The power of a successful WMS comes in part from its ability to effectively manage state transitions of the many objects present
 in the system (units of data, jobs, tasks etc). This is made possible by utilizing a database to keep the states of these objects.
-Most current implementations reply on a RDBMS for this function (e.g. ATLAS PanDA is using the Oracle RDBMS at the time of writing).
+Most current implementations rely on a RDBMS for this function (e.g. ATLAS PanDA is using the Oracle RDBMS at the time of writing).
 The database serves both as the core intrument in the ``brokerage'' logic (matching of workload to resources) and as the source
 of data for many kinds of monitoring.
 
@@ -329,15 +330,15 @@ which can be reused by different experiment at scales smaller than LHC could be 
 \item \textbf{Value}: A comprehensive and easy-to-use monitoring system has a large impact on the overall productivity of personnel operating a Workload Management System.
 This area deserves proper investment of effort.
 
-\item \textbf{Flexibility}: the requirements of experiments and other projects will vary, hence the need for flexible and configurable solutions
+\item \textbf{Flexibility}: The requirements of experiments and other projects will vary, hence the need for flexible and configurable solutions
 for the Monitoring System utilized in Workload Management and Data Management.
 
 \end{itemize}
 
-\item \textbf{Back-end Database}: ideally, there should be no coupling between the WMS application code and features of the specific database system
+\item \textbf{Back-end Database}: Ideally, there should be no coupling between the WMS application code and features of the specific database system
 utilized as its back-end -- this will hamper reusability. Such dependecies could be factored out and abstracted using techniques such as ORM etc.
 
-\item \textbf{Networks}: there are significant efficiencies to be obtained by utilizing network performance data in the workload management process. Likewise,
+\item \textbf{Networks}: There are significant efficiencies to be obtained by utilizing network performance data in the workload management process. Likewise,
 intelligent and configurable networks can provide optimal bandwidth for workflow execution.
 
 \item \textbf{Cloud}: Workload Management Systems deployed in this decade and beyond must be capable of efficiently operating in both Grid and Cloud environment,
