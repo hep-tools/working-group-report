@@ -49,7 +49,7 @@ partitioned into these orthogonal categories.
 
 \item[Package Installation System] contains tools that, if they are
   produced, can download and unpack \textit{binary packages} into an
-  installation area.  This system it typically tightly coupled to the
+  installation area.  This system is typically tightly coupled to the
   binary package format.  It may rely on meta data internal or
   external to the binary package file in order to properly resolve
   dependencies, conflicts or perform pre- and post-installation
@@ -78,7 +78,7 @@ partitioned into these orthogonal categories.
   or removed, and environment management can be such as to use the
   build products in-place.  Care is needed in designing such tools to
   mitigate interference between individual developers while allowing
-  them synchronize their development as needed.
+  them to synchronize their development as needed.
 
 \item[Continuous Integration] contains tools and methodologies for
   developing and exercising the code in order to validate changes,
@@ -93,8 +93,7 @@ partitioned into these orthogonal categories.
 
 The following sections give commentary on what aspects are successful
 for providing general, cross-experiment benefit and what failings are
-identified.  Explicit examples are given.  Finally, areas where
-improvement may be made.
+identified.  Explicit examples and areas where improvement may be made are given.
 
 \subsection{Follow Free Software}
 
@@ -154,7 +153,7 @@ The categories described in section \ref{sec:swdevpartitions} present
 some ideal partitioning.  Real world tools often cover multiple
 categories.  When this integration is done well it can be beneficial.
 Where it is not done well it can lead to lock-in, lack of portability,
-increasing maintenance costs and other pathology.
+increased maintenance costs and other pathologies.
 
 The functions of Configuration Management Tools (CMT) spans most of these categories.
 Its design is such that it provides beneficial integration with some
@@ -212,7 +211,7 @@ distribution (eg CVMFS) and in distributing data (eg XRootD).  HEP
 software development has always been very distributed and it is
 important to continue to embrace this.
 
-On successful embrace has been the move to \texttt{git} for managing source
+One successful embrace has been the move to \texttt{git} for managing source
 code revisions.  In comparison, any code development that is still
 kept in Concurrent Versions System (CVS) or Subversion (SVN) is at a
 relative disadvantage in terms of the ability to distribute
